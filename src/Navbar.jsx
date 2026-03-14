@@ -64,7 +64,7 @@ const Navbar = ({ onSearch }) => {
           </div>
           
           <nav className="hidden md:flex items-center gap-8">
-            {['Shop All', 'Clinical Studies', 'The Lab'].map((item) => (
+            {['Tienda', 'Estudios Clínicos', 'El Laboratorio'].map((item) => (
               <a key={item} href="#" className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 hover:text-black transition-colors">
                 {item}
               </a>
@@ -72,13 +72,13 @@ const Navbar = ({ onSearch }) => {
           </nav>
         </div>
 
-        {/* Lado Derecho: Buscador e Iconos */}
+        
         <div className="flex items-center gap-6">
           <div className="relative hidden sm:flex items-center bg-slate-100/50 px-3 py-1.5 rounded-lg">
             <span className="material-symbols-outlined text-lg text-slate-400 mr-2">search</span>
             <input 
               type="text" 
-              placeholder="Search Formulations" 
+              placeholder="Buscar formulaciones" 
               className="bg-transparent border-none focus:outline-none text-[11px] w-48"
               onChange={(e) => onSearch(e.target.value)}
             />
