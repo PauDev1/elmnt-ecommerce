@@ -60,7 +60,7 @@
 //           </div>
 //         </section>
 
-        
+
 
 //         {/* Inventory Section */}
 //         <section className="bg-white py-20 px-6">
@@ -71,7 +71,7 @@
 //                 {loading ? "Loading formulations..." : `Showing ${products.length} Featured Formulations`}
 //               </span>
 //             </div>
-            
+
 //             {/* Grilla de productos dinámica */}
 //             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
 //               {loading ? (
@@ -127,7 +127,35 @@ import ProductCard from './ProductCard';
 function App() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState(""); 
+  const [searchTerm, setSearchTerm] = useState("");
+  const [activeCategory, setActiveCategory] = useState("all");
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 4;
+
+  // const filteredProducts = products.filter(product => {
+  //    const matchesCategory = activeCategory === 'all' || product.category === activeCategory;
+  //    const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
+
+  //    return matchesCategory && matchesSearch;
+  // });
+
+  // 1. Primero filtramos y ordenamos (esto ya lo tenés)
+  const filteredProducts = products.filter(product => {
+    const matchesCategory = activeCategory === 'all' || product.category === activeCategory;
+    const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
+
+  // 2. Calculamos los índices para la página actual
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+
+  // 3. Estos son los 4 productos que se verán realmente
+  const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
+
+  // 4. Calcular el total de páginas
+  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
 
   const fetchProducts = async () => {
     try {
@@ -140,20 +168,20 @@ function App() {
       setLoading(false);
     }
   };
-
   useEffect(() => {
     fetchProducts();
   }, []);
 
- 
-  const filteredProducts = products.filter(product =>
-    product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    product.category.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, activeCategory]);
+
+
+
 
   return (
     <div className="min-h-screen bg-[#f6f7f8] text-[#0f1829] font-sans">
-   
+
       <Navbar onSearch={setSearchTerm} />
 
       <main>
@@ -163,7 +191,7 @@ function App() {
             <div className="flex flex-col gap-4">
               <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-slate-500">Estabilidad testeada • Bio-disponible</span>
               <h2 className="text-6xl lg:text-7xl font-light leading-[1.1] tracking-tight text-[#0f1829]">
-                 Precisión <span className="font-bold">Molecular.</span>
+                Precisión <span className="font-bold">Molecular.</span>
               </h2>
               <p className="text-lg text-slate-600 max-w-md leading-relaxed font-light">
                 Formulaciones clínicamente diseñadas con ingredientes activos de alta pureza para una transformación de la piel a nivel celular.
@@ -174,21 +202,21 @@ function App() {
                 Descubrir la Colección
               </button>
               <button className="border border-slate-200 px-8 py-4 rounded-lg font-bold text-[10px] tracking-widest uppercase hover:bg-white transition-all flex items-center gap-2">
-            
+
                 <span className="material-symbols-outlined text-lg">play_circle</span> Método de Laboratorio
               </button>
             </div>
           </div>
           <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-slate-100 shadow-2xl">
-            <img 
-              src="https://res.cloudinary.com/dqdeoxwcw/image/upload/v1773439475/hero_dp57cc.webp" 
-              className="w-full h-full object-cover" 
-              alt="Hero ELMNT" 
+            <img
+              src="https://res.cloudinary.com/dqdeoxwcw/image/upload/v1773439475/hero_dp57cc.webp"
+              className="w-full h-full object-cover"
+              alt="Hero ELMNT"
             />
           </div>
         </section>
 
-      
+
         <section className="bg-white py-20 px-6">
           <div className="max-w-7xl mx-auto">
             <div className="flex items-baseline justify-between mb-12 border-b border-slate-100 pb-6">
@@ -197,8 +225,8 @@ function App() {
                 {loading ? "Cargando formulaciones..." : `Mostrando ${filteredProducts.length} resultados`}
               </span>
             </div>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+
+            {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
               {loading ? (
                 <p className="col-span-full text-center py-20 text-slate-400 uppercase tracking-widest text-xs">
                   Sincronizando formulaciones...
@@ -208,11 +236,82 @@ function App() {
                   <ProductCard key={product.id} product={product} />
                 ))
               )}
+            </div> */}
+
+            {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {loading ? (
+                <p className="col-span-full text-center py-20 text-slate-400 uppercase tracking-widest text-xs">
+                  Sincronizando formulaciones...
+                </p>
+              ) : filteredProducts.length > 0 ? (
+                currentProducts.map(product => (
+                  <ProductCard key={product.id} product={product} />
+                ))
+              ) : (
+                <p className="col-span-full text-center py-20 text-slate-400 text-xs uppercase tracking-widest">
+                  No se encontraron formulaciones que coincidan con "{searchTerm}"
+                </p>
+              )}
+            </div> */}
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {loading ? (
+                <p className="col-span-full text-center py-20 text-slate-400 uppercase tracking-widest text-xs">
+                  Sincronizando formulaciones...
+                </p>
+              ) : currentProducts.length > 0 ? (
+                currentProducts.map(product => (
+                  <ProductCard key={product.id} product={product} />
+                ))
+              ) : (
+                <p className="col-span-full text-center py-20 text-slate-400 text-xs uppercase tracking-widest">
+                  No se encontraron formulaciones que coincidan con "{searchTerm}"
+                </p>
+              )}
             </div>
+
+            {/* --- BOTONES DE PAGINACIÓN (Agregalos justo aquí) --- */}
+            {!loading && totalPages > 1 && (
+              <div className="flex justify-center items-center gap-6 mt-16">
+                <button
+                  disabled={currentPage === 1}
+                  onClick={() => {
+                    setCurrentPage(prev => prev - 1);
+                    document.getElementById('inventario').scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="group flex items-center gap-2 disabled:opacity-20 transition-all"
+                >
+                  <span className="material-symbols-outlined text-sm group-hover:-translate-x-1 transition-transform">arrow_back_ios</span>
+                  <span className="text-[10px] font-bold tracking-[0.2em] uppercase">Anterior</span>
+                </button>
+
+                <div className="h-[1px] w-12 bg-slate-200"></div>
+
+                <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-slate-400">
+                  {currentPage} / {totalPages}
+                </span>
+
+                <div className="h-[1px] w-12 bg-slate-200"></div>
+
+                <button
+                  disabled={currentPage === totalPages}
+                  onClick={() => {
+                    setCurrentPage(prev => prev + 1);
+                    document.getElementById('inventario').scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="group flex items-center gap-2 disabled:opacity-20 transition-all"
+                >
+                  <span className="text-[10px] font-bold tracking-[0.2em] uppercase">Siguiente</span>
+                  <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward_ios</span>
+                </button>
+              </div>
+            )}
+
+
           </div>
         </section>
 
-      
+
         <section className="py-24 px-6 bg-[#f6f7f8]">
           <div className="max-w-7xl mx-auto grid lg:grid-cols-3 gap-12">
             <div className="lg:col-span-1">
