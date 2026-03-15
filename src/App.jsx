@@ -12,7 +12,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortBy, setSortBy] = useState("default");
 
-  const productsPerPage = 4;
+  const productsPerPage = 8;
 
   const filteredProducts = products
     .filter(product => {
@@ -134,9 +134,8 @@ function App() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
               {loading ? (
-                // Mostramos 4 esqueletos mientras carga
                 Array.from({ length: 4 }).map((_, i) => (
                   <SkeletonCard key={i} />
                 ))
@@ -190,8 +189,7 @@ function App() {
           </div>
         </section>
 
-
-         <section className="py-24 px-6 bg-[#f6f7f8]">
+        <section className="py-24 px-6 bg-[#f6f7f8]">
           <div className="max-w-7xl mx-auto grid lg:grid-cols-3 gap-12">
             <div className="lg:col-span-1">
               <h3 className="text-3xl font-bold text-[#0f1829] mb-6 tracking-tight">El Estándar ELMNT</h3>
@@ -216,8 +214,8 @@ function App() {
               ))}
             </div>
           </div>
-        </section> 
-     
+        </section>
+
       </main>
       <Footer />
     </div >

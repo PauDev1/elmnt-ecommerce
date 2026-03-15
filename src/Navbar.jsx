@@ -25,10 +25,6 @@ const Navbar = ({ onSearch }) => {
 
           <nav className="hidden md:flex items-center gap-8">
             {['Tienda', 'Estudios Clínicos', 'El Laboratorio'].map((item) => (
-              //   <a key={item} href="#" className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 hover:text-black transition-colors">
-              //     {item}
-              //   </a>
-
               <button
                 key={item}
                 onClick={item === 'Tienda' ? scrollToInventory : undefined}
@@ -40,27 +36,26 @@ const Navbar = ({ onSearch }) => {
           </nav>
         </div>
 
-
         <div className="flex items-center gap-6">
-          <div className="relative hidden sm:flex items-center bg-slate-100/50 px-3 py-1.5 rounded-lg">
-            <span className="material-symbols-outlined text-lg text-slate-400 mr-2">search</span>
-            {/* <input
-              type="text"
-              placeholder="Buscar formulaciones"
-              className="bg-transparent border-none focus:outline-none text-[11px] w-48"
-              onChange={(e) => onSearch(e.target.value)}
-            /> */}
-
+          {/* BUSCADOR */}
+          <div className="relative flex items-center justify-end">
             <input
+              id="search-input"
               type="text"
-              placeholder="Buscar formulaciones"
-              className="bg-transparent border-none focus:outline-none text-[11px] w-48"
-              onFocus={scrollToInventory} // <--- Al hacer clic en el buscador, baja
+              placeholder="Buscar"
+              className="absolute right-0 bg-slate-100/90 border-none focus:outline-none text-[12px] rounded-lg transition-all duration-300 w-0 h-0 opacity-0 focus:w-[110px] focus:h-8 focus:px-3 focus:opacity-100 z-10"
+              onFocus={scrollToInventory}
               onChange={(e) => {
                 onSearch(e.target.value);
-                scrollToInventory();      // <--- Al escribir, se asegura de estar abajo
+                scrollToInventory();
               }}
             />
+            <span 
+              className="material-symbols-outlined text-[24px] text-[#0f1829] cursor-pointer p-2 flex items-center justify-center z-20 transform -translate-y-[3px]"
+              onClick={() => document.getElementById('search-input').focus()}
+            >
+              search
+            </span>
           </div>
 
           <div className="flex items-center gap-2">
