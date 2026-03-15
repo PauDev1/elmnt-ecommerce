@@ -17,7 +17,7 @@ const ProductCard = ({ product }) => {
         
         {product.stock === 0 && (
           <div className="absolute top-4 left-4 bg-black text-white text-[8px] px-2 py-1 uppercase tracking-widest">
-            Out of Stock
+            Sin Stock
           </div>
         )}
       </div>

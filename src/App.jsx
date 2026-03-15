@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import Navbar from './Navbar';
 import ProductCard from './ProductCard';
+import SkeletonCard from './SkeletonCard';
+import Footer from './components/Footer.jsx'
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -103,7 +105,7 @@ function App() {
                   { label: 'Limpieza', value: 'Cleansers' },
                   { label: 'Hidratación', value: 'Hydration' },
                   { label: 'Serums', value: 'Treatment' },
-                  { label: 'Protectores', value: 'Protection' } 
+                  { label: 'Protectores', value: 'Protection' }
                 ].map(cat => (
                   <button
                     key={cat.value}
@@ -132,12 +134,12 @@ function App() {
               </div>
             </div>
 
-
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
               {loading ? (
-                <p className="col-span-full text-center py-20 text-slate-400 uppercase tracking-widest text-xs">
-                  Sincronizando formulaciones...
-                </p>
+                // Mostramos 4 esqueletos mientras carga
+                Array.from({ length: 4 }).map((_, i) => (
+                  <SkeletonCard key={i} />
+                ))
               ) : currentProducts.length > 0 ? (
                 currentProducts.map(product => (
                   <ProductCard key={product.id} product={product} />
@@ -185,13 +187,11 @@ function App() {
                 </button>
               </div>
             )}
-
-
           </div>
         </section>
 
 
-        <section className="py-24 px-6 bg-[#f6f7f8]">
+         <section className="py-24 px-6 bg-[#f6f7f8]">
           <div className="max-w-7xl mx-auto grid lg:grid-cols-3 gap-12">
             <div className="lg:col-span-1">
               <h3 className="text-3xl font-bold text-[#0f1829] mb-6 tracking-tight">El Estándar ELMNT</h3>
@@ -216,8 +216,10 @@ function App() {
               ))}
             </div>
           </div>
-        </section>
+        </section> 
+     
       </main>
+      <Footer />
     </div >
   );
 }
