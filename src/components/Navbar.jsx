@@ -12,7 +12,7 @@ const Navbar = ({ onSearch }) => {
   const { toggleCart, cartItems } = useCart();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-slate-200 bg-white/70 backdrop-blur-md">
+    <header className="fixed top-0 z-50 w-full border-b border-slate-200 bg-white/70 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
 
         {/* Lado Izquierdo: Logo y Links */}
@@ -44,16 +44,19 @@ const Navbar = ({ onSearch }) => {
               id="search-input"
               type="text"
               placeholder="Buscar"
-              className="absolute right-0 bg-slate-100/90 border-none focus:outline-none text-[12px] rounded-lg transition-all duration-300 w-0 h-0 opacity-0 focus:w-[110px] focus:h-8 focus:px-3 focus:opacity-100 z-10"
+              className="absolute right-0 bg-slate-100/90 border-none focus:outline-none text-[16px] rounded-lg transition-all duration-300 w-0 h-0 opacity-0 focus:w-[140px] md:focus:w-[110px] focus:h-9 focus:px-3 focus:opacity-100 z-10" //MODIFICADO
               onFocus={scrollToInventory}
               onChange={(e) => {
                 onSearch(e.target.value);
-                scrollToInventory();
+                //scrollToInventory();
               }}
             />
             <span
-              className="material-symbols-outlined text-[24px] text-[#0f1829] cursor-pointer p-2 flex items-center justify-center z-20 transform -translate-y-[3px]"
-              onClick={() => document.getElementById('search-input').focus()}
+              //className="material-symbols-outlined text-[24px] text-[#0f1829] cursor-pointer p-2 flex items-center justify-center z-20 transform -translate-y-[3px]"
+              className="material-symbols-outlined text-[24px] text-[#0f1829] cursor-pointer p-2 flex items-center justify-center z-20"
+              onClick={() => {document.getElementById('search-input').focus()
+                scrollToInventory();}
+              }
             >
               search
             </span>
@@ -65,7 +68,7 @@ const Navbar = ({ onSearch }) => {
               onClick={toggleCart} // <--- Ahora abre el drawer
               className="p-2 hover:bg-slate-50 rounded-full transition-colors text-[#0f1829] relative group"
             >
-              <span className="material-symbols-outlined text-[22px]">shopping_bag</span>
+              <span className="material-symbols-outlined text-[22px] cursor-pointer">shopping_bag</span>
 
               {cartItems.length > 0 && (
                 <span className="absolute top-1 right-1 bg-[#0f1829] text-white text-[8px] font-bold w-4 h-4 rounded-full flex items-center justify-center animate-in fade-in zoom-in duration-300">
