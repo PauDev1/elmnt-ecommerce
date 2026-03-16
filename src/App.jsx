@@ -1,8 +1,12 @@
 import { useState, useEffect } from 'react';
-import Navbar from './Navbar';
-import ProductCard from './ProductCard';
-import SkeletonCard from './SkeletonCard';
-import Footer from './components/Footer.jsx'
+import Navbar from './components/Navbar.jsx';
+import ProductCard from './components/ProductCard.jsx';
+import SkeletonCard from './components/SkeletonCard.jsx';
+import Footer from './components/Footer.jsx';
+import { useCart } from './hooks/useCart';
+import Hero from './sections/Hero';
+import Features from './sections/Features';
+import CartDrawer from './components/CartDrawer';
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -11,6 +15,8 @@ function App() {
   const [activeCategory, setActiveCategory] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
   const [sortBy, setSortBy] = useState("default");
+
+  const { addToCart } = useCart();
 
   const productsPerPage = 8;
 
@@ -26,7 +32,6 @@ function App() {
       return 0;
     });
 
-  //paginacion:
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
@@ -45,91 +50,63 @@ function App() {
   };
 
   useEffect(() => { fetchProducts(); }, []);
-
   useEffect(() => { setCurrentPage(1); }, [searchTerm, activeCategory]);
 
 
   return (
     <div className="min-h-screen bg-[#f6f7f8] text-[#0f1829] font-sans">
       <Navbar onSearch={setSearchTerm} />
-
-      <main>
-        {/* HERO */}
-        <section className="max-w-7xl mx-auto py-16 px-6 lg:py-24 grid lg:grid-cols-2 gap-12 items-center">
-          <div className="flex flex-col gap-8">
-            <div className="flex flex-col gap-4">
-              <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-slate-500">Estabilidad testeada • Bio-disponible</span>
-              <h2 className="text-6xl lg:text-7xl font-light leading-[1.1] tracking-tight text-[#0f1829]">
-                Precisión <span className="font-bold">Molecular.</span>
-              </h2>
-              <p className="text-lg text-slate-600 max-w-md leading-relaxed font-light">
-                Formulaciones clínicamente diseñadas con ingredientes activos de alta pureza para una transformación de la piel a nivel celular.
-              </p>
-            </div>
-            <div className="flex items-center gap-4">
-              <button onClick={() => document.getElementById('inventario').scrollIntoView({ behavior: 'smooth' })} className="bg-[#0f1829] text-white px-8 py-4 rounded-lg font-bold text-[10px] tracking-widest uppercase hover:bg-black transition-all">
-                Descubrir la Colección
-              </button>
-              <button className="border border-slate-200 px-8 py-4 rounded-lg font-bold text-[10px] tracking-widest uppercase hover:bg-white transition-all flex items-center gap-2">
-
-                <span className="material-symbols-outlined text-lg">play_circle</span> Método de Laboratorio
-              </button>
-            </div>
-          </div>
-          <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-slate-100 shadow-2xl">
-            <img
-              src="https://res.cloudinary.com/dqdeoxwcw/image/upload/f_auto,q_auto,w_800/v1773439475/hero_dp57cc.webp"
-              className="w-full h-full object-cover"
-              alt="Hero ELMNT"
-            />
-          </div>
-        </section>
-
+      <CartDrawer />
+      <main className="pt-[80px] md:pt-[80px]">
+        <Hero />
         {/* SECCION COLECCION  */}
-        <section id="inventario" className="bg-white py-20 px-6">
+        <section id="inventario" className="bg-white pt-12 md:pt-20 pb-20 px-4 md:px-6">
           <div className="max-w-7xl mx-auto">
-            {/* TÍTULO Y RESULTADOS */}
-            <div className="flex items-baseline justify-between mb-8 border-b border-slate-100 pb-6">
-              <h3 className="text-2xl font-bold tracking-tighter uppercase italic text-[#0f1829]">Colección</h3>
-              <span className="text-[10px] text-slate-400 uppercase tracking-widest">
-                {loading ? "Cargando formulaciones..." : `Mostrando ${filteredProducts.length} resultados`}
+
+            <div className="flex items-baseline justify-between mb-4 md:mb-8 border-b border-slate-100 pb-4">
+              <h3 className="text-xl md:text-2xl font-bold tracking-tighter uppercase italic text-[#0f1829]">Colección</h3>
+              <span className="text-[9px] md:text-[10px] text-slate-400 uppercase tracking-widest">
+                {loading ? "Cargando..." : `${filteredProducts.length} resultados`}
               </span>
             </div>
 
             {/* BARRA DE FILTROS Y ORDEN */}
-            <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-12 bg-[#fcfcfc] p-4 rounded-lg border border-slate-50">
-              {/* Filtros de Categoría */}
-              <div className="flex flex-wrap justify-center gap-3">
-                {[
-                  { label: 'Ver Todo', value: 'all' },
-                  { label: 'Limpieza', value: 'Cleansers' },
-                  { label: 'Hidratación', value: 'Hydration' },
-                  { label: 'Serums', value: 'Treatment' },
-                  { label: 'Protectores', value: 'Protection' }
-                ].map(cat => (
-                  <button
-                    key={cat.value}
-                    onClick={() => setActiveCategory(cat.value)}
-                    className={`px-6 py-2 rounded-full text-[9px] font-bold uppercase tracking-[0.2em] transition-all border
-                    ${activeCategory === cat.value
-                        ? 'bg-[#0f1829] text-white border-[#0f1829]'
-                        : 'bg-transparent text-slate-400 border-slate-200 hover:border-slate-400'}`}
-                  >
-                    {cat.label}
-                  </button>
-                ))}
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6 mb-8 bg-[#fcfcfc] md:bg-transparent p-3 md:p-0 rounded-xl md:rounded-none">
+
+              {/* Filtros de Categoría*/}
+              <div className="w-full md:w-auto overflow-x-auto no-scrollbar">
+                <div className="flex flex-nowrap md:flex-wrap gap-2 pb-1 md:pb-0">
+                  {[
+                    { label: 'Ver Todo', value: 'all' },
+                    { label: 'Limpieza', value: 'Cleansers' },
+                    { label: 'Hidratación', value: 'Hydration' },
+                    { label: 'Serums', value: 'Treatment' },
+                    { label: 'Protectores', value: 'Protection' }
+                  ].map(cat => (
+                    <button
+                      key={cat.value}
+                      onClick={() => setActiveCategory(cat.value)}
+                      className={`px-4 py-2 rounded-full text-[9px] font-bold uppercase tracking-[0.2em] transition-all border shrink-0
+              ${activeCategory === cat.value
+                          ? 'bg-[#0f1829] text-white border-[#0f1829]'
+                          : 'bg-white md:bg-transparent text-slate-400 border-slate-200'}`}
+                    >
+                      {cat.label}
+                    </button>
+                  ))}
+                </div>
               </div>
 
-              {/* Selector de Orden */}
-              <div className="flex items-center gap-3 border-l pl-6 border-slate-100">
+              {/* Selector de Orden*/}
+              <div className="flex items-center justify-between md:justify-start gap-3 w-full md:w-auto md:border-l md:pl-6 border-slate-100">
                 <span className="text-[9px] font-bold uppercase tracking-widest text-slate-400 italic">Ordenar:</span>
                 <select
                   onChange={(e) => setSortBy(e.target.value)}
                   className="text-[10px] font-bold uppercase tracking-widest bg-transparent cursor-pointer outline-none text-[#0f1829]"
                 >
                   <option value="default">Relevancia</option>
-                  <option value="low">Precio: Menor a Mayor</option>
-                  <option value="high">Precio: Mayor a Menor</option>
+                  <option value="low">Menor Precio</option>
+                  <option value="high">Mayor Precio</option>
                 </select>
               </div>
             </div>
@@ -188,34 +165,7 @@ function App() {
             )}
           </div>
         </section>
-
-        <section className="py-24 px-6 bg-[#f6f7f8]">
-          <div className="max-w-7xl mx-auto grid lg:grid-cols-3 gap-12">
-            <div className="lg:col-span-1">
-              <h3 className="text-3xl font-bold text-[#0f1829] mb-6 tracking-tight">El Estándar ELMNT</h3>
-              <p className="text-slate-600 text-sm leading-relaxed mb-8 font-light italic">
-                Cada formulación se desarrolla internamente en nuestro laboratorio certificado ISO, asegurando que cada molécula cumpla una función biológica precisa sin relleno ni fragancia.
-              </p>
-              <a href="#" className="text-[10px] font-bold uppercase tracking-widest border-b-2 border-[#0f1829] pb-1 inline-block">Conocé nuestro proceso</a>
-            </div>
-            <div className="lg:col-span-2 grid sm:grid-cols-3 gap-6">
-              {[
-                { icon: "biotech", title: "Bio-disponibilidad Molecular", desc: "Partículas diseñadas para penetrar efectivamente la barrera lipídica." },
-                { icon: "thermostat", title: "Tecnología de Proceso Frío", desc: "Preservando la integridad activa al evitar la degradación térmica." },
-                { icon: "verified_user", title: "Verificación de Pureza", desc: "Pruebas de cromatografía de terceros en cada lote." }
-              ].map((box, i) => (
-                <div key={i} className="bg-white p-8 rounded-lg shadow-sm border border-slate-100">
-                  <div className="text-[#0f1829] mb-4">
-                    <span className="material-symbols-outlined text-2xl">{box.icon}</span>
-                  </div>
-                  <h5 className="font-bold text-[10px] uppercase tracking-wider mb-2">{box.title}</h5>
-                  <p className="text-[11px] text-slate-500 leading-relaxed font-light">{box.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
+        <Features />
       </main>
       <Footer />
     </div >

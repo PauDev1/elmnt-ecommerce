@@ -1,14 +1,15 @@
-
+import { useCart } from "../hooks/useCart";
 
 const Navbar = ({ onSearch }) => {
 
-  // Función para scroll suave al inventario
   const scrollToInventory = () => {
     const element = document.getElementById('inventario');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  const { toggleCart, cartItems } = useCart();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-slate-200 bg-white/70 backdrop-blur-md">
@@ -50,7 +51,7 @@ const Navbar = ({ onSearch }) => {
                 scrollToInventory();
               }}
             />
-            <span 
+            <span
               className="material-symbols-outlined text-[24px] text-[#0f1829] cursor-pointer p-2 flex items-center justify-center z-20 transform -translate-y-[3px]"
               onClick={() => document.getElementById('search-input').focus()}
             >
@@ -59,8 +60,18 @@ const Navbar = ({ onSearch }) => {
           </div>
 
           <div className="flex items-center gap-2">
-            <button className="p-2 hover:bg-white/50 rounded-full transition-colors text-[#0f1829]">
-              <span className="material-symbols-outlined text-[22px]">shopping_cart</span>
+            {/* BOTÓN CARRITO CON CONTADOR */}
+            <button
+              onClick={toggleCart} // <--- Ahora abre el drawer
+              className="p-2 hover:bg-slate-50 rounded-full transition-colors text-[#0f1829] relative group"
+            >
+              <span className="material-symbols-outlined text-[22px]">shopping_bag</span>
+
+              {cartItems.length > 0 && (
+                <span className="absolute top-1 right-1 bg-[#0f1829] text-white text-[8px] font-bold w-4 h-4 rounded-full flex items-center justify-center animate-in fade-in zoom-in duration-300">
+                  {cartItems.reduce((acc, item) => acc + item.quantity, 0)}
+                </span>
+              )}
             </button>
             <button className="p-2 hover:bg-white/50 rounded-full transition-colors text-[#0f1829]">
               <span className="material-symbols-outlined text-[22px]">person</span>
