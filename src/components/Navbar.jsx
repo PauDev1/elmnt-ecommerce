@@ -44,7 +44,7 @@ const Navbar = ({ onSearch }) => {
               id="search-input"
               type="text"
               placeholder="Buscar"
-              className="absolute right-0 bg-slate-100/90 border-none focus:outline-none text-[16px] rounded-lg transition-all duration-300 w-0 h-0 opacity-0 focus:w-[140px] md:focus:w-[110px] focus:h-9 focus:px-3 focus:opacity-100 z-10" //MODIFICADO
+              className="absolute right-0 bg-slate-100/90 border-none focus:outline-none text-[16px] md:text-[12px] rounded-lg transition-all duration-300 w-0 h-0 opacity-0 focus:w-[110px] sm:focus:w-[130px] md:focus:w-[180px] focus:h-9 focus:px-3 focus:opacity-100 z-10" //MODIFICADO
               onFocus={scrollToInventory}
               onChange={(e) => {
                 onSearch(e.target.value);

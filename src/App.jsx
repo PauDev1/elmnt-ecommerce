@@ -111,7 +111,7 @@ function App() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 min-h-[500px]"> 
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 min-h-[600px] content-start">  
               {loading ? (
                 Array.from({ length: 4 }).map((_, i) => (
                   <SkeletonCard key={i} />
