@@ -1,0 +1,222 @@
+[
+  {
+    "id": "1",
+    "name": "E-01 Molecular Cleanser",
+    "brand": "ELMNT",
+    "description": "Limpiador base agua con pH balanceado. Elimina impurezas sin romper la barrera lipídica.",
+    "price": 24,
+    "category": "Cleansers",
+    "volume": "150ml",
+    "stock": 15,
+    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/f_auto,q_auto,w_800/v1773423411/E-01_Molecular_Cleanser_znra3a.png"
+  },
+  {
+    "id": "2",
+    "name": "H2O-Flux Serum",
+    "brand": "ELMNT",
+    "description": "Suero de ácido hialurónico de tres pesos moleculares para hidratación profunda.",
+    "price": 45,
+    "category": "Hydration",
+    "volume": "30ml",
+    "stock": 8,
+    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/f_auto,q_auto,w_800/v1773423414/H2O-Flux_Serum_vk4ndi.png"
+  },
+  {
+    "id": "3",
+    "name": "Oxygen Mist 0.5",
+    "brand": "ELMNT",
+    "description": "Bruma facial oxigenante. Refresca instantáneamente y calma rojeces.",
+    "price": 18,
+    "category": "Hydration",
+    "volume": "120ml",
+    "stock": 20,
+    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/f_auto,q_auto,w_800/v1773423420/Oxygen_Mist_0.5_hfqh4c.png"
+  },
+  {
+    "id": "4",
+    "name": "Bio-Retinoid Complex",
+    "brand": "ELMNT",
+    "description": "Tratamiento nocturno para renovación celular acelerada sin irritación.",
+    "price": 52,
+    "category": "Treatment",
+    "volume": "30ml",
+    "stock": 5,
+    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/f_auto,q_auto,w_800/v1773423417/Bio-Retinoid_Complex_ldkk2w.png"
+  },
+  {
+    "id": "5",
+    "name": "Pure C-Isolate",
+    "brand": "ELMNT",
+    "description": "Vitamina C pura al 15% para una luminosidad elemental y protección antioxidante.",
+    "price": 38,
+    "category": "Treatment",
+    "volume": "30ml",
+    "stock": 0,
+    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/f_auto,q_auto,w_800/v1773423418/Pure_C-Isolate_mhloqt.png"
+  },
+  {
+    "id": "6",
+    "name": "Mineral Screen SPF 50",
+    "brand": "ELMNT",
+    "description": "Protección solar física invisible con acabado mate y tacto seco.",
+    "price": 32,
+    "category": "Protection",
+    "volume": "50ml",
+    "stock": 12,
+    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/f_auto,q_auto,w_800/v1773423422/Mineral_Screen_SPF_50_uktlak.png"
+  },
+  {
+    "id": "7",
+    "name": "Lipid Barrier Cream",
+    "brand": "ELMNT",
+    "description": "Crema rica en ceramidas para reparar pieles sensibles o dañadas.",
+    "price": 40,
+    "category": "Hydration",
+    "volume": "50ml",
+    "stock": 10,
+    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/f_auto,q_auto,w_800/v1773423417/Lipid_Barrier_Cream_xf1cdq.png"
+  },
+  {
+    "id": "8",
+    "name": "Zinc Sebum Control",
+    "brand": "ELMNT",
+    "description": "Fórmula equilibrante para pieles grasas. Minimiza poros y controla el brillo.",
+    "price": 26,
+    "category": "Cleansers",
+    "volume": "100ml",
+    "stock": 7,
+    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/f_auto,q_auto,w_800/v1773423421/Zinc_Sebum_Control_iylytt.png"
+  },
+  {
+    "id": "9",
+    "name": "E-02 Gentle Exfoliant",
+    "brand": "ELMNT",
+    "description": "Ácido láctico suave para una textura de piel refinada y pura.",
+    "price": 29,
+    "category": "Treatment",
+    "volume": "100ml",
+    "stock": 18,
+    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/f_auto,q_auto,w_800/v1773423414/E-02_Gentle_Exfoliant_hp3ftt.png"
+  },
+  {
+    "id": "10",
+    "name": "Hydra-Gel Eye Contour",
+    "brand": "ELMNT",
+    "description": "Gel ultra-fresco para descongestionar bolsas y ojeras.",
+    "price": 35,
+    "category": "Hydration",
+    "volume": "15ml",
+    "stock": 4,
+    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/f_auto,q_auto,w_800/v1773423416/Hydra-Gel_Eye_Contour_bmpvy9.png"
+  },
+  {
+    "id": "11",
+    "name": "Pure Squalane Oil",
+    "brand": "ELMNT",
+    "description": "Aceite de origen vegetal 100% puro para sellar la hidratación.",
+    "price": 30,
+    "category": "Hydration",
+    "volume": "30ml",
+    "stock": 9,
+    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/f_auto,q_auto,w_800/v1773423420/Pure_Squalane_Oil_sbv1dk.png"
+  },
+  {
+    "id": "12",
+    "name": "Ionic Toner",
+    "brand": "ELMNT",
+    "description": "Tónico cargado de minerales para reequilibrar la piel tras la limpieza.",
+    "price": 22,
+    "category": "Cleansers",
+    "volume": "200ml",
+    "stock": 14,
+    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/f_auto,q_auto,w_800/v1773423416/Ionic_Toner_lmp9x1.png"
+  },
+  {
+    "id": "13",
+    "name": "Matrix Peptide Serum",
+    "brand": "ELMNT",
+    "description": "Complejo de péptidos para mejorar la elasticidad y firmeza.",
+    "price": 48,
+    "category": "Treatment",
+    "volume": "30ml",
+    "stock": 6,
+    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/f_auto,q_auto,w_800/v1773423416/Matrix_Peptide_Serum_y97sdy.png"
+  },
+  {
+    "id": "14",
+    "name": "B-05 Niacinamide Lab",
+    "brand": "ELMNT",
+    "description": "Suero purificante que unifica el tono y calma la piel.",
+    "price": 27,
+    "category": "Treatment",
+    "volume": "30ml",
+    "stock": 11,
+    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/f_auto,q_auto,w_800/v1773423414/B-05_Niacinamide_Lab_kw6v2q.png"
+  },
+  {
+    "id": "15",
+    "name": "Aquafill Mask",
+    "brand": "ELMNT",
+    "description": "Mascarilla nocturna para una recuperación hídrica total.",
+    "price": 34,
+    "category": "Hydration",
+    "volume": "100ml",
+    "stock": 0,
+    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/f_auto,q_auto,w_800/v1773423412/Aquafill_Mask-2_tpitef.png"
+  },
+  {
+    "id": "16",
+    "name": "Prebiotic Cleansing Balm",
+    "brand": "ELMNT",
+    "description": "Bálsamo oleoso que protege el microbioma mientras limpia profundamente.",
+    "price": 31,
+    "category": "Cleansers",
+    "volume": "80ml",
+    "stock": 8,
+    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/f_auto,q_auto,w_800/v1773423419/Prebiotic_Cleansing_Balm_l2pptx.png"
+  },
+  {
+    "id": "17",
+    "name": "Copper Peptide Mist",
+    "brand": "ELMNT",
+    "description": "Bruma reparadora con péptidos de cobre para una piel resiliente.",
+    "price": 25,
+    "category": "Freshness",
+    "volume": "60ml",
+    "stock": 13,
+    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/f_auto,q_auto,w_800/v1773423415/Copper_Peptide_Mist_mtvnya.png"
+  },
+  {
+    "id": "18",
+    "name": "Daily Amino Hydrator",
+    "brand": "ELMNT",
+    "description": "Crema ligera de uso diario con aminoácidos esenciales.",
+    "price": 28,
+    "category": "Hydration",
+    "volume": "75ml",
+    "stock": 22,
+    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/f_auto,q_auto,w_800/v1773423413/Daily_Amino_Hydrator_ytcxpl.png"
+  },
+  {
+    "id": "19",
+    "name": "Azelaic Acid 10%",
+    "brand": "ELMNT",
+    "description": "Suspensión iluminadora para corregir manchas e imperfecciones.",
+    "price": 26,
+    "category": "Treatment",
+    "volume": "30ml",
+    "stock": 10,
+    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/f_auto,q_auto,w_800/v1773423419/Azelaic_Acid_10_tclvjq.png"
+  },
+  {
+    "id": "20",
+    "name": "Blue Light Shield",
+    "brand": "ELMNT",
+    "description": "Bruma protectora contra la luz azul de dispositivos digitales.",
+    "price": 20,
+    "category": "Protection",
+    "volume": "60ml",
+    "stock": 16,
+    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/f_auto,q_auto,w_800/v1773423414/Blue_Light_Shield_h3xeer.png"
+  }
+]

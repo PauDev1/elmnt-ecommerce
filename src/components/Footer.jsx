@@ -7,9 +7,9 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           {/* Logo y Eslogan */}
           <div className="col-span-1 md:col-span-1">
-            <div class="flex items-center gap-2 mb-6">
-              <span class="material-symbols-outlined text-2xl">science</span>
-              <h2 class="text-xl font-bold tracking-[0.2em] uppercase">ELMNT</h2>
+            <div className="flex items-center gap-2 mb-6">
+              <span className="material-symbols-outlined text-2xl">science</span>
+              <h2 className="text-xl font-bold tracking-[0.2em] uppercase">ELMNT</h2>
             </div>
             <p className="text-slate-500 text-sm leading-relaxed">
               Ciencia aplicada al cuidado de tu piel. Fórmulas minimalistas, resultados máximos.
