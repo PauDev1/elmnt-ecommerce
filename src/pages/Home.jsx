@@ -37,23 +37,24 @@ function Home({ searchTerm, setSearchTerm }) {
   const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
   const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
 
-  // const fetchProducts = async () => {
-  //   try {
-  //     const response = await fetch("https://6928a0c7b35b4ffc50165dfb.mockapi.io/Products");
-  //     const data = await response.json();
-  //     setProducts(data);
-  //     setLoading(false);
-  //   } catch (error) {
-  //     console.error("Error cargando productos:", error);
-  //     setLoading(false);
-  //   }
-  // };
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch("https://6928a0c7b35b4ffc50165dfb.mockapi.io/Products");
+      const data = await response.json();
+      setProducts(data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error cargando productos:", error);
+      setLoading(false);
+    }
+  };
 
-  const fetchProducts = () => {
-  // Ya no hace falta el fetch ni el async/await por ahora
-  setProducts(productosLocales);
-  setLoading(false);
-};
+  
+//   SI NO FUNCIONA MOCKAPI CARGA LOS PRODUCTOS DESDE EL JSON LOCAL
+//   const fetchProducts = () => {
+//   setProducts(productosLocales);
+//   setLoading(false);
+// };
 
   useEffect(() => { fetchProducts(); }, []);
   useEffect(() => { setCurrentPage(1); }, [searchTerm, activeCategory]);

@@ -1,22 +1,31 @@
 import { useCart } from '../hooks/useCart';
+import { useNavigate } from 'react-router-dom';
 
 const CartDrawer = () => {
-
+  
   const { cartItems, isCartOpen, toggleCart, addToCart, updateQuantity, removeItem } = useCart();
+  const navigate = useNavigate();
 
   const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
-  const SHIPPING_THRESHOLD = 500;
+  const SHIPPING_THRESHOLD = 200;
   const total = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
   const remaining = SHIPPING_THRESHOLD - total;
   const progress = Math.min((total / SHIPPING_THRESHOLD) * 100, 100);
 
+  const handleCheckout = () => {
+    toggleCart(); 
+    navigate('/checkout');
+  };
+
   return (
     <>
+      {/* Overlay - Fondo oscuro */}
       <div
         className={`fixed inset-0 bg-primary/20 backdrop-blur-sm z-[100] transition-opacity duration-500 ${isCartOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
         onClick={toggleCart}
       />
 
+      {/* Drawer - Carrito lateral */}
       <div className={`fixed right-0 top-0 h-full w-full max-w-md bg-white z-[101] shadow-2xl transition-transform duration-500 ease-in-out ${isCartOpen ? 'translate-x-0' : 'translate-x-full'}`}>
         <div className="flex flex-col h-full">
 
@@ -72,20 +81,17 @@ const CartDrawer = () => {
                         <h4 className="text-[11px] font-bold uppercase text-[#0f1829]">{item.name}</h4>
                         <p className="text-[9px] text-slate-400 uppercase tracking-widest">{item.volume}</p>
                       </div>
-                      {/* BOTÓN BORRAR: Ahora usa removeItem */}
                       <button onClick={() => removeItem(item.id)} className="text-slate-300 hover:text-red-500 transition-colors">
                         <span className="material-symbols-outlined text-lg">delete</span>
                       </button>
                     </div>
                     <div className="flex justify-between items-end mt-2">
                       <div className="flex items-center bg-slate-100 rounded-full p-0.5 border border-slate-200">
-                        {/* BOTÓN MENOS: Ahora usa updateQuantity */}
                         <button
                           onClick={() => updateQuantity(item.id, item.quantity - 1)}
                           className="w-6 h-6 flex items-center justify-center text-slate-400 hover:text-[#0f1829]"
                         >-</button>
                         <span className="px-2 text-[10px] font-bold">{item.quantity}</span>
-                        {/* BOTÓN MÁS: Ahora usa addToCart (que ya tiene el check de stock) */}
                         <button
                           onClick={() => addToCart(item)}
                           disabled={item.quantity >= item.stock}
@@ -113,7 +119,10 @@ const CartDrawer = () => {
                   <span>${total.toLocaleString()}</span>
                 </div>
               </div>
-              <button className="w-full bg-[#0f1829] text-white py-5 rounded-full font-bold text-[10px] tracking-[0.3em] uppercase hover:bg-black transition-all flex items-center justify-center gap-2 shadow-xl shadow-black/5 active:scale-95">
+
+              <button 
+                onClick={handleCheckout}
+                className="w-full bg-[#0f1829] text-white py-5 rounded-full font-bold text-[10px] tracking-[0.3em] uppercase hover:bg-black transition-all flex items-center justify-center gap-2 shadow-xl shadow-black/5 active:scale-95">
                 Finalizar Compra
                 <span className="material-symbols-outlined text-sm">arrow_forward</span>
               </button>

@@ -1,4 +1,5 @@
 import { useCart } from "../hooks/useCart";
+import { Link } from 'react-router-dom';
 
 const Navbar = ({ onSearch }) => {
 
@@ -17,12 +18,16 @@ const Navbar = ({ onSearch }) => {
 
         {/* Lado Izquierdo: Logo y Links */}
         <div className="flex items-center gap-12">
-          <div className="flex items-center gap-2 cursor-pointer group" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+          <Link
+            to="/"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="flex items-center gap-2 cursor-pointer group"
+          >
             <span className="material-symbols-outlined text-2xl text-[#0f1829]">science</span>
             <h1 className="text-[#0f1829] text-xl font-bold tracking-[0.2em] uppercase">
               ELMNT
             </h1>
-          </div>
+          </Link>
 
           <nav className="hidden md:flex items-center gap-8">
             {['Tienda', 'Estudios Clínicos', 'El Laboratorio'].map((item) => (
@@ -52,10 +57,11 @@ const Navbar = ({ onSearch }) => {
               }}
             />
             <span
-              //className="material-symbols-outlined text-[24px] text-[#0f1829] cursor-pointer p-2 flex items-center justify-center z-20 transform -translate-y-[3px]"
               className="material-symbols-outlined text-[24px] text-[#0f1829] cursor-pointer p-2 flex items-center justify-center z-20"
-              onClick={() => {document.getElementById('search-input').focus()
-                scrollToInventory();}
+              onClick={() => {
+                document.getElementById('search-input').focus()
+                scrollToInventory();
+              }
               }
             >
               search
@@ -65,7 +71,7 @@ const Navbar = ({ onSearch }) => {
           <div className="flex items-center gap-2">
             {/* BOTÓN CARRITO CON CONTADOR */}
             <button
-              onClick={toggleCart} // <--- Ahora abre el drawer
+              onClick={toggleCart}
               className="p-2 hover:bg-slate-50 rounded-full transition-colors text-[#0f1829] relative group"
             >
               <span className="material-symbols-outlined text-[22px] cursor-pointer">shopping_bag</span>

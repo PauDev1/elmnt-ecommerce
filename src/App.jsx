@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Checkout from './pages/Checkout';
-import Navbar from './components/Navbar'; // Si el Navbar debe estar en todas las páginas
+import Navbar from './components/Navbar'; 
 import { CartProvider } from './context/CartContext'; 
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
 
@@ -12,7 +13,7 @@ function App() {
   return (
     <CartProvider>
       <Router>
-        {/* El Navbar queda fijo arriba en todas las rutas */}
+        <ScrollToTop />
         <Navbar onSearch={setSearchTerm}/> 
         
         <Routes>
