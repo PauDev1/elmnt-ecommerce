@@ -12,10 +12,16 @@ const Checkout = () => {
 
   const [step, setStep] = useState(1);
   const [showSuccess, setShowSuccess] = useState(false);
-  const [formData, setFormData] = useState({
-    nombre: '', email: '', direccion: '', ciudad: '', cp: '',
-    tarjeta: '', vencimiento: '', cvv: ''
+
+  const [formData, setFormData] = useState(() => {
+    const savedData = localStorage.getItem('elmnt_checkout_data');
+    const initialState = {
+      nombre: '', email: '', direccion: '', ciudad: '', cp: '',
+      tarjeta: '', vencimiento: '', cvv: ''
+    };
+    return savedData ? { ...initialState, ...JSON.parse(savedData) } : initialState;
   });
+
   const [errors, setErrors] = useState({});
 
   const total = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
@@ -58,11 +64,20 @@ const Checkout = () => {
     if (!formData.cp.trim()) tempErrors.cp = "CAMPO OBLIGATORIO";
 
     if (Object.keys(tempErrors).length === 0) {
+      const dataToSave = {
+        nombre: formData.nombre,
+        email: formData.email,
+        direccion: formData.direccion,
+        ciudad: formData.ciudad,
+        cp: formData.cp
+      };
+      localStorage.setItem('elmnt_checkout_data', JSON.stringify(dataToSave));
+
       setStep(2);
       window.scrollTo(0, 0);
     } else {
       setErrors(tempErrors);
-    }
+    }    
   };
 
   const handleSubmitFinal = (e) => {
@@ -91,6 +106,7 @@ const Checkout = () => {
     if (Object.keys(tempErrors).length === 0) {
       setShowSuccess(true);
       clearCart();
+      localStorage.removeItem('elmnt_checkout_data');
     } else {
       setErrors(tempErrors);
     }
@@ -210,14 +226,14 @@ const Checkout = () => {
                   <div className="relative">
                     <img
                       src={item.image}
-                      className="w-14 h-14 rounded-xl object-cover border border-white/10"
+                      className="w-14 h-14 rounded-xl object-cover border border-white/20"
                       alt={item.name}
                     />
                     <span className="absolute top-0 right-0 bg-white text-[#0f1829] min-w-[20px] h-[20px] flex items-center justify-center rounded-full text-[10px] font-black shadow-lg px-1">
                       {item.quantity}
                     </span>
                   </div>
-                  <span className="text-white/80 uppercase tracking-widest font-medium max-w-[120px] truncate">
+                  <span className="text-white/80 uppercase tracking-widest font-medium max-w-[180px] sm:max-w-[220px] truncate">
                     {item.name}
                   </span>
                 </div>
@@ -228,15 +244,15 @@ const Checkout = () => {
             ))}
           </div>
           <div className="mt-8 pt-6 border-t border-white/10 space-y-4">
-            <div className="flex justify-between text-[10px] uppercase tracking-widest text-white/40">
+            <div className="flex justify-between text-[10px] uppercase tracking-widest text-white/60">
               <span>Subtotal</span>
               <span>${total.toLocaleString()}</span>
             </div>
-            <div className="flex justify-between text-[10px] uppercase tracking-widest text-white/40">
+            <div className="flex justify-between text-[10px] uppercase tracking-widest text-white/60">
               <span>Envío</span>
               <span className="text-green-400 font-bold uppercase">Gratis</span>
             </div>
-            <div className="flex justify-between text-2xl font-bold pt-4 border-t border-white/20">
+            <div className="flex justify-between text-2xl font-bold pt-4 border-t border-white/30">
               <span className="italic uppercase tracking-tighter">Total</span>
               <span>${total.toLocaleString()}</span>
             </div>
