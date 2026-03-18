@@ -42,7 +42,7 @@ const Navbar = ({ onSearch }) => {
           </nav>
         </div>
 
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-1 sm:gap-2">
           {/* BUSCADOR */}
           <div className="relative flex items-center justify-end">
             <input
@@ -57,7 +57,8 @@ const Navbar = ({ onSearch }) => {
               }}
             />
             <span
-              className="material-symbols-outlined text-[24px] text-[#0f1829] cursor-pointer p-2 flex items-center justify-center z-20"
+              className="material-symbols-outlined cursor-pointer p-2 flex items-center justify-center z-20"
+              style={{ fontSize: '22px' }}
               onClick={() => {
                 document.getElementById('search-input').focus()
                 scrollToInventory();
@@ -74,16 +75,16 @@ const Navbar = ({ onSearch }) => {
               onClick={toggleCart}
               className="p-2 hover:bg-slate-50 rounded-full transition-colors text-[#0f1829] relative group"
             >
-              <span className="material-symbols-outlined text-[22px] cursor-pointer">shopping_bag</span>
+              <span className="material-symbols-outlined" style={{ fontSize: '22px' }}>shopping_bag</span>
 
               {cartItems.length > 0 && (
-                <span className="absolute top-1 right-1 bg-[#0f1829] text-white text-[8px] font-bold w-4 h-4 rounded-full flex items-center justify-center animate-in fade-in zoom-in duration-300">
+                <span className="absolute top-1 right-1 bg-[#83A982] text-white text-[8px] font-bold w-4 h-4 rounded-full flex items-center justify-center animate-in fade-in zoom-in duration-300">
                   {cartItems.reduce((acc, item) => acc + item.quantity, 0)}
                 </span>
               )}
             </button>
             <button className="p-2 hover:bg-white/50 rounded-full transition-colors text-[#0f1829]">
-              <span className="material-symbols-outlined text-[22px]">person</span>
+              <span className="material-symbols-outlined" style={{ fontSize: '27px' }}>person</span>
             </button>
           </div>
         </div>
