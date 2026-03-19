@@ -44,3 +44,17 @@ html {
     transform: scaleX(0); 
   }
 }
+
+/* Quitar flechas en Chrome, Safari, Edge y Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none; /* Propiedad prefijada */
+  appearance: none;         /* Propiedad estándar (esto quita el error) */
+  margin: 0;
+}
+
+/* Quitar flechas en Firefox */
+input[type=number] {
+  -moz-appearance: textfield; /* Para Firefox antiguo */
+  appearance: textfield;      /* Estándar para Firefox moderno */
+}
