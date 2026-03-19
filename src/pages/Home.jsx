@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import Navbar from '../components/Navbar.jsx'; 
+import Navbar from '../components/Navbar.jsx';
 import ProductCard from '../components/ProductCard.jsx';
 import SkeletonCard from '../components/SkeletonCard.jsx';
 import Footer from '../components/Footer.jsx';
@@ -9,14 +9,10 @@ import Features from '../sections/Features';
 import CartDrawer from '../components/CartDrawer';
 import productosLocales from '../products.json';
 
-function Home({ searchTerm, setSearchTerm }) {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+function Home({ searchTerm, products = [], loading  }) {
   const [activeCategory, setActiveCategory] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
   const [sortBy, setSortBy] = useState("default");
-
-  const { addToCart } = useCart();
 
   const productsPerPage = 8;
 
@@ -37,27 +33,9 @@ function Home({ searchTerm, setSearchTerm }) {
   const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
   const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
 
-  const fetchProducts = async () => {
-    try {
-      const response = await fetch("https://6928a0c7b35b4ffc50165dfb.mockapi.io/Products");
-      const data = await response.json();
-      setProducts(data);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error cargando productos:", error);
-      setLoading(false);
-    }
-  };
-
-  
-//   SI NO FUNCIONA MOCKAPI CARGA LOS PRODUCTOS DESDE EL JSON LOCAL
-//   const fetchProducts = () => {
-//   setProducts(productosLocales);
-//   setLoading(false);
-// };
-
-  useEffect(() => { fetchProducts(); }, []);
   useEffect(() => { setCurrentPage(1); }, [searchTerm, activeCategory]);
+
+  const isLoading = products.length === 0 && searchTerm === "";
 
 
   return (
@@ -117,7 +95,7 @@ function Home({ searchTerm, setSearchTerm }) {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 min-h-[600px] content-start">  
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 min-h-[600px] content-start">
               {loading ? (
                 Array.from({ length: 4 }).map((_, i) => (
                   <SkeletonCard key={i} />
