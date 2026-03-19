@@ -75,7 +75,7 @@ const Navbar = ({ onSearch }) => {
               onClick={toggleCart}
               className="p-2 hover:bg-slate-50 rounded-full transition-colors text-[#0f1829] relative group"
             >
-              <span className="material-symbols-outlined" style={{ fontSize: '22px' }}>shopping_bag</span>
+              <span className="material-symbols-outlined cursor-pointer" style={{ fontSize: '22px' }}>shopping_bag</span>
 
               {cartItems.length > 0 && (
                 <span className="absolute top-1 right-1 bg-[#83A982] text-white text-[8px] font-bold w-4 h-4 rounded-full flex items-center justify-center animate-in fade-in zoom-in duration-300">

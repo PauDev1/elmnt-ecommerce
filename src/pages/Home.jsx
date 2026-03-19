@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import Navbar from '../components/Navbar.jsx'; 
+import Navbar from '../components/Navbar.jsx';
 import ProductCard from '../components/ProductCard.jsx';
 import SkeletonCard from '../components/SkeletonCard.jsx';
 import Footer from '../components/Footer.jsx';
@@ -9,19 +9,61 @@ import Features from '../sections/Features';
 import CartDrawer from '../components/CartDrawer';
 import productosLocales from '../products.json';
 
-function Home({ searchTerm, setSearchTerm }) {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+function Home({ searchTerm, products = [], loading  }) {
+  // const [products, setProducts] = useState([]);
+  // const [loading, setLoading] = useState(true);
+  // const [activeCategory, setActiveCategory] = useState("all");
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [sortBy, setSortBy] = useState("default");
+
+  // const { addToCart } = useCart();
+
+  // const productsPerPage = 8;
+
+  // const filteredProducts = products
+  //   .filter(product => {
+  //     const matchesCategory = activeCategory === 'all' || product.category.includes(activeCategory);
+  //     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
+  //     return matchesCategory && matchesSearch;
+  //   })
+  //   .sort((a, b) => {
+  //     if (sortBy === "low") return a.price - b.price;
+  //     if (sortBy === "high") return b.price - a.price;
+  //     return 0;
+  //   });
+
+  // const indexOfLastProduct = currentPage * productsPerPage;
+  // const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  // const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
+  // const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+
+  // const fetchProducts = async () => {
+  //   try {
+  //     const response = await fetch("https://6928a0c7b35b4ffc50165dfb.mockapi.io/Products");
+  //     const data = await response.json();
+  //     setProducts(data);
+  //     setLoading(false);
+  //   } catch (error) {
+  //     console.error("Error cargando productos:", error);
+  //     setLoading(false);
+  //   }
+  // };
+
+  // useEffect(() => { fetchProducts(); }, []);
+  // useEffect(() => { setCurrentPage(1); }, [searchTerm, activeCategory]);
+
+  // Quitamos el estado local de products y loading porque vienen de arriba
   const [activeCategory, setActiveCategory] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
   const [sortBy, setSortBy] = useState("default");
 
-  const { addToCart } = useCart();
-
   const productsPerPage = 8;
 
+  // El filtro ahora usa los 'products' que vienen por props
   const filteredProducts = products
     .filter(product => {
+      // Mantenemos tu lógica de categorías (ojo que en el Admin pusimos nombres en español)
+      // Si en la API están como 'Cleansers', 'Hydration', etc., asegúrate que coincidan
       const matchesCategory = activeCategory === 'all' || product.category.includes(activeCategory);
       const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
       return matchesCategory && matchesSearch;
@@ -37,27 +79,11 @@ function Home({ searchTerm, setSearchTerm }) {
   const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
   const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
 
-  const fetchProducts = async () => {
-    try {
-      const response = await fetch("https://6928a0c7b35b4ffc50165dfb.mockapi.io/Products");
-      const data = await response.json();
-      setProducts(data);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error cargando productos:", error);
-      setLoading(false);
-    }
-  };
-
-  
-//   SI NO FUNCIONA MOCKAPI CARGA LOS PRODUCTOS DESDE EL JSON LOCAL
-//   const fetchProducts = () => {
-//   setProducts(productosLocales);
-//   setLoading(false);
-// };
-
-  useEffect(() => { fetchProducts(); }, []);
   useEffect(() => { setCurrentPage(1); }, [searchTerm, activeCategory]);
+
+  // Determinamos si está cargando basándonos en si el array está vacío 
+  // (O podés pasar una prop 'loading' desde App si preferís)
+  const isLoading = products.length === 0 && searchTerm === "";
 
 
   return (
@@ -117,7 +143,7 @@ function Home({ searchTerm, setSearchTerm }) {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 min-h-[600px] content-start">  
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 min-h-[600px] content-start">
               {loading ? (
                 Array.from({ length: 4 }).map((_, i) => (
                   <SkeletonCard key={i} />
