@@ -12,13 +12,11 @@ const AdminPanel = ({ products, onUpdateProduct, onDeleteProduct, onAddProduct }
   const [toast, setToast] = useState(null);
   const itemsPerPage = 6;
 
-  // Filtro de búsqueda Admin
   const filteredAdminProducts = products.filter(p =>
     p.name.toLowerCase().includes(adminSearch.toLowerCase()) ||
     p.category.toLowerCase().includes(adminSearch.toLowerCase())
   );
 
-  // Lógica de Paginación
   const totalPages = Math.ceil(filteredAdminProducts.length / itemsPerPage);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;

@@ -21,7 +21,11 @@ const EditProductModal = ({ isOpen, product, onClose, onUpdateProduct }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    let cleanValue = value;
+    if (name === 'volumeNumber' || name === 'price' || name === 'stock') {
+      cleanValue = value.trim(); 
+    }
+    setFormData(prev => ({ ...prev, [name]: cleanValue }));
     if (errors[name]) setErrors(prev => ({ ...prev, [name]: null }));
   };
 
@@ -183,8 +187,8 @@ const EditProductModal = ({ isOpen, product, onClose, onUpdateProduct }) => {
 
             <div>
               <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1 block">Stock Actual</label>
-              <input t
-                ype="number"
+              <input
+                type="number"
                 name="stock"
                 value={formData.stock}
                 onChange={handleChange}

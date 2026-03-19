@@ -123,6 +123,7 @@ const AddProductModal = ({ isOpen, onClose, onAddProduct }) => {
                 name="description"
                 value={newProduct.description}
                 onChange={handleChange}
+                autoComplete="off"
                 className={`w-full block resize-none bg-slate-50 border rounded-lg p-2.5 text-sm h-20 focus:outline-none focus:ring-2 transition-all ${
                   errors.description ? 'border-red-400 focus:ring-red-100' : 'border-slate-200 focus:ring-slate-100'
                 }`}
