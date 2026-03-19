@@ -7,10 +7,11 @@ const AdminPanel = ({ products, onUpdateProduct, onDeleteProduct, onAddProduct }
   const [editingProduct, setEditingProduct] = useState(null);
   const [productToDelete, setProductToDelete] = useState(null);
   const [toast, setToast] = useState(null);
+  const [errors, setErrors] = useState({});
   const itemsPerPage = 6;
 
   const initialFormState = {
-    name: '', description: '', price: '', category: 'Cleansers', volume: '', stock: '', image: ''
+    name: '', description: '', price: '', category: '', volume: '', volumeUnit: '', stock: '', image: ''
   };
   const [newProduct, setNewProduct] = useState(initialFormState);
 
@@ -29,18 +30,97 @@ const AdminPanel = ({ products, onUpdateProduct, onDeleteProduct, onAddProduct }
   const handleChange = (e) => {
     const { name, value } = e.target;
     setNewProduct({ ...newProduct, [name]: value });
+
+    if (errors[name]) {
+      setErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      });
+    }
+  };
+
+  const handleCloseModal = () => {
+    setNewProduct(initialFormState); // Limpia los campos al valor inicial
+    setErrors({});                  // Borra todos los mensajes de rojo
+    setIsModalOpen(false);          // Recién ahí cierra el modal
+  };
+
+  const validateForm = (product) => {
+    let newErrors = {};
+    const sqlInjectionPattern = /[<>]/g;
+
+    if (!product.name.trim()) {
+      newErrors.name = "El nombre es obligatorio";
+    } else if (sqlInjectionPattern.test(product.name)) {
+      newErrors.name = "No se permiten caracteres especiales como < o >";
+    }
+    if (!product.description.trim()) {
+      newErrors.description = "La descripción es obligatoria";
+    } else if (sqlInjectionPattern.test(product.description)) {
+      newErrors.description = "No se permiten etiquetas de código en la descripción";
+    }
+    if (!product.category) {
+      newErrors.category = "Debes elegir una categoría";
+    }
+    if (!product.volume || Number(product.volume) <= 0) {
+      newErrors.volume = "Ingresa una cantidad válida";
+    }
+    if (!product.volumeUnit) {
+      newErrors.volumeUnit = "Selecciona ML o GR";
+    }
+    // Validación de Precio: Obligatorio + Mínimo 5
+    if (!product.price || product.price === '') {
+      newErrors.price = "El precio es obligatorio";
+    } else if (Number(product.price) < 5) {
+      newErrors.price = "El precio mínimo es de 5";
+    }
+
+    // Validación de Stock: Obligatorio + No negativo
+    if (product.stock === '' || product.stock === undefined) {
+      newErrors.stock = "El stock inicial es obligatorio";
+    } else if (Number(product.stock) < 0) {
+      newErrors.stock = "El stock no puede ser negativo";
+    }
+
+    // Validación de Cloudinary
+    if (!product.image || product.image.trim() === '') {
+      newErrors.image = "La URL de la imagen es obligatoria";
+    } else if (!product.image.startsWith("https://res.cloudinary.com/")) {
+      newErrors.image = "La imagen debe ser un enlace de Cloudinary válido";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAddProduct({
-      ...newProduct,
-      price: Number(newProduct.price),
-      stock: Number(newProduct.stock)
-    });
-    setIsModalOpen(false);
-    setNewProduct(initialFormState);
-    showToast("Producto registrado con éxito");
+
+    const isValid = validateForm(newProduct);
+
+    if (isValid) {
+      // 1. Preparamos el objeto final combinando volumen y unidad
+      const productData = {
+        ...newProduct,
+        // Concatenamos el número con la unidad (ej: "150ml")
+        volume: `${newProduct.volume}${newProduct.volumeUnit}`,
+        price: Number(newProduct.price),
+        stock: Number(newProduct.stock)
+      };
+
+      // 2. Quitamos el campo auxiliar volumeUnit para que no ensucie la base de datos
+      delete productData.volumeUnit;
+
+      // 3. Enviamos el producto limpio
+      onAddProduct(productData);
+
+      // 4. Reset total del estado
+      setIsModalOpen(false);
+      setNewProduct(initialFormState);
+      setErrors({});
+      showToast("Producto registrado con éxito");
+    }
   };
 
   const showToast = (message, type = 'success') => {
@@ -223,7 +303,7 @@ const AdminPanel = ({ products, onUpdateProduct, onDeleteProduct, onAddProduct }
                 <h2 className="text-xl font-bold uppercase tracking-tighter italic text-slate-800">Registrar Nuevo Producto</h2>
                 {/* <p className="text-xs text-slate-400 uppercase tracking-widest mt-1 font-bold">Formulación de Grado A</p> */}
               </div>
-              <button onClick={() => setIsModalOpen(false)} className="text-slate-400 hover:text-slate-600">
+              <button onClick={handleCloseModal} className="text-slate-400 hover:text-slate-600">
                 <span className="material-symbols-outlined">close</span>
               </button>
             </div>
@@ -232,41 +312,152 @@ const AdminPanel = ({ products, onUpdateProduct, onDeleteProduct, onAddProduct }
               <div className="grid grid-cols-2 gap-4">
                 <div className="col-span-2">
                   <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1 block">Nombre Comercial</label>
-                  <input name="name" value={newProduct.name} onChange={handleChange} required className="w-full bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-slate-100" />
+                  <input
+                    name="name"
+                    value={newProduct.name}
+                    onChange={handleChange}
+                    className={`w-full bg-slate-50 border rounded-lg p-2.5 text-sm focus:outline-none focus:ring-2 transition-all ${errors.name
+                      ? 'border-red-400 focus:ring-red-100'
+                      : 'border-slate-200 focus:ring-slate-100'
+                      }`}
+                  />
+                  {errors.name && <p className="text-[10px] text-red-500 font-bold mt-1 uppercase tracking-wider">{errors.name}</p>}
                 </div>
                 <div className="col-span-2">
                   <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1 block">Descripción Técnica</label>
-                  <textarea name="description" value={newProduct.description} onChange={handleChange} required className="w-full bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-sm h-20 focus:outline-none focus:ring-2 focus:ring-slate-100" />
+                  <textarea
+                    name="description"
+                    value={newProduct.description}
+                    onChange={handleChange}
+                    className={`w-full block resize-none bg-slate-50 border rounded-lg p-2.5 text-sm h-20 focus:outline-none focus:ring-2 transition-all ${errors.description
+                      ? 'border-red-400 focus:ring-red-100'
+                      : 'border-slate-200 focus:ring-slate-100'
+                      }`}
+                  />
+                  {errors.description && (
+                    <p className="text-[10px] text-red-500 font-bold mt-1 uppercase tracking-wider">
+                      {errors.description}
+                    </p>
+                  )}
                 </div>
-                <div>
-                  <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1 block">Categoría</label>
-                  <select name="category" value={newProduct.category} onChange={handleChange} className="w-full bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-sm focus:outline-none">
-                    <option value="Cleansers">Limpieza</option>
-                    <option value="Hydration">Hidratación</option>
-                    <option value="Treatment">Serums</option>
-                    <option value="Protection">Protectores</option>
-                  </select>
+                <div className="grid grid-cols-2 gap-4 col-span-2">
+                  {/* CATEGORÍA */}
+                  <div>
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1 block">
+                      Categoría
+                    </label>
+                    <select
+                      name="category"
+                      value={newProduct.category}
+                      onChange={handleChange}
+                      className={`w-full bg-slate-50 border rounded-lg p-2.5 text-sm focus:outline-none transition-all ${errors.category ? 'border-red-400' : 'border-slate-200'
+                        }`}
+                    >
+                      <option value="" disabled>Seleccionar...</option>
+                      <option value="Cleansers">Limpieza</option>
+                      <option value="Hydration">Hidratación</option>
+                      <option value="Treatment">Serums</option>
+                      <option value="Protection">Protectores</option>
+                    </select>
+                    {errors.category && (
+                      <p className="text-[10px] text-red-500 font-bold mt-1 uppercase tracking-wider">{errors.category}</p>
+                    )}
+                  </div>
+
+                  {/* VOLUMEN / PRESENTACIÓN */}
+                  <div>
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1 block">
+                      Volumen / Presentacion
+                    </label>
+                    <div className="flex gap-1.5">
+                      <input
+                        type="number"
+                        name="volume"
+                        placeholder="Ej: 150"
+                        value={newProduct.volume}
+                        onChange={handleChange}
+                        className={`flex-1 min-w-0 bg-slate-50 border rounded-lg p-2.5 text-sm focus:outline-none transition-all ${errors.volume ? 'border-red-400' : 'border-slate-200'
+                          }`}
+                      />
+                      <div className="flex bg-slate-100 p-1 rounded-lg border border-slate-200 shrink-0">
+                        {['ml', 'gr'].map((unit) => (
+                          <button
+                            key={unit}
+                            type="button"
+                            onClick={() => setNewProduct({ ...newProduct, volumeUnit: unit })}
+                            className={`px-2 py-1 rounded-md text-[9px] font-black uppercase transition-all ${newProduct.volumeUnit === unit
+                              ? 'bg-white text-slate-900 shadow-sm ring-1 ring-slate-200'
+                              : 'text-slate-400 hover:text-slate-600'
+                              }`}
+                          >
+                            {unit}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                    {(errors.volume || errors.volumeUnit) && (
+                      <p className="text-[10px] text-red-500 font-bold mt-1 uppercase tracking-wider">
+                        {errors.volume || errors.volumeUnit}
+                      </p>
+                    )}
+                  </div>
                 </div>
-                <div>
-                  <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1 block">Volumen/Presentación</label>
-                  <input name="volume" value={newProduct.volume} onChange={handleChange} placeholder="Ej: 150ml" className="w-full bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-sm focus:outline-none" />
-                </div>
+                {/* CAMPO PRECIO */}
                 <div>
                   <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1 block">Precio</label>
-                  <input name="price" type="number" step="0.01" min="0" value={newProduct.price} onChange={handleChange} required className="w-full bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-sm focus:outline-none" />
+                  <input
+                    name="price"
+                    type="number"
+                    step="0.01"
+                    value={newProduct.price}
+                    onChange={handleChange}
+                    className={`w-full bg-slate-50 border rounded-lg p-2.5 text-sm focus:outline-none transition-all ${errors.price ? 'border-red-400 focus:ring-red-50' : 'border-slate-200 focus:ring-slate-100'
+                      }`}
+                  />
+                  {errors.price && (
+                    <p className="text-[10px] text-red-500 font-bold mt-1 uppercase tracking-wider">{errors.price}</p>
+                  )}
                 </div>
+
+                {/* CAMPO STOCK */}
                 <div>
                   <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1 block">Stock Inicial</label>
-                  <input name="stock" type="number" min="0" value={newProduct.stock} onChange={handleChange} required className="w-full bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-sm focus:outline-none" />
+                  <input
+                    name="stock"
+                    type="number"
+                    value={newProduct.stock}
+                    onChange={handleChange}
+                    className={`w-full bg-slate-50 border rounded-lg p-2.5 text-sm focus:outline-none transition-all ${errors.stock ? 'border-red-400 focus:ring-red-50' : 'border-slate-200 focus:ring-slate-100'
+                      }`}
+                  />
+                  {errors.stock && (
+                    <p className="text-[10px] text-red-500 font-bold mt-1 uppercase tracking-wider">{errors.stock}</p>
+                  )}
                 </div>
                 <div className="col-span-2">
-                  <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1 block">URL de Imagen</label>
-                  <input name="image" value={newProduct.image} onChange={handleChange} required className="w-full bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-sm focus:outline-none" />
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1 block">
+                    URL de Imagen (Cloudinary)
+                  </label>
+                  <input
+                    name="image"
+                    placeholder="https://res.cloudinary.com/..."
+                    value={newProduct.image}
+                    onChange={handleChange}
+                    className={`w-full bg-slate-50 border rounded-lg p-2.5 text-sm focus:outline-none transition-all ${errors.image
+                      ? 'border-red-400 focus:ring-red-50'
+                      : 'border-slate-200 focus:ring-slate-100'
+                      }`}
+                  />
+                  {errors.image && (
+                    <p className="text-[10px] text-red-500 font-bold mt-1 uppercase tracking-wider">
+                      {errors.image}
+                    </p>
+                  )}
                 </div>
               </div>
 
               <div className="flex gap-4 mt-8">
-                <button type="button" onClick={() => setIsModalOpen(false)} className="flex-1 py-3 text-xs font-bold uppercase tracking-widest text-slate-400 hover:bg-slate-50 rounded-xl transition-all">Cancelar</button>
+                <button type="button" onClick={handleCloseModal} className="flex-1 py-3 text-xs font-bold uppercase tracking-widest text-slate-400 hover:bg-slate-50 rounded-xl transition-all">Cancelar</button>
                 <button type="submit" className="flex-1 py-3 bg-[#0f1829] text-white text-xs font-bold uppercase tracking-widest rounded-xl hover:bg-slate-800 shadow-lg shadow-slate-200 transition-all">Guardar</button>
               </div>
             </form>
