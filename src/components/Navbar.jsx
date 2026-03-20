@@ -57,7 +57,7 @@ const Navbar = ({ onSearch, isAdmin, onLogout }) => {
                 <button
                   key={item}
                   onClick={item === 'Tienda' ? scrollToInventory : undefined}
-                  className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 hover:text-black transition-colors"
+                  className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 hover:text-black transition-colors cursor-pointer"
                 >
                   {item}
                 </button>
@@ -110,7 +110,7 @@ const Navbar = ({ onSearch, isAdmin, onLogout }) => {
                 onClick={() => isAdmin ? setShowMenu(!showMenu) : navigate('/admin-login')}
                 className="p-2 hover:bg-slate-50 rounded-full transition-colors text-[#0f1829]"
               >
-                <span className="material-symbols-outlined" style={{ fontSize: '27px' }}>person</span>
+                <span className="material-symbols-outlined cursor-pointer" style={{ fontSize: '27px' }}>person</span>
               </button>
 
               {isAdmin && showMenu && (
@@ -123,7 +123,7 @@ const Navbar = ({ onSearch, isAdmin, onLogout }) => {
                       onClick={() => setShowMenu(false)}
                       className="flex items-center gap-3 px-4 py-3 text-[10px] font-bold uppercase tracking-widest text-slate-600 hover:bg-slate-50 transition-colors"
                     >
-                      <span className="material-symbols-outlined text-lg">home</span> Ver Tienda
+                      <span className="material-symbols-outlined text-lg cursor-pointer">home</span> Ver Tienda
                     </Link>
                   ) : (
                     <Link
@@ -131,7 +131,7 @@ const Navbar = ({ onSearch, isAdmin, onLogout }) => {
                       onClick={() => setShowMenu(false)}
                       className="flex items-center gap-3 px-4 py-3 text-[10px] font-bold uppercase tracking-widest text-slate-600 hover:bg-slate-50 transition-colors"
                     >
-                      <span className="material-symbols-outlined text-lg">inventory</span> Administración
+                      <span className="material-symbols-outlined text-lg cursor-pointer">inventory</span> Administración
                     </Link>
                   )}
 
@@ -139,9 +139,9 @@ const Navbar = ({ onSearch, isAdmin, onLogout }) => {
 
                   <button
                     onClick={() => { onLogout(); setShowMenu(false); navigate('/'); }}
-                    className="w-full flex items-center gap-3 px-4 py-3 text-[10px] font-bold uppercase tracking-widest text-red-500 hover:bg-red-50 transition-colors"
+                    className="w-full flex items-center gap-3 px-4 py-3 text-[10px] font-bold uppercase tracking-widest text-red-500 hover:bg-red-50 transition-colors cursor-pointer"
                   >
-                    <span className="material-symbols-outlined text-lg">logout</span> Salir
+                    <span className="material-symbols-outlined text-lg cursor-pointer">logout</span> Salir
                   </button>
                 </div>
               )}

@@ -232,8 +232,8 @@ const AddProductModal = ({ isOpen, onClose, onAddProduct }) => {
           </div>
 
           <div className="flex gap-4 mt-8">
-            <button type="button" onClick={handleClose} className="flex-1 py-3 text-xs font-bold uppercase text-slate-400 hover:bg-slate-50 rounded-xl transition-all">Cancelar</button>
-            <button type="submit" className="flex-1 py-3 bg-[#0f1829] text-white text-xs font-bold uppercase rounded-xl hover:bg-slate-800 shadow-lg transition-all">Guardar</button>
+            <button type="button" onClick={handleClose} className="flex-1 py-3 text-xs font-bold uppercase text-slate-400 hover:bg-slate-50 rounded-xl transition-all cursor-pointer">Cancelar</button>
+            <button type="submit" className="flex-1 py-3 bg-[#0f1829] text-white text-xs font-bold uppercase rounded-xl hover:bg-slate-800 shadow-lg transition-all cursor-pointer">Guardar</button>
           </div>
         </form>
       </div>

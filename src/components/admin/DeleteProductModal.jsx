@@ -26,14 +26,14 @@ const DeleteProductModal = ({ product, onClose, onDelete }) => {
         <div className="flex gap-3 mt-8">
           <button
             onClick={onClose}
-            className="flex-1 py-2.5 text-[10px] font-bold uppercase tracking-widest text-slate-400 hover:bg-slate-50 rounded-xl transition-all border border-transparent hover:border-slate-100"
+            className="flex-1 py-2.5 text-[10px] font-bold uppercase tracking-widest text-slate-400 cursor-pointer hover:bg-slate-50 rounded-xl transition-all border border-transparent hover:border-slate-100"
           >
             Cancelar
           </button>
 
           <button
             onClick={() => onDelete(product.id)}
-            className="flex-1 py-2.5 bg-red-500 text-white text-[10px] font-bold uppercase tracking-widest rounded-xl hover:bg-red-600 shadow-lg shadow-red-100 transition-all active:scale-95"
+            className="flex-1 py-2.5 bg-red-500 text-white text-[10px] font-bold uppercase tracking-widest rounded-xl cursor-pointer hover:bg-red-600 shadow-lg shadow-red-100 transition-all active:scale-95"
           >
             Sí, Eliminar
           </button>

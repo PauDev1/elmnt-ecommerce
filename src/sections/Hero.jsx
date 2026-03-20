@@ -12,7 +12,7 @@ const Hero = () => {
               </p>
             </div>
             <div className="flex items-center gap-4">
-              <button onClick={() => document.getElementById('inventario').scrollIntoView({ behavior: 'smooth' })} className="bg-[#0f1829] text-white px-8 py-4 rounded-lg font-bold text-[10px] tracking-widest uppercase hover:bg-black transition-all">
+              <button onClick={() => document.getElementById('inventario').scrollIntoView({ behavior: 'smooth' })} className="bg-[#0f1829] text-white px-8 py-4 rounded-lg font-bold text-[10px] tracking-widest uppercase hover:bg-black transition-all cursor-pointer">
                 Descubrir la Colección
               </button>
               <button className="border border-slate-200 px-8 py-4 rounded-lg font-bold text-[10px] tracking-widest uppercase hover:bg-white transition-all flex items-center gap-2">

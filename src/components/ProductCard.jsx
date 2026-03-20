@@ -51,45 +51,20 @@ const ProductCard = ({ product }) => {
         )}
       </div>
 
-      {/* <div className="flex flex-col flex-1 px-1">
-        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">
-          {product.category}
-        </span>
-
-        <h4 className="text-[#0f1829] font-medium text-lg leading-tight min-h-[3rem] line-clamp-2 mt-1">
-          {product.name}
-        </h4>
-
-        <p className="text-slate-500 text-sm mb-4 font-light line-clamp-2">
-          {product.description}
-        </p>
-
-        <div className="flex items-center justify-between mt-auto pb-2">
-          <span className="text-[#0f1829] font-bold">
-            ${product.price.toLocaleString()}
-          </span>
-          <span className="text-[11px] text-slate-400 uppercase tracking-widest font-light">
-            {product.volume}
-          </span>
-        </div>
-      </div> */}
-
       <div className="flex flex-col flex-1 px-1">
         <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">
           {product.category}
         </span>
 
-        {/* Bajamos el min-h o lo quitamos para que no ocupe tanto espacio si el nombre es corto */}
         <h4 className="text-[#0f1829] font-medium text-lg leading-tight min-h-[2.5rem] line-clamp-2 mt-1">
           {product.name}
         </h4>
 
-        <p className="text-slate-500 text-sm mb-3 font-light line-clamp-2">
+        <p className="text-slate-500 text-sm mb-3 font-light line-clamp-2 flex-grow">
           {product.description}
         </p>
 
-        {/* CAMBIO: Quitamos 'mt-auto' y usamos un borde superior sutil para separar */}
-        <div className="flex items-center justify-between pt-3 border-t border-slate-50 pb-2">
+        <div className="flex items-center justify-between mt-auto pt-3 border-t border-slate-50 pb-2">
           <span className="text-[#0f1829] font-bold">
             ${product.price.toLocaleString()}
           </span>

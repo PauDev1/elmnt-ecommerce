@@ -70,8 +70,7 @@ function Home({ searchTerm, products = [], loading  }) {
                     <button
                       key={cat.value}
                       onClick={() => setActiveCategory(cat.value)}
-                      className={`px-4 py-2 rounded-full text-[9px] font-bold uppercase tracking-[0.2em] transition-all border shrink-0
-              ${activeCategory === cat.value
+                      className={`px-4 py-2 rounded-full text-[9px] font-bold uppercase tracking-[0.2em] cursor-pointer  transition-all border shrink-0 ${activeCategory === cat.value
                           ? 'bg-[#0f1829] text-white border-[#0f1829]'
                           : 'bg-white md:bg-transparent text-slate-400 border-slate-200'}`}
                     >
