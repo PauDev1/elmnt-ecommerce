@@ -6,10 +6,11 @@ import Footer from '../components/Footer.jsx';
 import { useCart } from '../hooks/useCart';
 import Hero from '../sections/Hero';
 import Features from '../sections/Features';
-import CartDrawer from '../components/CartDrawer';
+//import CartDrawer from '../components/CartDrawer';
 import productosLocales from '../products.json';
+import { useLocation } from 'react-router-dom';
 
-function Home({ searchTerm, products = [], loading  }) {
+function Home({ searchTerm, products = [], loading }) {
   const [activeCategory, setActiveCategory] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
   const [sortBy, setSortBy] = useState("default");
@@ -19,7 +20,7 @@ function Home({ searchTerm, products = [], loading  }) {
   const filteredProducts = products
     .filter(product => {
       const matchesCategory = activeCategory === 'all' || product.category.includes(activeCategory);
-      const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesSearch = (product.name || "").toLowerCase().includes((searchTerm || "").toLowerCase());
       return matchesCategory && matchesSearch;
     })
     .sort((a, b) => {
@@ -32,15 +33,34 @@ function Home({ searchTerm, products = [], loading  }) {
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
   const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+  const location = useLocation();
 
-  useEffect(() => { setCurrentPage(1); }, [searchTerm, activeCategory]);
+  // useEffect(() => { setCurrentPage(1); }, [searchTerm, activeCategory]);
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, activeCategory]);
+
+ 
+  useEffect(() => {
+    if (location.state?.scrollTo === 'inventario') {
+      const timer = setTimeout(() => {
+        const element = document.getElementById('inventario');
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      
+        window.history.replaceState({}, document.title);
+      }, 150); 
+
+      return () => clearTimeout(timer);
+    }
+  }, [location.pathname]); 
 
   const isLoading = products.length === 0 && searchTerm === "";
 
 
   return (
     <div className="min-h-screen bg-[#f6f7f8] text-[#0f1829] font-sans">
-      <CartDrawer />
       <main className="pt-[80px] md:pt-[80px]">
         <Hero />
         {/* SECCION COLECCION  */}
@@ -71,8 +91,8 @@ function Home({ searchTerm, products = [], loading  }) {
                       key={cat.value}
                       onClick={() => setActiveCategory(cat.value)}
                       className={`px-4 py-2 rounded-full text-[9px] font-bold uppercase tracking-[0.2em] cursor-pointer  transition-all border shrink-0 ${activeCategory === cat.value
-                          ? 'bg-[#0f1829] text-white border-[#0f1829]'
-                          : 'bg-white md:bg-transparent text-slate-400 border-slate-200'}`}
+                        ? 'bg-[#0f1829] text-white border-[#0f1829]'
+                        : 'bg-white md:bg-transparent text-slate-400 border-slate-200'}`}
                     >
                       {cat.label}
                     </button>

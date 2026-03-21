@@ -3,11 +3,14 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Home from './pages/Home';
 import Checkout from './pages/Checkout';
 import Navbar from './components/Navbar';
-import AdminPanel from './components/admin/AdminPanel';
+import AdminPanel from './pages/AdminPanel';
 import { CartProvider } from './context/CartContext';
+import CartDrawer from './components/CartDrawer';
 import ScrollToTop from "./components/ScrollToTop";
 import productosLocales from './products.json';
 import Login from './pages/Login';
+import ProductDetail from './pages/ProductDetail';
+import { Toaster } from 'sonner';
 
 
 const API_URL = "https://6928a0c7b35b4ffc50165dfb.mockapi.io/Products"
@@ -19,14 +22,24 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
 
-  // 1. TRAER DATOS DE MOCKAPI
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const res = await fetch(API_URL);
         if (!res.ok) throw new Error("Error en la respuesta de la red");
+
         const data = await res.json();
-        setProducts(data);
+        const cleanData = data.filter(item => {
+          const hasName = (item.name || item.title) && !(item.name || item.title).toLowerCase().includes("title ");
+          const hasCategory = item.category && item.category !== "";
+          const hasPrice = item.price && !isNaN(item.price) && item.price > 0;
+          const hasDescription = item.description && item.description.length > 5;
+          const hasStock = item.stock !== undefined && !isNaN(item.stock);
+          return hasName && hasCategory && hasPrice && hasDescription && hasStock;
+        });
+
+        setProducts(cleanData);
       } catch (err) {
         console.error("MockAPI falló, cargando backup local:", err);
         setProducts(productosLocales);
@@ -38,7 +51,7 @@ function App() {
     fetchProducts();
   }, []);
 
-  
+
   const handleAddProduct = async (newProd) => {
     try {
       const res = await fetch(API_URL, {
@@ -66,7 +79,7 @@ function App() {
       await fetch(`${API_URL}/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(updatedData) 
+        body: JSON.stringify(updatedData)
       });
       setProducts(products.map(p => p.id === id ? updatedData : p));
     } catch (err) { console.error("No se pudo actualizar:", err); }
@@ -83,9 +96,19 @@ function App() {
     <CartProvider>
       <Router>
         <ScrollToTop />
-        <Navbar 
-          onSearch={setSearchTerm} 
-          isAdmin={isAdmin} 
+        <Toaster
+          position="bottom-right"
+          visibleToasts={1}
+          duration={1500}
+          toastOptions={{
+            unstyled: true,
+            className: 'my-custom-toast',
+          }}
+        />
+        <CartDrawer />
+        <Navbar
+          onSearch={setSearchTerm}
+          isAdmin={isAdmin}
           onLogout={() => setIsAdmin(false)}
         />
 
@@ -112,13 +135,16 @@ function App() {
                 onAddProduct={handleAddProduct}
                 onUpdateProduct={handleUpdateProduct}
                 onDeleteProduct={handleDeleteProduct}
-                onLogout={() => setIsAdmin(false)} 
+                onLogout={() => setIsAdmin(false)}
               />
             ) : (
               <Navigate to="/" replace />
             )
           } />
-          
+
+          {/* RUTA DETALLE */}
+          <Route path="/product/:id" element={<ProductDetail products={products} />} />
+
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Router>

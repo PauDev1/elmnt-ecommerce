@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import AddProductModal from './AddProductModal';
-import EditProductModal from './EditProductModal';
-import DeleteProductModal from './DeleteProductModal';
+import AddProductModal from '../components/admin/AddProductModal';
+import EditProductModal from '../components/admin/EditProductModal';
+import DeleteProductModal from '../components/admin/DeleteProductModal';
 
 const AdminPanel = ({ products, onUpdateProduct, onDeleteProduct, onAddProduct }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);

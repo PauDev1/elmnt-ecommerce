@@ -15,22 +15,27 @@ const Navbar = ({ onSearch, isAdmin, onLogout }) => {
         setShowMenu(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [showMenu]);
 
   const isHomePage = location.pathname === '/';
   const isAdminPage = location.pathname === '/admin';
-  const isLoginPage = location.pathname === '/admin-login'; // Nueva constante
+  const isLoginPage = location.pathname === '/admin-login';
 
-  const scrollToInventory = () => {
-    const element = document.getElementById('inventario');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+
+  const handleLogoClick = () => {
+    if (isHomePage) {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const handleTiendaClick = () => {
+    if (isHomePage) {
+      const element = document.getElementById('inventario');
+      element?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      navigate('/', { state: { scrollTo: 'inventario' } });
     }
   };
 
@@ -42,7 +47,7 @@ const Navbar = ({ onSearch, isAdmin, onLogout }) => {
         <div className="flex items-center gap-12">
           <Link
             to="/"
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            onClick={handleLogoClick}
             className="flex items-center gap-2 cursor-pointer group"
           >
             <span className="material-symbols-outlined text-2xl text-[#0f1829]">science</span>
@@ -53,37 +58,42 @@ const Navbar = ({ onSearch, isAdmin, onLogout }) => {
 
           {!isAdmin && !isLoginPage && (
             <nav className="hidden md:flex items-center gap-8">
-              {['Tienda', 'Estudios Clínicos', 'El Laboratorio'].map((item) => (
-                <button
-                  key={item}
-                  onClick={item === 'Tienda' ? scrollToInventory : undefined}
-                  className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 hover:text-black transition-colors cursor-pointer"
-                >
-                  {item}
-                </button>
-              ))}
+              <button
+                onClick={handleTiendaClick}
+                className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 hover:text-black transition-colors cursor-pointer"
+              >
+                Tienda
+              </button>
+              <button className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 hover:text-black transition-colors cursor-default">
+                Estudios Clínicos
+              </button>
+              <button className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 hover:text-black transition-colors cursor-default">
+                El Laboratorio
+              </button>
             </nav>
           )}
         </div>
 
         <div className="flex items-center gap-1 sm:gap-2">
-          {isHomePage && !isLoginPage && (
+          
+          {!isAdmin && !isLoginPage && (
             <div className="relative flex items-center justify-end">
               <input
                 id="search-input"
                 type="text"
                 placeholder="Buscar"
                 className="absolute right-0 bg-slate-100/90 border-none focus:outline-none text-[16px] md:text-[12px] rounded-lg transition-all duration-300 w-0 h-0 opacity-0 focus:w-[110px] sm:focus:w-[130px] md:focus:w-[180px] focus:h-9 focus:px-3 focus:opacity-100 z-10"
-                onFocus={scrollToInventory}
-                onChange={(e) => onSearch(e.target.value)}
+                onChange={(e) => {
+                  onSearch(e.target.value);
+                  if (!isHomePage) {
+                    navigate('/' , { state: { scrollTo: 'inventario' } });
+                  }
+                }}
               />
               <span
                 className="material-symbols-outlined cursor-pointer p-2 flex items-center justify-center z-20"
                 style={{ fontSize: '22px' }}
-                onClick={() => {
-                  document.getElementById('search-input').focus();
-                  scrollToInventory();
-                }}
+                onClick={() => document.getElementById('search-input').focus()}
               >
                 search
               </span>
@@ -91,6 +101,7 @@ const Navbar = ({ onSearch, isAdmin, onLogout }) => {
           )}
 
           <div className="flex items-center gap-2">
+           
             {!isAdmin && !isLoginPage && (
               <button
                 onClick={toggleCart}
@@ -105,6 +116,7 @@ const Navbar = ({ onSearch, isAdmin, onLogout }) => {
               </button>
             )}
 
+            {/* Menú de Usuario / Admin */}
             <div className="relative" ref={menuRef}>
               <button
                 onClick={() => isAdmin ? setShowMenu(!showMenu) : navigate('/admin-login')}
@@ -117,23 +129,16 @@ const Navbar = ({ onSearch, isAdmin, onLogout }) => {
                 <div className="absolute right-0 mt-3 w-48 bg-white rounded-2xl shadow-2xl border border-slate-100 py-2 animate-in fade-in slide-in-from-top-2 duration-200">
                   <p className="px-4 py-2 text-[8px] font-black uppercase tracking-widest text-slate-400">Administrador</p>
 
-                  {isAdminPage ? (
-                    <Link
-                      to="/"
-                      onClick={() => setShowMenu(false)}
-                      className="flex items-center gap-3 px-4 py-3 text-[10px] font-bold uppercase tracking-widest text-slate-600 hover:bg-slate-50 transition-colors"
-                    >
-                      <span className="material-symbols-outlined text-lg cursor-pointer">home</span> Ver Tienda
-                    </Link>
-                  ) : (
-                    <Link
-                      to="/admin"
-                      onClick={() => setShowMenu(false)}
-                      className="flex items-center gap-3 px-4 py-3 text-[10px] font-bold uppercase tracking-widest text-slate-600 hover:bg-slate-50 transition-colors"
-                    >
-                      <span className="material-symbols-outlined text-lg cursor-pointer">inventory</span> Administración
-                    </Link>
-                  )}
+                  <Link
+                    to={isAdminPage ? "/" : "/admin"}
+                    onClick={() => setShowMenu(false)}
+                    className="flex items-center gap-3 px-4 py-3 text-[10px] font-bold uppercase tracking-widest text-slate-600 hover:bg-slate-50 transition-colors"
+                  >
+                    <span className="material-symbols-outlined text-lg cursor-pointer">
+                      {isAdminPage ? 'home' : 'inventory'}
+                    </span>
+                    {isAdminPage ? 'Ver Tienda' : 'Administración'}
+                  </Link>
 
                   <div className="h-[1px] bg-slate-100 my-1" />
 

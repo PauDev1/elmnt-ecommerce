@@ -58,3 +58,42 @@ input[type=number] {
   -moz-appearance: textfield; /* Para Firefox antiguo */
   appearance: textfield;      /* Estándar para Firefox moderno */
 }
+
+[data-sonner-toaster][data-position="bottom-right"] {
+  bottom: 20px !important;
+  right: 20px !important;
+}
+
+@media (max-width: 767px) {
+  [data-sonner-toaster] {
+    bottom: 150px !important; 
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+}
+
+@keyframes progress-bar {
+  from { transform: scaleX(1); }
+  to { transform: scaleX(0); }
+}
+
+
+@keyframes toast-fade-in-out {
+  0% { opacity: 0; transform: translateY(10px); }    
+  15% { opacity: 1; transform: translateY(0); }     
+  85% { opacity: 1; transform: translateY(0); }     
+  100% { opacity: 0; transform: translateY(-10px); } 
+}
+
+.animate-progress-bar {
+  animation: progress-bar 1.5s linear forwards;
+}
+
+
+[data-sonner-toast] {
+  animation: toast-fade-in-out 1.5s ease-in-out forwards !important;
+}
