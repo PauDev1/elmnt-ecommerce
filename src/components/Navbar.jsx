@@ -26,7 +26,7 @@ const Navbar = ({ onSearch, isAdmin, onLogout }) => {
 
   const handleLogoClick = () => {
     if (isHomePage) {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
@@ -64,18 +64,26 @@ const Navbar = ({ onSearch, isAdmin, onLogout }) => {
               >
                 Tienda
               </button>
-              <button className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 hover:text-black transition-colors cursor-default">
+              <Link
+                to="/estudios"
+                className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 hover:text-black transition-colors cursor-pointer"
+              >
                 Estudios Clínicos
-              </button>
-              <button className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 hover:text-black transition-colors cursor-default">
+              </Link>
+
+              {/* Cambio de Button a Link para Laboratorio */}
+              <Link
+                to="/laboratorio"
+                className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 hover:text-black transition-colors cursor-pointer"
+              >
                 El Laboratorio
-              </button>
+              </Link>
             </nav>
           )}
         </div>
 
         <div className="flex items-center gap-1 sm:gap-2">
-          
+
           {!isAdmin && !isLoginPage && (
             <div className="relative flex items-center justify-end">
               <input
@@ -86,7 +94,7 @@ const Navbar = ({ onSearch, isAdmin, onLogout }) => {
                 onChange={(e) => {
                   onSearch(e.target.value);
                   if (!isHomePage) {
-                    navigate('/' , { state: { scrollTo: 'inventario' } });
+                    navigate('/', { state: { scrollTo: 'inventario' } });
                   }
                 }}
               />
@@ -101,7 +109,7 @@ const Navbar = ({ onSearch, isAdmin, onLogout }) => {
           )}
 
           <div className="flex items-center gap-2">
-           
+
             {!isAdmin && !isLoginPage && (
               <button
                 onClick={toggleCart}

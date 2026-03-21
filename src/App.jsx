@@ -11,6 +11,8 @@ import productosLocales from './products.json';
 import Login from './pages/Login';
 import ProductDetail from './pages/ProductDetail';
 import { Toaster } from 'sonner';
+import Laboratorio from './pages/Laboratorio';
+import Estudios from './pages/Estudios';
 
 
 const API_URL = "https://6928a0c7b35b4ffc50165dfb.mockapi.io/Products"
@@ -121,6 +123,9 @@ function App() {
             />
           } />
           <Route path="/checkout" element={<Checkout />} />
+
+          <Route path="/laboratorio" element={<Laboratorio />} />
+          <Route path="/estudios" element={<Estudios />} />
 
           {/* RUTA DE LOGIN */}
           <Route path="/admin-login" element={
