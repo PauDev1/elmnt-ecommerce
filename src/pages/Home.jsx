@@ -141,8 +141,8 @@ function Home({ searchTerm, products = [], loading }) {
                   }}
                   className="group flex items-center gap-2 disabled:opacity-20 transition-all"
                 >
-                  <span className="material-symbols-outlined text-sm group-hover:-translate-x-1 transition-transform">arrow_back_ios</span>
-                  <span className="text-[10px] font-bold tracking-[0.2em] uppercase">Anterior</span>
+                  <span className="material-symbols-outlined text-sm group-hover:-translate-x-1 transition-transform cursor-pointer">arrow_back_ios</span>
+                  <span className="text-[10px] font-bold tracking-[0.2em] uppercase cursor-pointer">Anterior</span>
                 </button>
 
                 <div className="h-[1px] w-12 bg-slate-200"></div>
@@ -161,8 +161,8 @@ function Home({ searchTerm, products = [], loading }) {
                   }}
                   className="group flex items-center gap-2 disabled:opacity-20 transition-all"
                 >
-                  <span className="text-[10px] font-bold tracking-[0.2em] uppercase">Siguiente</span>
-                  <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward_ios</span>
+                  <span className="text-[10px] font-bold tracking-[0.2em] uppercase cursor-pointer">Siguiente</span>
+                  <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform cursor-pointer">arrow_forward_ios</span>
                 </button>
               </div>
             )}

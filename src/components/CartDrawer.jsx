@@ -37,7 +37,7 @@ const CartDrawer = () => {
                 {totalItems} {totalItems === 1 ? 'Ítem seleccionado' : 'Ítems seleccionados'}
               </p>
             </div>
-            <button onClick={toggleCart} className="material-symbols-outlined text-slate-400 hover:text-primary">close</button>
+            <button onClick={toggleCart} className="material-symbols-outlined text-slate-400 hover:text-primary cursor-pointer">close</button>
           </div>
 
           {/* Barra de Envío */}
@@ -81,15 +81,15 @@ const CartDrawer = () => {
                         <h4 className="text-[11px] font-bold uppercase text-[#0f1829]">{item.name}</h4>
                         <p className="text-[9px] text-slate-400 uppercase tracking-widest">{item.volume}</p>
                       </div>
-                      <button onClick={() => removeItem(item.id)} className="text-slate-300 hover:text-red-500 transition-colors">
+                      <button onClick={() => removeItem(item.id)} className="text-slate-300 hover:text-red-500 transition-colors cursor-pointer">
                         <span className="material-symbols-outlined text-lg">delete</span>
                       </button>
                     </div>
                     <div className="flex justify-between items-end mt-2">
-                      <div className="flex items-center bg-slate-100 rounded-full p-0.5 border border-slate-200">
+                      <div className="flex items-center bg-slate-100 rounded-full p-0.5 border border-slate-200 cursor-pointer">
                         <button
                           onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                          className="w-6 h-6 flex items-center justify-center text-slate-400 hover:text-[#0f1829]"
+                          className="w-6 h-6 flex items-center justify-center text-slate-400 hover:text-[#0f1829] "
                         >-</button>
                         <span className="px-2 text-[10px] font-bold">{item.quantity}</span>
                         <button
@@ -122,7 +122,7 @@ const CartDrawer = () => {
 
               <button 
                 onClick={handleCheckout}
-                className="w-full bg-[#0f1829] text-white py-5 rounded-full font-bold text-[10px] tracking-[0.3em] uppercase hover:bg-black transition-all flex items-center justify-center gap-2 shadow-xl shadow-black/5 active:scale-95">
+                className="w-full bg-[#0f1829] text-white py-5 rounded-full font-bold text-[10px] tracking-[0.3em] uppercase cursor-pointer hover:bg-black transition-all flex items-center justify-center gap-2 shadow-xl shadow-black/5 active:scale-95">
                 Finalizar Compra
                 <span className="material-symbols-outlined text-sm">arrow_forward</span>
               </button>

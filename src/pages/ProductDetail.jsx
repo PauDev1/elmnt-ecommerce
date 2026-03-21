@@ -157,10 +157,10 @@ const ProductDetail = ({ products }) => {
                 )}
               </div>
 
-              <div className="border-t border-slate-100">
+              <div className="border-t border-slate-100 ">
                 {sections.map((section) => (
                   <div key={section.id} className="border-b border-slate-100">
-                    <button onClick={() => setOpenSection(openSection === section.id ? '' : section.id)} className="w-full py-5 flex justify-between items-center text-[10px] uppercase tracking-[0.25em] font-bold text-[#0f1829] hover:bg-slate-50/50 transition-colors px-1">
+                    <button onClick={() => setOpenSection(openSection === section.id ? '' : section.id)} className="w-full py-5 flex justify-between items-center text-[10px] uppercase cursor-pointer tracking-[0.25em] font-bold text-[#0f1829] hover:bg-slate-50/50 transition-colors px-1">
                       {section.title}
                       <motion.span animate={{ rotate: openSection === section.id ? 180 : 0 }} className="material-symbols-outlined text-lg text-slate-400 font-light">keyboard_arrow_down</motion.span>
                     </button>

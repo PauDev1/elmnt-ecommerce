@@ -116,7 +116,7 @@ const Checkout = () => {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center p-4">
         <h2 className="text-xl font-bold uppercase tracking-widest mb-4">Tu bolsa está vacía</h2>
-        <button onClick={() => navigate('/')} className="text-[10px] font-bold uppercase tracking-[0.2em] border-b border-black pb-1">Volver a la tienda</button>
+        <button onClick={() => navigate('/')} className="text-[10px] font-bold uppercase tracking-[0.2em] border-b border-black pb-1 cursor-pointer">Volver a la tienda</button>
       </div>
     );
   }
@@ -131,7 +131,7 @@ const Checkout = () => {
             <span className="material-symbols-outlined text-green-500 mb-4" style={{ fontSize: '40px' }}>credit_score</span>
             <h3 className="text-2xl font-bold text-[#0f1829] mb-2 italic uppercase tracking-tighter">¡Pedido Confirmado!</h3>
             <p className="text-slate-500 text-sm md:text-base leading-relaxed mb-10 px-4">¡Gracias por tu compra, {formData.nombre.split(' ')[0].charAt(0).toUpperCase() + formData.nombre.split(' ')[0].slice(1).toLowerCase()}! <br /> Revisa tu bandeja de entrada para ver el detalle de tu pedido.</p>
-            <button onClick={() => navigate('/')} className="w-full bg-[#0f1829] text-white py-4 rounded-full font-bold text-[10px] tracking-[0.3em] uppercase hover:bg-black transition-all">Ir al inicio</button>
+            <button onClick={() => navigate('/')} className="w-full bg-[#0f1829] text-white py-4 rounded-full font-bold text-[10px] tracking-[0.3em] uppercase hover:bg-black transition-all cursor-pointer">Ir al inicio</button>
           </div>
         </div>
       )}
@@ -170,14 +170,14 @@ const Checkout = () => {
                     {errors.cp && <p className="text-[9px] text-red-500 mt-1 uppercase font-bold">{errors.cp}</p>}
                   </div>
                 </div>
-                <button type="submit" className="w-full bg-[#0f1829] text-white py-5 rounded-full font-bold text-[10px] tracking-[0.3em] uppercase mt-4 hover:bg-black transition-colors">Siguiente paso</button>
+                <button type="submit" className="w-full bg-[#0f1829] text-white py-5 rounded-full font-bold text-[10px] tracking-[0.3em] uppercase mt-4 hover:bg-black transition-colors cursor-pointer">Siguiente paso</button>
               </form>
             </div>
           ) : (
             <div className="animate-in fade-in slide-in-from-right-4 duration-500 flex flex-col h-full">
               <div className="flex justify-between items-center mb-8 border-b pb-4">
                 <h3 className="text-xl font-bold uppercase tracking-tighter italic text-[#0f1829]">2. Método de Pago</h3>
-                <button onClick={() => setStep(1)} className="text-[10px] font-bold uppercase text-slate-400 italic hover:text-black">← Volver</button>
+                <button onClick={() => setStep(1)} className="text-[10px] font-bold uppercase text-slate-400 italic hover:text-black cursor-pointer">← Volver</button>
               </div>
 
               <form onSubmit={handleSubmitFinal} className="space-y-6 flex flex-col flex-grow">
@@ -210,7 +210,7 @@ const Checkout = () => {
                   </div>
                 </div>
 
-                <button type="submit" className="w-full bg-[#0f1829] text-white py-5 rounded-full font-bold text-[10px] tracking-[0.3em] uppercase mt-auto hover:bg-black shadow-xl transition-all">Confirmar Pago • ${total.toLocaleString()}</button>
+                <button type="submit" className="w-full bg-[#0f1829] text-white py-5 rounded-full font-bold text-[10px] tracking-[0.3em] uppercase mt-auto hover:bg-black shadow-xl transition-all cursor-pointer">Confirmar Pago • ${total.toLocaleString()}</button>
               </form>
             </div>
           )}
