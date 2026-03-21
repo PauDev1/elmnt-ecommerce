@@ -6,9 +6,9 @@ const Laboratorio = () => {
 
     // Array de imágenes para el carrusel
     const images = [
-        "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=800&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?q=80&w=800&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1612817159949-195b6eb9e31a?q=80&w=800&auto=format&fit=crop"
+        "/assets/lab/lab-serum.webp",
+        "/assets/lab/lab-serum-1.webp",
+        "/assets/lab/lab-cream.webp"
     ];
 
     useEffect(() => {

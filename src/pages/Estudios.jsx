@@ -9,4 +9,4 @@ const Estudios = () => {
   );
 };
 
-export default Estudios; // <--- ESTO es lo que te falta
+export default Estudios;

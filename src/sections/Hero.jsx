@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 
+
 const Hero = () => {
   return (
     <section className="max-w-7xl mx-auto py-16 px-6 lg:py-24 grid lg:grid-cols-2 gap-12 items-center">
@@ -30,7 +31,7 @@ const Hero = () => {
       </div>
       <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-slate-100 shadow-2xl">
         <img
-          src="https://res.cloudinary.com/dqdeoxwcw/image/upload/f_auto,q_auto,w_800/v1773439475/hero_dp57cc.webp"
+          src="/assets/hero.webp"
           className="w-full h-full object-cover"
           alt="Hero ELMNT"
         />
