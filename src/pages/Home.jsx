@@ -10,6 +10,8 @@ import Features from '../sections/Features';
 import productosLocales from '../products.json';
 import { useLocation } from 'react-router-dom';
 
+
+
 function Home({ searchTerm, products = [], loading }) {
   const [activeCategory, setActiveCategory] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
