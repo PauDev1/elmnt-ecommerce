@@ -5,7 +5,6 @@ import { Toaster } from 'sonner';
 import Navbar from './components/Navbar';
 import CartDrawer from './components/CartDrawer';
 import ScrollToTop from "./components/ScrollToTop";
-import productosLocales from './products.json';
 
 
 const Home = lazy(() => import('./pages/Home'));
@@ -44,8 +43,8 @@ function App() {
 
         setProducts(cleanData);
       } catch (err) {
-        console.error("MockAPI falló, cargando backup local:", err);
-        setProducts(productosLocales);
+        console.error("Error al cargar productos de la API:", err);
+        setProducts([]);
       } finally {
         setLoading(false);
       }
@@ -66,14 +65,11 @@ function App() {
       if (!res.ok) throw new Error("Error en la API");
 
       const data = await res.json();
-
       setProducts(prevProducts => [...prevProducts, data]);
 
     } catch (err) {
-      console.error("No se pudo agregar a la API, agregando localmente:", err);
-
-      const tempProduct = { ...newProd, id: Date.now().toString() };
-      setProducts(prevProducts => [...prevProducts, tempProduct]);
+      console.error("Error al guardar en el servidor:", err);
+      alert("No se pudo guardar el producto. Intentalo más tarde.");
     }
   };
 

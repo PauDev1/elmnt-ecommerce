@@ -37,7 +37,7 @@ const Hero = () => {
         <img
           src="/assets/hero.webp"
           className="w-full h-full object-cover"
-          alt="Hero ELMNT Molecular Precision Skincare" 
+          alt="Grupo de productos de ELMNT Molecular Precision Skincare" 
           loading="eager" 
           fetchPriority="high" 
         />

@@ -1,13 +1,9 @@
-import { useState, useEffect } from 'react';
-import Navbar from '../components/Navbar.jsx';
+import { useEffect, useState } from 'react';
+import Footer from '../components/Footer.jsx';
 import ProductCard from '../components/ProductCard.jsx';
 import SkeletonCard from '../components/SkeletonCard.jsx';
-import Footer from '../components/Footer.jsx';
-import { useCart } from '../hooks/useCart';
-import Hero from '../sections/Hero';
 import Features from '../sections/Features';
-//import CartDrawer from '../components/CartDrawer';
-import productosLocales from '../products.json';
+import Hero from '../sections/Hero';
 import { useLocation } from 'react-router-dom';
 
 
@@ -37,7 +33,7 @@ function Home({ searchTerm, products = [], loading }) {
   const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
   const location = useLocation();
 
-  // useEffect(() => { setCurrentPage(1); }, [searchTerm, activeCategory]);
+ 
   useEffect(() => {
     setCurrentPage(1);
   }, [searchTerm, activeCategory]);
