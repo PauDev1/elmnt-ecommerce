@@ -1,24 +1,25 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense, lazy } from 'react'; 
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Home from './pages/Home';
-import Checkout from './pages/Checkout';
-import Navbar from './components/Navbar';
-import AdminPanel from './pages/AdminPanel';
 import { CartProvider } from './context/CartContext';
+import { Toaster } from 'sonner';
+import Navbar from './components/Navbar';
 import CartDrawer from './components/CartDrawer';
 import ScrollToTop from "./components/ScrollToTop";
 import productosLocales from './products.json';
-import Login from './pages/Login';
-import ProductDetail from './pages/ProductDetail';
-import { Toaster } from 'sonner';
-import Laboratorio from './pages/Laboratorio';
-import Estudios from './pages/Estudios';
+
+
+const Home = lazy(() => import('./pages/Home'));
+const Checkout = lazy(() => import('./pages/Checkout'));
+const AdminPanel = lazy(() => import('./pages/AdminPanel'));
+const Login = lazy(() => import('./pages/Login'));
+const ProductDetail = lazy(() => import('./pages/ProductDetail'));
+const Laboratorio = lazy(() => import('./pages/Laboratorio'));
+const Estudios = lazy(() => import('./pages/Estudios'));
 
 
 const API_URL = "https://6928a0c7b35b4ffc50165dfb.mockapi.io/Products"
 
 function App() {
-
   const [searchTerm, setSearchTerm] = useState("");
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -98,60 +99,31 @@ function App() {
     <CartProvider>
       <Router>
         <ScrollToTop />
-        <Toaster
-          position="bottom-right"
-          visibleToasts={1}
-          duration={1500}
-          toastOptions={{
-            unstyled: true,
-            className: 'my-custom-toast',
-          }}
-        />
+        <Toaster position="bottom-right" visibleToasts={1} duration={1500} />
         <CartDrawer />
-        <Navbar
-          onSearch={setSearchTerm}
-          isAdmin={isAdmin}
-          onLogout={() => setIsAdmin(false)}
-        />
-
-        <Routes>
-          <Route path="/" element={
-            <Home
-              searchTerm={searchTerm}
-              setSearchTerm={setSearchTerm}
-              products={products}
-            />
-          } />
-          <Route path="/checkout" element={<Checkout />} />
-
-          <Route path="/laboratorio" element={<Laboratorio />} />
-          <Route path="/estudios" element={<Estudios />} />
-
-          {/* RUTA DE LOGIN */}
-          <Route path="/admin-login" element={
-            isAdmin ? <Navigate to="/admin" /> : <Login onLogin={setIsAdmin} />
-          } />
-
-          {/* RUTA ADMIN */}
-          <Route path="/admin" element={
-            isAdmin ? (
-              <AdminPanel
-                products={products}
-                onAddProduct={handleAddProduct}
-                onUpdateProduct={handleUpdateProduct}
-                onDeleteProduct={handleDeleteProduct}
-                onLogout={() => setIsAdmin(false)}
-              />
-            ) : (
-              <Navigate to="/" replace />
-            )
-          } />
-
-          {/* RUTA DETALLE */}
-          <Route path="/product/:id" element={<ProductDetail products={products} />} />
-
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
+        <Navbar onSearch={setSearchTerm} isAdmin={isAdmin} onLogout={() => setIsAdmin(false)} />
+        <Suspense fallback={
+          <div className="h-screen flex items-center justify-center font-bold uppercase tracking-widest text-xs">
+            Cargando...
+          </div>
+        }>
+          <Routes>
+            <Route path="/" element={<Home searchTerm={searchTerm} setSearchTerm={setSearchTerm} products={products} />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/laboratorio" element={<Laboratorio />} />
+            <Route path="/estudios" element={<Estudios />} />
+            <Route path="/admin-login" element={isAdmin ? <Navigate to="/admin" /> : <Login onLogin={setIsAdmin} />} />
+            <Route path="/admin" element={
+              isAdmin ? (
+                <AdminPanel products={products} onAddProduct={handleAddProduct} onUpdateProduct={handleUpdateProduct} onDeleteProduct={handleDeleteProduct} onLogout={() => setIsAdmin(false)} />
+              ) : (
+                <Navigate to="/" replace />
+              )
+            } />
+            <Route path="/product/:id" element={<ProductDetail products={products} />} />
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+        </Suspense>
       </Router>
     </CartProvider>
   );

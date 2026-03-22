@@ -15,7 +15,6 @@ const Hero = () => {
           </p>
         </div>
         <div className="flex items-center gap-4">
-          {/* BOTÓN 1 */}
           <button
             onClick={() => document.getElementById('inventario').scrollIntoView({ behavior: 'smooth' })}
             className="h-[54px] bg-[#0f1829] text-white px-8 rounded-lg font-bold text-[10px] tracking-widest uppercase hover:bg-black transition-all cursor-pointer flex items-center justify-center"
@@ -23,7 +22,6 @@ const Hero = () => {
             Descubrir la Colección
           </button>
 
-          {/* BOTÓN 2 */}
           <Link
             to="/laboratorio"
             className="h-[54px] border border-slate-200 px-8 rounded-lg font-bold text-[10px] tracking-widest uppercase hover:bg-slate-50 transition-all flex items-center justify-center gap-2 group"
@@ -39,7 +37,9 @@ const Hero = () => {
         <img
           src="/assets/hero.webp"
           className="w-full h-full object-cover"
-          alt="Hero ELMNT"
+          alt="Hero ELMNT Molecular Precision Skincare" 
+          loading="eager" 
+          fetchPriority="high" 
         />
       </div>
     </section>
