@@ -95,7 +95,7 @@ const ProductDetail = ({ products }) => {
                 animate={{ opacity: 1, y: 0 }}
                 src={product.image}
                 alt={product.name}
-                className="max-w-full max-h-[500px] object-contain rounded-2xl shadow-2xl shadow-slate-200 border border-slate-50"
+                className="max-w-full max-h-[500px] object-contain rounded-2xl shadow-2xl  "
               />
             </div>
 

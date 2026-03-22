@@ -8,7 +8,9 @@
     "category": "Cleansers",
     "volume": "150ml",
     "stock": 15,
-    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/f_auto,q_auto,w_800/v1773423411/E-01_Molecular_Cleanser_znra3a.png"
+    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/v1774191937/e-01-molecular-cleanser_c9br3w.webp",
+    "ingredients": "Aqua, Cocamidopropyl Betaine, Glycerin, Chamomilla Recutita Flower Extract, Panthenol, Sodium Chloride, Citric Acid, Benzyl Alcohol.",
+    "usage": "Aplicar sobre el rostro húmedo, masajear suavemente en círculos y aclarar con agua tibia. Uso diario, mañana y noche."
   },
   {
     "id": "2",
@@ -19,7 +21,9 @@
     "category": "Hydration",
     "volume": "30ml",
     "stock": 8,
-    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/f_auto,q_auto,w_800/v1773423414/H2O-Flux_Serum_vk4ndi.png"
+    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/v1774191937/h2o-flux-serum_rnpa4u.webp",
+    "ingredients": "Aqua, Sodium Hyaluronate, Sodium PCA, Laminaria Digitata Extract, Pentylene Glycol, Ethylhexylglycerin, Phenoxyethanol.",
+    "usage": "Aplicar 3-4 gotas sobre la piel limpia y ligeramente húmeda. Presionar suavemente hasta su total absorción antes de la crema."
   },
   {
     "id": "3",
@@ -30,7 +34,9 @@
     "category": "Hydration",
     "volume": "120ml",
     "stock": 20,
-    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/f_auto,q_auto,w_800/v1773423420/Oxygen_Mist_0.5_hfqh4c.png"
+    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/v1774191941/oxygen-mist-05_gktq0e.webp",
+    "ingredients": "Aqua, Perfluorodecalin (Oxygen Complex), Aloe Barbadensis Leaf Juice, Maris Sal, Polysorbate 20, Potassium Sorbate.",
+    "usage": "Cerrar los ojos y pulverizar a 20cm del rostro. Usar después de la limpieza, para fijar el maquillaje o durante el día para refrescar."
   },
   {
     "id": "4",
@@ -41,7 +47,9 @@
     "category": "Treatment",
     "volume": "30ml",
     "stock": 5,
-    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/f_auto,q_auto,w_800/v1773423417/Bio-Retinoid_Complex_ldkk2w.png"
+    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/v1774191935/bio-retinoid-complex_gnhpyq.webp",
+    "ingredients": "Squalane, Rosa Canina Fruit Oil, Caprylic/Capric Triglyceride, Retinol, Tocopherol, BHT, Helianthus Annuus Seed Oil.",
+    "usage": "Uso exclusivo nocturno. Aplicar una pequeña cantidad sobre piel seca. Introducir de forma gradual (2-3 veces por semana inicialmente)."
   },
   {
     "id": "5",
@@ -52,7 +60,9 @@
     "category": "Treatment",
     "volume": "30ml",
     "stock": 0,
-    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/f_auto,q_auto,w_800/v1773423418/Pure_C-Isolate_mhloqt.png"
+    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/v1774191942/pure-c-isolate_ksjdhj.webp",
+    "ingredients": "Propanediol, Ascorbic Acid (15%), Ferulic Acid, Punica Granatum Fruit Extract, Aqua.",
+    "usage": "Aplicar por la mañana sobre el rostro limpio. Masajear hasta absorber. Es indispensable utilizar protector solar posteriormente."
   },
   {
     "id": "6",
@@ -63,7 +73,9 @@
     "category": "Protection",
     "volume": "50ml",
     "stock": 12,
-    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/f_auto,q_auto,w_800/v1773423422/Mineral_Screen_SPF_50_uktlak.png"
+    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/v1774191940/mineral-screen-spf-50_cjyhev.webp",
+    "ingredients": "Zinc Oxide (non-nano), Titanium Dioxide, Aqua, Camellia Sinensis Leaf Extract, Silica, Dicaprylyl Carbonate, Polyglyceryl-3 Polyricinoleate.",
+    "usage": "Agitar antes de usar. Aplicar generosamente como último paso de la rutina. Reaplicar cada 2 horas en caso de exposición directa."
   },
   {
     "id": "7",
@@ -74,7 +86,9 @@
     "category": "Hydration",
     "volume": "50ml",
     "stock": 10,
-    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/f_auto,q_auto,w_800/v1773423417/Lipid_Barrier_Cream_xf1cdq.png"
+    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/v1774191939/lipid-barrier-cream_wwlvcp.webp",
+    "ingredients": "Aqua, Butyrospermum Parkii Butter, Ceramida NP, Ceramida AP, Ceramida EOP, Phytosphingosine, Cholesterol, Carbomer, Glycerin.",
+    "usage": "Aplicar una capa uniforme sobre rostro y cuello. Ideal para sellar sueros. Usar mañana y noche o cuando la piel se sienta tirante."
   },
   {
     "id": "8",
@@ -85,7 +99,9 @@
     "category": "Cleansers",
     "volume": "100ml",
     "stock": 7,
-    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/f_auto,q_auto,w_800/v1773423421/Zinc_Sebum_Control_iylytt.png"
+    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/v1774191943/zinc-sebum-control_cldsoq.webp",
+    "ingredients": "Aqua, Niacinamide, Zinc PCA (1%), Salix Alba Bark Extract, Hamamelis Virginiana Water, Pentylene Glycol.",
+    "usage": "Aplicar en las zonas con tendencia grasa (zona T). Puede usarse como paso previo a la hidratación o localizado en imperfecciones."
   },
   {
     "id": "9",
@@ -96,7 +112,9 @@
     "category": "Treatment",
     "volume": "100ml",
     "stock": 18,
-    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/f_auto,q_auto,w_800/v1773423414/E-02_Gentle_Exfoliant_hp3ftt.png"
+    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/v1774191937/e-02-gentle-exfoliant_uztnzz.webp",
+    "ingredients": "Aqua, Lactic Acid (5%), Sodium Hyaluronate, Tasmannia Lanceolata Fruit Extract, Glycerin, Sodium Hydroxide.",
+    "usage": "Aplicar por la noche con un algodón o con las manos. No requiere enjuague. Comenzar 1 vez por semana e incrementar según tolerancia."
   },
   {
     "id": "10",
@@ -107,7 +125,9 @@
     "category": "Hydration",
     "volume": "15ml",
     "stock": 4,
-    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/f_auto,q_auto,w_800/v1773423416/Hydra-Gel_Eye_Contour_bmpvy9.png"
+    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/v1774191938/hydra-gel-eye-contour_ku1npz.webp",
+    "ingredients": "Aqua, Caffeine, Cucumis Sativus Fruit Extract, Acetyl Tetrapeptide-5, Hydrolyzed Hyaluronic Acid, Butylene Glycol.",
+    "usage": "Depositar una pequeña cantidad en el dedo anular y dar toques suaves sobre el hueso orbital, de adentro hacia afuera."
   },
   {
     "id": "11",
@@ -118,7 +138,9 @@
     "category": "Hydration",
     "volume": "30ml",
     "stock": 9,
-    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/f_auto,q_auto,w_800/v1773423420/Pure_Squalane_Oil_sbv1dk.png"
+    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/v1774191942/pure-squalane-oil_lca003.webp",
+    "ingredients": "Squalane (100% Olive derived).",
+    "usage": "Calentar 2 gotas en las palmas y presionar sobre el rostro como último paso. También puede mezclarse con la crema hidratante."
   },
   {
     "id": "12",
@@ -129,7 +151,9 @@
     "category": "Cleansers",
     "volume": "200ml",
     "stock": 14,
-    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/f_auto,q_auto,w_800/v1773423416/Ionic_Toner_lmp9x1.png"
+    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/v1774191939/ionic-toner_edbtfv.webp",
+    "ingredients": "Aqua, Rosa Damascena Flower Water, Magnesium PCA, Zinc PCA, Manganese PCA, Glycyrrhiza Glabra Root Extract.",
+    "usage": "Después de la limpieza, humedecer un algodón y deslizar por rostro y cuello. Prepara la piel para absorber mejor los sueros."
   },
   {
     "id": "13",
@@ -140,7 +164,9 @@
     "category": "Treatment",
     "volume": "30ml",
     "stock": 6,
-    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/f_auto,q_auto,w_800/v1773423416/Matrix_Peptide_Serum_y97sdy.png"
+    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/v1774191940/matrix-peptide-serum_u8pnyz.webp",
+    "ingredients": "Aqua, Palmitoyl Tripeptide-1, Palmitoyl Tetrapeptide-7, Sh-Polypeptide-121 (Vegan Collagen), Silk Amino Acids, Glycerin.",
+    "usage": "Aplicar mañana y noche sobre el rostro limpio. Enfocarse en líneas de expresión y zonas con pérdida de firmeza."
   },
   {
     "id": "14",
@@ -151,7 +177,9 @@
     "category": "Treatment",
     "volume": "30ml",
     "stock": 11,
-    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/f_auto,q_auto,w_800/v1773423414/B-05_Niacinamide_Lab_kw6v2q.png"
+    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/v1774191936/b-05-niacinamide-lab_hghn0p.webp",
+    "ingredients": "Aqua, Niacinamide (10%), Zinc PCA, Camellia Sinensis Leaf Extract, Glycerin, Ethoxydiglycol.",
+    "usage": "Aplicar 2-3 gotas en todo el rostro antes de aceites o cremas pesadas. Compatible con casi todos los activos excepto Vitamina C pura."
   },
   {
     "id": "15",
@@ -162,7 +190,9 @@
     "category": "Hydration",
     "volume": "100ml",
     "stock": 0,
-    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/f_auto,q_auto,w_800/v1773423412/Aquafill_Mask-2_tpitef.png"
+    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/v1774191935/aquafill-mask_lt1mg4.webp",
+    "ingredients": "Aqua, Sodium Hyaluronate Crosspolymer, Opuntia Ficus-Indica Extract, Urea, Panthenol, Glycerin.",
+    "usage": "Aplicar una capa generosa por la noche 2 veces por semana. Dejar actuar mientras duermes y aclarar por la mañana con agua fresca."
   },
   {
     "id": "16",
@@ -173,7 +203,9 @@
     "category": "Cleansers",
     "volume": "80ml",
     "stock": 8,
-    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/f_auto,q_auto,w_800/v1773423419/Prebiotic_Cleansing_Balm_l2pptx.png"
+    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/v1774191941/prebiotic-cleansing-balm_jvdgjl.webp",
+    "ingredients": "Simmondsia Chinensis Seed Oil, Mangifera Indica Seed Butter, Inulin, Sucrose Stearate, Caprylic/Capric Triglyceride.",
+    "usage": "Tomar una pequeña cantidad y masajear sobre piel seca para disolver maquillaje y SPF. Emulsionar con agua y aclarar."
   },
   {
     "id": "17",
@@ -184,7 +216,9 @@
     "category": "Freshness",
     "volume": "60ml",
     "stock": 13,
-    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/f_auto,q_auto,w_800/v1773423415/Copper_Peptide_Mist_mtvnya.png"
+    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/v1774191936/copper-peptide-mist_rqsexo.webp",
+    "ingredients": "Aqua, Copper Tripeptide-1, Centella Asiatica Extract, Pentylene Glycol, Sodium Hyaluronate, Allantoin.",
+    "usage": "Pulverizar sobre la piel limpia después de procedimientos estéticos o cuando la piel presente irritación por factores externos."
   },
   {
     "id": "18",
@@ -195,7 +229,9 @@
     "category": "Hydration",
     "volume": "75ml",
     "stock": 22,
-    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/f_auto,q_auto,w_800/v1773423413/Daily_Amino_Hydrator_ytcxpl.png"
+    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/v1774191936/daily-amino-hydrator_al6squ.webp",
+    "ingredients": "Aqua, Squalane, Sodium PCA, Sodium Lactate, Arginine, Aspartic Acid, Glycine, Alanine, Serine, Oryza Sativa Extract.",
+    "usage": "Aplicar sobre el rostro después de los sueros. Su textura ligera es perfecta para usar antes del maquillaje."
   },
   {
     "id": "19",
@@ -206,7 +242,9 @@
     "category": "Treatment",
     "volume": "30ml",
     "stock": 10,
-    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/f_auto,q_auto,w_800/v1773423419/Azelaic_Acid_10_tclvjq.png"
+    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/v1774191936/azelaic-acid-10_r25z1p.webp",
+    "ingredients": "Aqua, Azelaic Acid (10%), Glycyrrhiza Glabra Root Extract, Ethoxydiglycol, Sodium Hyaluronate Crosspolymer, Polyacrylate Crosspolymer-6.",
+    "usage": "Aplicar por la noche en todo el rostro o zonas localizadas con manchas. Puede causar un ligero hormigueo inicial."
   },
   {
     "id": "20",
@@ -217,6 +255,8 @@
     "category": "Protection",
     "volume": "60ml",
     "stock": 16,
-    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/f_auto,q_auto,w_800/v1773423414/Blue_Light_Shield_h3xeer.png"
+    "image": "https://res.cloudinary.com/dqdeoxwcw/image/upload/v1774191936/blue-light-shield_qmhgtr.webp",
+    "ingredients": "Aqua, Theobroma Cacao Seed Extract, Xanthophyll (Lutein), Hamamelis Virginiana Water, Anthocyanins, Glycerin.",
+    "usage": "Pulverizar sobre el rostro antes de comenzar el trabajo frente a pantallas. Repetir cada 4 horas para mantener la protección activa."
   }
 ]

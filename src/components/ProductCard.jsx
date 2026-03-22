@@ -22,7 +22,7 @@ const ProductCard = ({ product }) => {
 
     <div className="flex flex-col group h-full">
       <Link to={`/product/${product.id}`} className="block mb-6">
-        <div className="relative aspect-[4/5] bg-[#f6f7f8] overflow-hidden rounded-lg">
+        <div className="relative aspect-square bg-[#f6f7f8] overflow-hidden rounded-lg">
           <img
             src={product.image}
             alt={product.name}
