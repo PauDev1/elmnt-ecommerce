@@ -64,17 +64,17 @@ const ProductCard = ({ product }) => {
       </Link>
 
       <div className="flex flex-col flex-1 px-1">
-        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">
+        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">
           {product.category}
         </span>
 
         <Link to={`/product/${product.id}`}>
-          <h4 className="text-[#0f1829] font-medium text-lg leading-tight min-h-[2.5rem] line-clamp-2 mt-1">
+          <h3 className="text-[#0f1829] font-medium text-lg leading-tight min-h-[2.5rem] line-clamp-2 mt-1">
             {product.name}
-          </h4>
+          </h3>
         </Link>
 
-        <p className="text-slate-500 text-sm mb-3 font-light line-clamp-2 flex-grow">
+        <p className="text-slate-500 text-sm mb-3 font-normal line-clamp-2 flex-grow">
           {product.description}
         </p>
 
@@ -82,7 +82,7 @@ const ProductCard = ({ product }) => {
           <span className="text-[#0f1829] font-bold">
             ${product.price.toLocaleString()}
           </span>
-          <span className="text-[11px] text-slate-400 uppercase tracking-widest font-light">
+          <span className="text-[11px] text-slate-500 uppercase tracking-widest font-normal">
             {product.volume}
           </span>
         </div>
