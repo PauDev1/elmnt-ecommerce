@@ -9,6 +9,11 @@ const ProductCard = ({ product }) => {
   const isOutOfStock = product.stock === 0;
   const hasReachedMax = quantityInCart >= product.stock;
 
+  const optimizedImage = product.image.replace(
+    '/upload/',
+    '/upload/w_400,c_limit,q_auto,f_auto/'
+  );
+
   const handleAdd = (e) => {
     e.stopPropagation(); 
     e.preventDefault();  
@@ -23,11 +28,15 @@ const ProductCard = ({ product }) => {
     <div className="flex flex-col group h-full">
       <Link to={`/product/${product.id}`} className="block mb-6">
         <div className="relative aspect-square bg-[#f6f7f8] overflow-hidden rounded-lg">
-          <img
-            src={product.image}
+            <img
+            src={optimizedImage} 
             alt={product.name}
+            width="400" // 
+            height="400"
+            loading="lazy" 
             className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
           />
+
           {(!isOutOfStock && !hasReachedMax) && (
             <button
               onClick={handleAdd}
