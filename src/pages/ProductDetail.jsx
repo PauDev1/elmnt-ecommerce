@@ -100,8 +100,8 @@ const ProductDetail = ({ products }) => {
 
             <div className="flex flex-col pt-4 px-2 md:px-0">
               <div className="mb-8">
-                <span className="text-[10px] md:text-[11px] uppercase tracking-[0.3em] text-slate-400 block mb-2">{product.category}</span>
-                <h1 className="text-3xl md:text-4xl font-bold tracking-tighter text-[#0f1829] uppercase italic leading-tight mb-6">{product.name}</h1>
+                <span className="text-[10px] md:text-[11px] uppercase tracking-ultra text-slate-400 block mb-2">{product.category}</span>
+                <h1 className="text-3xl md:text-4xl font-bold tracking-tighter text-brand uppercase italic leading-tight mb-6">{product.name}</h1>
 
 
                 <p className="text-base md:text-lg text-slate-600 leading-relaxed font-normal tracking-wide mb-8 max-w-xl italic">
@@ -110,20 +110,20 @@ const ProductDetail = ({ products }) => {
 
                 <div className="flex justify-between items-end mt-6 border-t border-slate-100 pt-6">
                   <span className="text-xs text-slate-400 uppercase tracking-widest font-medium italic">Presentación: {product.volume}</span>
-                  <p className="text-3xl font-bold text-[#0f1829] tracking-tight">${product.price.toLocaleString()}</p>
+                  <p className="text-3xl font-bold text-brand tracking-tight">${product.price.toLocaleString()}</p>
                 </div>
               </div>
 
               <div className="mb-10">
                 {cartItem ? (
                   <div className="flex items-center gap-4">
-                    <div className="flex-1 flex items-center justify-between border border-[#0f1829] p-4 rounded-lg bg-white">
+                    <div className="flex-1 flex items-center justify-between border border-brand p-4 rounded-lg bg-white">
 
                       <button onClick={handleDecreaseQuantity} className="hover:opacity-50 px-2">
                         <span className="material-symbols-outlined text-base cursor-pointer">remove</span>
                       </button>
 
-                      <span className="text-[11px] font-bold tracking-[0.25em] text-[#0f1829]">
+                      <span className="text-[11px] font-bold tracking-[0.25em] text-brand">
                         {cartItem.quantity} UNIDADES
                       </span>
 
@@ -149,7 +149,7 @@ const ProductDetail = ({ products }) => {
                     onClick={handleAddToCart}
                     disabled={product.stock === 0}
                     className={`w-full py-5 rounded-lg text-[10px] uppercase tracking-[0.2em] cursor-pointer font-bold transition-all
-                    ${product.stock > 0 ? 'bg-[#0f1829] text-white hover:bg-slate-800 shadow-xl' : 'bg-slate-100 text-slate-400'}`}
+                    ${product.stock > 0 ? 'bg-brand text-white hover:bg-slate-800 shadow-xl' : 'bg-slate-100 text-slate-400'}`}
                   >
                     {product.stock > 0 ? 'Añadir al Carrito' : 'Agotado'}
                   </button>
@@ -160,7 +160,7 @@ const ProductDetail = ({ products }) => {
                   <div key={section.id} className="border-b border-slate-100">
                     <button
                       onClick={() => setOpenSection(openSection === section.id ? '' : section.id)}
-                      className="w-full py-5 flex justify-between items-center text-[10px] uppercase cursor-pointer tracking-[0.25em] font-bold text-[#0f1829] hover:bg-slate-50/50 transition-colors px-1"
+                      className="w-full py-5 flex justify-between items-center text-[10px] uppercase cursor-pointer tracking-[0.25em] font-bold text-brand hover:bg-slate-50/50 transition-colors px-1"
                     >
                       {section.title}
                       <span className={`material-symbols-outlined text-lg text-slate-400 font-light transition-transform duration-300 ${openSection === section.id ? 'rotate-180' : 'rotate-0'}`}>
@@ -183,7 +183,7 @@ const ProductDetail = ({ products }) => {
           {relatedProducts.length > 0 && (
             <section className="pt-12 md:pt-24 pb-0  border-t border-slate-100">
               <div className="flex items-baseline justify-between mb-8">
-                <h3 className="text-xl md:text-2xl font-bold tracking-tighter uppercase italic text-[#0f1829]">Podría interesarte</h3>
+                <h3 className="text-xl md:text-2xl font-bold tracking-tighter uppercase italic text-brand">Podría interesarte</h3>
                 <span className="text-[10px] text-slate-400 uppercase tracking-widest">Sugerencias</span>
               </div>
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">

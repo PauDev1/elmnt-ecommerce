@@ -2,7 +2,7 @@ import { useCart } from '../hooks/useCart';
 import { useNavigate } from 'react-router-dom';
 
 const CartDrawer = () => {
-  
+
   const { cartItems, isCartOpen, toggleCart, addToCart, updateQuantity, removeItem } = useCart();
   const navigate = useNavigate();
 
@@ -13,7 +13,7 @@ const CartDrawer = () => {
   const progress = Math.min((total / SHIPPING_THRESHOLD) * 100, 100);
 
   const handleCheckout = () => {
-    toggleCart(); 
+    toggleCart();
     navigate('/checkout');
   };
 
@@ -21,7 +21,7 @@ const CartDrawer = () => {
     <>
       {/* Overlay - Fondo oscuro */}
       <div
-        className={`fixed inset-0 bg-primary/20 backdrop-blur-sm z-[100] transition-opacity duration-500 ${isCartOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
+        className={`fixed inset-0 bg-brand/20 backdrop-blur-sm z-[100] transition-opacity duration-500 ${isCartOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
         onClick={toggleCart}
       />
 
@@ -32,22 +32,22 @@ const CartDrawer = () => {
           {/* Header */}
           <div className="p-6 border-b border-slate-100 flex justify-between items-center">
             <div>
-              <h3 className="text-lg font-semibold tracking-ultra text-primary">Shopping Bag</h3>
-              <p className="text-[11px] text-slate-400 uppercase tracking-tighter mt-1 font-medium">
+              <h3 className="text-lg font-semibold tracking-ultra text-brand">Shopping Bag</h3>
+              <p className="text-[11px] text-muted/60 uppercase tracking-tighter mt-1 font-medium">
                 {totalItems} {totalItems === 1 ? 'Ítem seleccionado' : 'Ítems seleccionados'}
               </p>
             </div>
-            <button onClick={toggleCart} className="material-symbols-outlined text-slate-400 hover:text-primary cursor-pointer">close</button>
+            <button onClick={toggleCart} className="material-symbols-outlined text-slate-400 hover:text-brand cursor-pointer" aria-label="Cerrar carrito de compras">close</button>
           </div>
 
           {/* Barra de Envío */}
           <div className="px-6 py-4">
             <div className="bg-slate-50 rounded-2xl p-5 border border-slate-100">
               <div className="flex items-center gap-3 mb-3">
-                <span className="material-symbols-outlined text-primary text-xl">
+                <span className="material-symbols-outlined text-brand text-xl">
                   {remaining > 0 ? 'local_shipping' : 'verified'}
                 </span>
-                <p className="text-[11px] font-bold uppercase tracking-widest text-primary">
+                <p className="text-[11px] font-bold uppercase tracking-widest text-brand">
                   {remaining > 0
                     ? `Te faltan $${remaining.toLocaleString()} para el envío gratis`
                     : "¡Felicidades! Tenés envío gratis"}
@@ -55,7 +55,7 @@ const CartDrawer = () => {
               </div>
               <div className="h-1.5 w-full bg-slate-200 rounded-full overflow-hidden">
                 <div
-                  className="h-full bg-[#0f1829] transition-all duration-1000 ease-out"
+                  className="h-full bg-brand transition-all duration-1000 ease-out"
                   style={{ width: `${progress}%` }}
                 />
               </div>
@@ -65,9 +65,16 @@ const CartDrawer = () => {
           {/* Lista de Productos */}
           <div className="flex-1 overflow-y-auto p-6 space-y-6">
             {cartItems.length === 0 ? (
-              <div className="h-full flex flex-col items-center justify-center text-center opacity-30">
-                <span className="material-symbols-outlined text-6xl mb-2 font-light">shopping_bag</span>
-                <p className="text-[10px] uppercase tracking-[0.2em]">Tu bolsa está vacía</p>
+              <div className="h-full flex flex-col items-center justify-center text-center">
+                <span className="material-symbols-outlined text-muted text-6xl mb-4 font-light">shopping_bag</span>
+                <p className="text-[10px] text-muted uppercase tracking-[0.25em] font-bold">Tu bolsa está vacía</p>
+
+                <button
+                  onClick={toggleCart}
+                  className="mt-6 text-[9px] text-body border-b border-brand pb-0.5 uppercase tracking-tight hover:opacity-60 transition-opacity"
+                >
+                  Seguir comprando
+                </button>
               </div>
             ) : (
               cartItems.map((item) => (
@@ -78,7 +85,7 @@ const CartDrawer = () => {
                   <div className="flex-1 flex flex-col justify-between py-1">
                     <div className="flex justify-between items-start">
                       <div>
-                        <h4 className="text-[11px] font-bold uppercase text-[#0f1829]">{item.name}</h4>
+                        <h4 className="text-[11px] font-bold uppercase text-brand">{item.name}</h4>
                         <p className="text-[9px] text-slate-400 uppercase tracking-widest">{item.volume}</p>
                       </div>
                       <button onClick={() => removeItem(item.id)} className="text-slate-300 hover:text-red-500 transition-colors cursor-pointer">
@@ -89,16 +96,16 @@ const CartDrawer = () => {
                       <div className="flex items-center bg-slate-100 rounded-full p-0.5 border border-slate-200 cursor-pointer">
                         <button
                           onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                          className="w-6 h-6 flex items-center justify-center text-slate-400 hover:text-[#0f1829] "
+                          className="w-6 h-6 flex items-center justify-center text-slate-400 hover:text-brand "
                         >-</button>
                         <span className="px-2 text-[10px] font-bold">{item.quantity}</span>
                         <button
                           onClick={() => addToCart(item)}
                           disabled={item.quantity >= item.stock}
-                          className={`w-6 h-6 flex items-center justify-center ${item.quantity >= item.stock ? 'text-slate-200 cursor-not-allowed' : 'text-slate-400 hover:text-[#0f1829]'}`}
+                          className={`w-6 h-6 flex items-center justify-center ${item.quantity >= item.stock ? 'text-slate-200 cursor-not-allowed' : 'text-slate-400 hover:text-brand'}`}
                         >+</button>
                       </div>
-                      <p className="text-[11px] font-bold text-[#0f1829]">${(item.price * item.quantity).toLocaleString()}</p>
+                      <p className="text-[11px] font-bold text-brand">${(item.price * item.quantity).toLocaleString()}</p>
                     </div>
                   </div>
                 </div>
@@ -114,15 +121,15 @@ const CartDrawer = () => {
                   <span>Subtotal</span>
                   <span>${total.toLocaleString()}</span>
                 </div>
-                <div className="flex justify-between text-base font-bold tracking-tight pt-4 border-t border-slate-100 text-[#0f1829]">
+                <div className="flex justify-between text-base font-bold tracking-tight pt-4 border-t border-slate-100 text-brand">
                   <span>Total</span>
                   <span>${total.toLocaleString()}</span>
                 </div>
               </div>
 
-              <button 
+              <button
                 onClick={handleCheckout}
-                className="w-full bg-[#0f1829] text-white py-5 rounded-full font-bold text-[10px] tracking-[0.3em] uppercase cursor-pointer hover:bg-black transition-all flex items-center justify-center gap-2 shadow-xl shadow-black/5 active:scale-95">
+                className="w-full bg-brand text-white py-5 rounded-full font-bold text-[10px] tracking-ultra uppercase cursor-pointer hover:bg-black transition-all flex items-center justify-center gap-2 shadow-xl shadow-black/5 active:scale-95">
                 Finalizar Compra
                 <span className="material-symbols-outlined text-sm">arrow_forward</span>
               </button>

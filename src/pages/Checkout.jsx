@@ -122,16 +122,16 @@ const Checkout = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#f6f7f8] pt-28 pb-20 px-4 md:px-6 relative font-sans">
+    <div className="min-h-screen bg-surface pt-28 pb-20 px-4 md:px-6 relative font-sans">
 
       {showSuccess && (
         <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-[#0f1829]/60 backdrop-blur-md" />
+          <div className="absolute inset-0 bg-brand/60 backdrop-blur-md" />
           <div className="bg-white p-10 rounded-3xl shadow-2xl relative z-10 max-w-sm w-full text-center animate-in fade-in zoom-in duration-300">
             <span className="material-symbols-outlined text-green-500 mb-4" style={{ fontSize: '40px' }}>credit_score</span>
-            <h3 className="text-2xl font-bold text-[#0f1829] mb-2 italic uppercase tracking-tighter">¡Pedido Confirmado!</h3>
+            <h3 className="text-2xl font-bold text-brand mb-2 italic uppercase tracking-tighter">¡Pedido Confirmado!</h3>
             <p className="text-slate-500 text-sm md:text-base leading-relaxed mb-10 px-4">¡Gracias por tu compra, {formData.nombre.split(' ')[0].charAt(0).toUpperCase() + formData.nombre.split(' ')[0].slice(1).toLowerCase()}! <br /> Revisa tu bandeja de entrada para ver el detalle de tu pedido.</p>
-            <button onClick={() => navigate('/')} className="w-full bg-[#0f1829] text-white py-4 rounded-full font-bold text-[10px] tracking-[0.3em] uppercase hover:bg-black transition-all cursor-pointer">Ir al inicio</button>
+            <button onClick={() => navigate('/')} className="w-full bg-brand text-white py-4 rounded-full font-bold text-[10px] tracking-ultra uppercase hover:bg-black transition-all cursor-pointer">Ir al inicio</button>
           </div>
         </div>
       )}
@@ -141,42 +141,42 @@ const Checkout = () => {
         <div className="bg-white p-8 rounded-[2rem] shadow-sm border border-slate-100 flex flex-col h-full">
           {step === 1 ? (
             <div className="animate-in fade-in slide-in-from-left-4 duration-500">
-              <h3 className="text-xl font-bold uppercase tracking-tighter italic mb-8 border-b pb-4 text-[#0f1829]">1. Detalles de Entrega</h3>
+              <h3 className="text-xl font-bold uppercase tracking-tighter italic mb-8 border-b pb-4 text-brand">1. Detalles de Entrega</h3>
               <form onSubmit={handleNextStep} className="space-y-6">
                 <div>
                   <label className="block text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2">Nombre Completo</label>
-                  <input type="text" name="nombre" value={formData.nombre} onChange={handleChange} className={`w-full p-4 bg-slate-50 rounded-xl text-xs outline-none border transition-all ${errors.nombre ? 'border-red-500 bg-red-50' : 'border-slate-100 focus:border-[#0f1829]'}`} />
+                  <input type="text" name="nombre" value={formData.nombre} onChange={handleChange} className={`w-full p-4 bg-slate-50 rounded-xl text-xs outline-none border transition-all ${errors.nombre ? 'border-red-500 bg-red-50' : 'border-slate-100 focus:border-brand'}`} />
                   {errors.nombre && <p className="text-[9px] text-red-500 mt-1 uppercase font-bold">{errors.nombre}</p>}
                 </div>
                 <div>
                   <label className="block text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2">Email</label>
-                  <input type="email" name="email" value={formData.email} onChange={handleChange} className={`w-full p-4 bg-slate-50 rounded-xl text-xs outline-none border transition-all ${errors.email ? 'border-red-500 bg-red-50' : 'border-slate-100 focus:border-[#0f1829]'}`} />
+                  <input type="email" name="email" value={formData.email} onChange={handleChange} className={`w-full p-4 bg-slate-50 rounded-xl text-xs outline-none border transition-all ${errors.email ? 'border-red-500 bg-red-50' : 'border-slate-100 focus:border-brand'}`} />
                   {errors.email && <p className="text-[9px] text-red-500 mt-1 uppercase font-bold">{errors.email}</p>}
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="col-span-2">
                     <label className="block text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2">Dirección</label>
-                    <input type="text" name="direccion" value={formData.direccion} onChange={handleChange} className={`w-full p-4 bg-slate-50 rounded-xl text-xs outline-none border transition-all ${errors.direccion ? 'border-red-500 bg-red-50' : 'border-slate-100 focus:border-[#0f1829]'}`} />
+                    <input type="text" name="direccion" value={formData.direccion} onChange={handleChange} className={`w-full p-4 bg-slate-50 rounded-xl text-xs outline-none border transition-all ${errors.direccion ? 'border-red-500 bg-red-50' : 'border-slate-100 focus:border-brand'}`} />
                     {errors.direccion && <p className="text-[9px] text-red-500 mt-1 uppercase font-bold">{errors.direccion}</p>}
                   </div>
                   <div>
                     <label className="block text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2">Ciudad</label>
-                    <input type="text" name="ciudad" value={formData.ciudad} onChange={handleChange} className={`w-full p-4 bg-slate-50 rounded-xl text-xs outline-none border transition-all ${errors.ciudad ? 'border-red-500 bg-red-50' : 'border-slate-100 focus:border-[#0f1829]'}`} />
+                    <input type="text" name="ciudad" value={formData.ciudad} onChange={handleChange} className={`w-full p-4 bg-slate-50 rounded-xl text-xs outline-none border transition-all ${errors.ciudad ? 'border-red-500 bg-red-50' : 'border-slate-100 focus:border-brand'}`} />
                     {errors.ciudad && <p className="text-[9px] text-red-500 mt-1 uppercase font-bold">{errors.ciudad}</p>}
                   </div>
                   <div>
                     <label className="block text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2">CP</label>
-                    <input type="text" name="cp" value={formData.cp} onChange={handleChange} className={`w-full p-4 bg-slate-50 rounded-xl text-xs outline-none border transition-all ${errors.cp ? 'border-red-500 bg-red-50' : 'border-slate-100 focus:border-[#0f1829]'}`} />
+                    <input type="text" name="cp" value={formData.cp} onChange={handleChange} className={`w-full p-4 bg-slate-50 rounded-xl text-xs outline-none border transition-all ${errors.cp ? 'border-red-500 bg-red-50' : 'border-slate-100 focus:border-brand'}`} />
                     {errors.cp && <p className="text-[9px] text-red-500 mt-1 uppercase font-bold">{errors.cp}</p>}
                   </div>
                 </div>
-                <button type="submit" className="w-full bg-[#0f1829] text-white py-5 rounded-full font-bold text-[10px] tracking-[0.3em] uppercase mt-4 hover:bg-black transition-colors cursor-pointer">Siguiente paso</button>
+                <button type="submit" className="w-full bg-brand text-white py-5 rounded-full font-bold text-[10px] tracking-ultra uppercase mt-4 hover:bg-black transition-colors cursor-pointer">Siguiente paso</button>
               </form>
             </div>
           ) : (
             <div className="animate-in fade-in slide-in-from-right-4 duration-500 flex flex-col h-full">
               <div className="flex justify-between items-center mb-8 border-b pb-4">
-                <h3 className="text-xl font-bold uppercase tracking-tighter italic text-[#0f1829]">2. Método de Pago</h3>
+                <h3 className="text-xl font-bold uppercase tracking-tighter italic text-brand">2. Método de Pago</h3>
                 <button onClick={() => setStep(1)} className="text-[10px] font-bold uppercase text-slate-400 italic hover:text-black cursor-pointer">← Volver</button>
               </div>
 
@@ -193,30 +193,30 @@ const Checkout = () => {
                 <div className="space-y-5">
                   <div>
                     <label className="block text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2">Número de Tarjeta</label>
-                    <input type="text" name="tarjeta" value={formData.tarjeta} onChange={handleChange} className={`w-full p-4 bg-slate-50 rounded-xl text-xs outline-none border transition-all ${errors.tarjeta ? 'border-red-500 bg-red-50' : 'border-slate-100 focus:border-[#0f1829]'}`} />
+                    <input type="text" name="tarjeta" value={formData.tarjeta} onChange={handleChange} className={`w-full p-4 bg-slate-50 rounded-xl text-xs outline-none border transition-all ${errors.tarjeta ? 'border-red-500 bg-red-50' : 'border-slate-100 focus:border-brand'}`} />
                     {errors.tarjeta && <p className="text-[9px] text-red-500 mt-1 uppercase font-bold">{errors.tarjeta}</p>}
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label className="block text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2">Vencimiento</label>
-                      <input type="text" name="vencimiento" placeholder="MM/YY" value={formData.vencimiento} onChange={handleChange} className={`w-full p-4 bg-slate-50 rounded-xl text-xs outline-none border transition-all ${errors.vencimiento ? 'border-red-500 bg-red-50' : 'border-slate-100 focus:border-[#0f1829]'}`} />
+                      <input type="text" name="vencimiento" placeholder="MM/YY" value={formData.vencimiento} onChange={handleChange} className={`w-full p-4 bg-slate-50 rounded-xl text-xs outline-none border transition-all ${errors.vencimiento ? 'border-red-500 bg-red-50' : 'border-slate-100 focus:border-brand'}`} />
                       {errors.vencimiento && <p className="text-[9px] text-red-500 mt-1 uppercase font-bold">{errors.vencimiento}</p>}
                     </div>
                     <div>
                       <label className="block text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2">CVV</label>
-                      <input type="password" name="cvv" placeholder="123" value={formData.cvv} onChange={handleChange} className={`w-full p-4 bg-slate-50 rounded-xl text-xs outline-none border transition-all ${errors.cvv ? 'border-red-500 bg-red-50' : 'border-slate-100 focus:border-[#0f1829]'}`} />
+                      <input type="password" name="cvv" placeholder="123" value={formData.cvv} onChange={handleChange} className={`w-full p-4 bg-slate-50 rounded-xl text-xs outline-none border transition-all ${errors.cvv ? 'border-red-500 bg-red-50' : 'border-slate-100 focus:border-brand'}`} />
                       {errors.cvv && <p className="text-[9px] text-red-500 mt-1 uppercase font-bold">{errors.cvv}</p>}
                     </div>
                   </div>
                 </div>
 
-                <button type="submit" className="w-full bg-[#0f1829] text-white py-5 rounded-full font-bold text-[10px] tracking-[0.3em] uppercase mt-auto hover:bg-black shadow-xl transition-all cursor-pointer">Confirmar Pago • ${total.toLocaleString()}</button>
+                <button type="submit" className="w-full bg-brand text-white py-5 rounded-full font-bold text-[10px] tracking-ultra uppercase mt-auto hover:bg-black shadow-xl transition-all cursor-pointer">Confirmar Pago • ${total.toLocaleString()}</button>
               </form>
             </div>
           )}
         </div>
 
-        <div className="bg-[#0f1829] text-white p-8 rounded-[2rem] shadow-2xl flex flex-col h-full lg:sticky lg:top-28">
+        <div className="bg-brand text-white p-8 rounded-[2rem] shadow-2xl flex flex-col h-full lg:sticky lg:top-28">
           <h3 className="text-lg font-bold uppercase tracking-tighter italic mb-6 border-b border-white/10 pb-4">Tu Pedido</h3>
           <div className="space-y-4 flex-grow overflow-y-auto max-h-[400px] pr-2 custom-scrollbar">
 
@@ -229,7 +229,7 @@ const Checkout = () => {
                       className="w-14 h-14 rounded-xl object-cover border border-white/20"
                       alt={item.name}
                     />
-                    <span className="absolute top-0 right-0 bg-white text-[#0f1829] min-w-[20px] h-[20px] flex items-center justify-center rounded-full text-[10px] font-black shadow-lg px-1">
+                    <span className="absolute top-0 right-0 bg-white text-brand min-w-[20px] h-[20px] flex items-center justify-center rounded-full text-[10px] font-black shadow-lg px-1">
                       {item.quantity}
                     </span>
                   </div>

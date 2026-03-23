@@ -27,7 +27,7 @@ const ProductCard = ({ product }) => {
 
     <div className="flex flex-col group h-full">
       <Link to={`/product/${product.id}`} className="block mb-6">
-        <div className="relative aspect-square bg-[#f6f7f8] overflow-hidden rounded-lg">
+        <div className="relative aspect-square bg-surface overflow-hidden rounded-lg">
             <img
             src={optimizedImage} 
             alt={product.name}
@@ -40,7 +40,7 @@ const ProductCard = ({ product }) => {
           {(!isOutOfStock && !hasReachedMax) && (
             <button
               onClick={handleAdd}
-              className="md:hidden absolute bottom-2 right-2 bg-[#0f1829] text-white w-8 h-8 rounded-full flex items-center justify-center shadow-md active:scale-90 z-10"
+              className="md:hidden absolute bottom-2 right-2 bg-brand text-white w-8 h-8 rounded-full flex items-center justify-center shadow-md active:scale-90 z-10"
             >
               <span className="material-symbols-outlined text-[20px] font-light">add</span>
             </button>
@@ -49,7 +49,7 @@ const ProductCard = ({ product }) => {
           {(!isOutOfStock && !hasReachedMax) && (
             <button
               onClick={handleAdd}
-              className="hidden md:block absolute bottom-4 left-4 right-4 bg-white/90 py-3 text-[10px] font-bold uppercase tracking-[0.2em] translate-y-12 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 shadow-sm cursor-pointer"
+              className="hidden md:block absolute bottom-4 left-4 right-4 bg-white/90 py-3 text-[10px] font-bold uppercase tracking-tight translate-y-12 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 shadow-sm cursor-pointer"
             >
               Agregar al carrito
             </button>
@@ -64,25 +64,25 @@ const ProductCard = ({ product }) => {
       </Link>
 
       <div className="flex flex-col flex-1 px-1">
-        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">
+        <span className="text-[10px] font-bold uppercase tracking-tight text-muted">
           {product.category}
         </span>
 
         <Link to={`/product/${product.id}`}>
-          <h3 className="text-[#0f1829] font-medium text-lg leading-tight min-h-[2.5rem] line-clamp-2 mt-1">
+          <h3 className="text-brand font-bold text-lg leading-tight min-h-[2.5rem] line-clamp-2 mt-1">
             {product.name}
           </h3>
         </Link>
 
-        <p className="text-slate-500 text-sm mb-3 font-normal line-clamp-2 flex-grow">
+        <p className="text-body text-sm mb-3 font-normal line-clamp-2 flex-grow">
           {product.description}
         </p>
 
-        <div className="flex items-center justify-between mt-auto pt-3 border-t border-slate-50 pb-2">
-          <span className="text-[#0f1829] font-bold">
+        <div className="flex items-center justify-between mt-auto pt-3 border-t border-surface pb-2">
+          <span className="text-brand font-bold">
             ${product.price.toLocaleString()}
           </span>
-          <span className="text-[11px] text-slate-500 uppercase tracking-widest font-normal">
+          <span className="text-[11px] text-muted uppercase tracking-widest font-light">
             {product.volume}
           </span>
         </div>

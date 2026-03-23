@@ -21,7 +21,7 @@ const Login = ({ onLogin }) => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-[#0f1829] p-4">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-brand p-4">
       <div className="bg-white p-8 rounded-3xl shadow-2xl w-full max-w-md animate-in fade-in zoom-in duration-300">
         <h2 className="text-2xl font-black text-slate-800 mb-2 text-center italic uppercase tracking-tighter">
           Admin Access
@@ -58,7 +58,7 @@ const Login = ({ onLogin }) => {
             </p>
           )}
 
-          <button type="submit" className="w-full py-4 bg-[#0f1829] text-white text-xs font-bold uppercase tracking-[0.2em] rounded-xl hover:bg-slate-800 transition-all shadow-xl active:scale-95">
+          <button type="submit" className="w-full py-4 bg-brand text-white text-xs font-bold uppercase tracking-[0.2em] rounded-xl hover:bg-slate-800 transition-all shadow-xl active:scale-95">
             Entrar
           </button>
         </form>

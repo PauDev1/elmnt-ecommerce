@@ -6,7 +6,7 @@ import { CartProvider } from './context/CartContext' // <--- Importamos el prove
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <CartProvider> {/* <--- Envolvemos la App */}
+    <CartProvider> 
       <App />
     </CartProvider>
   </React.StrictMode>,

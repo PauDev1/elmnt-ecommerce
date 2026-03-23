@@ -50,8 +50,8 @@ const Navbar = ({ onSearch, isAdmin, onLogout }) => {
             onClick={handleLogoClick}
             className="flex items-center gap-2 cursor-pointer group"
           >
-            <span className="material-symbols-outlined text-2xl text-[#0f1829]">science</span>
-            <h1 className="text-[#0f1829] text-xl font-bold tracking-[0.2em] uppercase">
+            <span className="material-symbols-outlined text-2xl text-brand">science</span>
+            <h1 className="text-brand text-xl font-bold tracking-[0.2em] uppercase">
               ELMNT
             </h1>
           </Link>
@@ -113,11 +113,11 @@ const Navbar = ({ onSearch, isAdmin, onLogout }) => {
             {!isAdmin && !isLoginPage && (
               <button
                 onClick={toggleCart}
-                className="p-2 hover:bg-slate-50 rounded-full transition-colors text-[#0f1829] relative group"
+                className="p-2 hover:bg-slate-50 rounded-full transition-colors text-brand relative group"
               >
                 <span className="material-symbols-outlined cursor-pointer" style={{ fontSize: '22px' }}>shopping_bag</span>
                 {cartItems.length > 0 && (
-                  <span className="absolute top-1 right-1 bg-[#83A982] text-white text-[8px] font-bold w-4 h-4 rounded-full flex items-center justify-center animate-in fade-in zoom-in duration-300">
+                  <span className="absolute top-1 right-1 bg-nature text-white text-[8px] font-bold w-4 h-4 rounded-full flex items-center justify-center animate-in fade-in zoom-in duration-300">
                     {cartItems.reduce((acc, item) => acc + item.quantity, 0)}
                   </span>
                 )}
@@ -128,7 +128,7 @@ const Navbar = ({ onSearch, isAdmin, onLogout }) => {
             <div className="relative" ref={menuRef}>
               <button
                 onClick={() => isAdmin ? setShowMenu(!showMenu) : navigate('/admin-login')}
-                className="p-2 hover:bg-slate-50 rounded-full transition-colors text-[#0f1829]"
+                className="p-2 hover:bg-slate-50 rounded-full transition-colors text-brand"
               >
                 <span className="material-symbols-outlined cursor-pointer" style={{ fontSize: '27px' }}>person</span>
               </button>

@@ -1,5 +1,18 @@
 @import "tailwindcss";
 
+@theme {
+ 
+  --color-brand: #0f1829; 
+  --color-nature: #83A982;
+  --color-surface: #f6f7f8;
+  --color-body: #475569;
+  --color-muted: #64748b;
+  
+  
+  --tracking-ultra: 0.3em;
+  --tracking-tight: 0.2em;
+}
+
 /* --- ESTILOS BASE --- */
 @layer base {
   button, 
