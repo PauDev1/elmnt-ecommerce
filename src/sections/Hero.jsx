@@ -7,9 +7,9 @@ const Hero = () => {
       <div className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
           <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-slate-500">Estabilidad testeada • Bio-disponible</span>
-          <h2 className="text-6xl lg:text-7xl font-light leading-[1.1] tracking-tight text-[#0f1829]">
+          <h1 className="text-6xl lg:text-7xl font-light leading-[1.1] tracking-tight text-[#0f1829]">
             Precisión <span className="font-bold">Molecular.</span>
-          </h2>
+          </h1>
           <p className="text-lg text-slate-600 max-w-md leading-relaxed font-light">
             Formulaciones clínicamente diseñadas con ingredientes activos de alta pureza para una transformación de la piel a nivel celular.
           </p>

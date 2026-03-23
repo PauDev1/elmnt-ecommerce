@@ -33,12 +33,12 @@ function Home({ searchTerm, products = [], loading }) {
   const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
   const location = useLocation();
 
- 
+
   useEffect(() => {
     setCurrentPage(1);
   }, [searchTerm, activeCategory]);
 
- 
+
   useEffect(() => {
     if (location.state?.scrollTo === 'inventario') {
       const timer = setTimeout(() => {
@@ -46,13 +46,13 @@ function Home({ searchTerm, products = [], loading }) {
         if (element) {
           element.scrollIntoView({ behavior: 'smooth' });
         }
-      
+
         window.history.replaceState({}, document.title);
-      }, 150); 
+      }, 150);
 
       return () => clearTimeout(timer);
     }
-  }, [location.pathname]); 
+  }, [location.pathname]);
 
   const isLoading = products.length === 0 && searchTerm === "";
 
@@ -66,7 +66,7 @@ function Home({ searchTerm, products = [], loading }) {
           <div className="max-w-7xl mx-auto">
 
             <div className="flex items-baseline justify-between mb-4 md:mb-8 border-b border-slate-100 pb-4">
-              <h3 className="text-xl md:text-2xl font-bold tracking-tighter uppercase italic text-[#0f1829]">Colección</h3>
+              <h2 className="text-xl md:text-2xl font-bold tracking-tighter uppercase italic text-[#0f1829]">Colección</h2>
               <span className="text-[9px] md:text-[10px] text-slate-400 uppercase tracking-widest">
                 {loading ? "Cargando..." : `${filteredProducts.length} resultados`}
               </span>
@@ -98,10 +98,16 @@ function Home({ searchTerm, products = [], loading }) {
                 </div>
               </div>
 
-              {/* Selector de Orden*/}
               <div className="flex items-center justify-between md:justify-start gap-3 w-full md:w-auto md:border-l md:pl-6 border-slate-100">
-                <span className="text-[9px] font-bold uppercase tracking-widest text-slate-400 italic">Ordenar:</span>
+                <label
+                  htmlFor="sort-select"
+                  className="text-[9px] font-bold uppercase tracking-widest text-slate-400 italic cursor-pointer"
+                >
+                  Ordenar:
+                </label>
+
                 <select
+                  id="sort-select" 
                   onChange={(e) => setSortBy(e.target.value)}
                   className="text-[10px] font-bold uppercase tracking-widest bg-transparent cursor-pointer outline-none text-[#0f1829]"
                 >
