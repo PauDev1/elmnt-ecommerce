@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
 import { useCartContext } from '../context/CartContext';
 import ProductCard from '../components/ProductCard';
 import Footer from '../components/Footer';
@@ -65,10 +64,10 @@ const ProductDetail = ({ products }) => {
   const handleRemoveFromCart = () => {
     removeItem(product.id);
     toast.custom((t) => (
-      <CustomToast 
-        label=" ELMNT - Shopping Bag " 
-        message="PRODUCTO ELIMINADO" 
-        type="error" 
+      <CustomToast
+        label=" ELMNT - Shopping Bag "
+        message="PRODUCTO ELIMINADO"
+        type="error"
       />
     ));
   };
@@ -90,7 +89,7 @@ const ProductDetail = ({ products }) => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 mb-10">
 
             <div className="flex items-center justify-center p-2">
-              <motion.img
+              <img
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 src={product.image}
@@ -104,7 +103,7 @@ const ProductDetail = ({ products }) => {
                 <span className="text-[10px] md:text-[11px] uppercase tracking-[0.3em] text-slate-400 block mb-2">{product.category}</span>
                 <h1 className="text-3xl md:text-4xl font-bold tracking-tighter text-[#0f1829] uppercase italic leading-tight mb-6">{product.name}</h1>
 
-              
+
                 <p className="text-base md:text-lg text-slate-600 leading-relaxed font-normal tracking-wide mb-8 max-w-xl italic">
                   {product.description}
                 </p>
@@ -119,7 +118,7 @@ const ProductDetail = ({ products }) => {
                 {cartItem ? (
                   <div className="flex items-center gap-4">
                     <div className="flex-1 flex items-center justify-between border border-[#0f1829] p-4 rounded-lg bg-white">
-                    
+
                       <button onClick={handleDecreaseQuantity} className="hover:opacity-50 px-2">
                         <span className="material-symbols-outlined text-base cursor-pointer">remove</span>
                       </button>
@@ -138,14 +137,14 @@ const ProductDetail = ({ products }) => {
                     </div>
 
                     <button
-                      onClick={handleRemoveFromCart} 
+                      onClick={handleRemoveFromCart}
                       className="w-14 h-14 border border-slate-200 flex items-center justify-center rounded-lg text-slate-400 hover:text-red-500 transition-colors cursor-pointer"
                     >
                       <span className="material-symbols-outlined font-light text-xl">delete</span>
                     </button>
                   </div>
-                   ) : (
-                 
+                ) : (
+
                   <button
                     onClick={handleAddToCart}
                     disabled={product.stock === 0}
@@ -156,21 +155,25 @@ const ProductDetail = ({ products }) => {
                   </button>
                 )}
               </div>
-
               <div className="border-t border-slate-100 ">
                 {sections.map((section) => (
                   <div key={section.id} className="border-b border-slate-100">
-                    <button onClick={() => setOpenSection(openSection === section.id ? '' : section.id)} className="w-full py-5 flex justify-between items-center text-[10px] uppercase cursor-pointer tracking-[0.25em] font-bold text-[#0f1829] hover:bg-slate-50/50 transition-colors px-1">
+                    <button
+                      onClick={() => setOpenSection(openSection === section.id ? '' : section.id)}
+                      className="w-full py-5 flex justify-between items-center text-[10px] uppercase cursor-pointer tracking-[0.25em] font-bold text-[#0f1829] hover:bg-slate-50/50 transition-colors px-1"
+                    >
                       {section.title}
-                      <motion.span animate={{ rotate: openSection === section.id ? 180 : 0 }} className="material-symbols-outlined text-lg text-slate-400 font-light">keyboard_arrow_down</motion.span>
+                      <span className={`material-symbols-outlined text-lg text-slate-400 font-light transition-transform duration-300 ${openSection === section.id ? 'rotate-180' : 'rotate-0'}`}>
+                        keyboard_arrow_down
+                      </span>
                     </button>
-                    <AnimatePresence>
-                      {openSection === section.id && (
-                        <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
-                          <p className="pb-8 pt-1 text-sm text-slate-500 leading-relaxed font-light tracking-wide px-1 max-w-xl">{section.content}</p>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
+                    <div className={`grid transition-all duration-300 ease-in-out ${openSection === section.id ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
+                      <div className="overflow-hidden">
+                        <p className="pb-8 pt-1 text-sm text-slate-500 leading-relaxed font-light tracking-wide px-1 max-w-xl">
+                          {section.content}
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
