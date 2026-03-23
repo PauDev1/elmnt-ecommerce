@@ -6,7 +6,7 @@ const Hero = () => {
     <section className="max-w-7xl mx-auto py-16 px-6 lg:py-24 grid lg:grid-cols-2 gap-12 items-center">
       <div className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
-          <span className="text-[10px] font-bold tracking-ultra uppercase text-muted">Estabilidad testeada • Bio-disponible</span>
+          <span className="text-[10px] font-bold tracking-ultra uppercase text-body">Estabilidad testeada • Bio-disponible</span>
           <h1 className="text-6xl lg:text-7xl font-light leading-[1.1]  text-brand">
             Precisión <span className="font-bold">Molecular.</span>
           </h1>

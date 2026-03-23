@@ -33,7 +33,7 @@ const CartDrawer = () => {
           <div className="p-6 border-b border-slate-100 flex justify-between items-center">
             <div>
               <h3 className="text-lg font-semibold tracking-ultra text-brand">Shopping Bag</h3>
-              <p className="text-[11px] text-muted/60 uppercase tracking-tighter mt-1 font-medium">
+              <p className="text-[11px] text-muted/80 uppercase tracking-tight mt-1 font-semibold">
                 {totalItems} {totalItems === 1 ? 'Ítem seleccionado' : 'Ítems seleccionados'}
               </p>
             </div>
@@ -53,7 +53,7 @@ const CartDrawer = () => {
                     : "¡Felicidades! Tenés envío gratis"}
                 </p>
               </div>
-              <div className="h-1.5 w-full bg-slate-200 rounded-full overflow-hidden">
+              <div className="h-1.5 w-full bg-slate-300 rounded-full overflow-hidden">
                 <div
                   className="h-full bg-brand transition-all duration-1000 ease-out"
                   style={{ width: `${progress}%` }}
