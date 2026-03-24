@@ -1,4 +1,4 @@
-import { useState, useEffect, Suspense, lazy } from 'react'; 
+import { useState, useEffect, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
 import { Toaster } from 'sonner';
@@ -22,7 +22,13 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [isAdmin, setIsAdmin] = useState(false);
+  // const [isAdmin, setIsAdmin] = useState(false);
+
+  //localstorage-admin, borralo
+  const [isAdmin, setIsAdmin] = useState(() => {
+    const savedAdmin = localStorage.getItem('isAdmin');
+    return savedAdmin === 'true';
+  })
 
 
   useEffect(() => {
@@ -52,6 +58,11 @@ function App() {
 
     fetchProducts();
   }, []);
+
+  //localstorage-admin, borralo
+  useEffect(() => {
+    localStorage.setItem('isAdmin', isAdmin);
+  }, [isAdmin]);
 
 
   const handleAddProduct = async (newProd) => {
@@ -97,7 +108,13 @@ function App() {
         <ScrollToTop />
         <Toaster position="bottom-right" visibleToasts={1} duration={1500} />
         <CartDrawer />
-        <Navbar onSearch={setSearchTerm} isAdmin={isAdmin} onLogout={() => setIsAdmin(false)} />
+        <Navbar
+          onSearch={setSearchTerm}
+          isAdmin={isAdmin}
+          onLogout={() => {
+            setIsAdmin(false);
+            localStorage.removeItem('isAdmin'); // LocalStorage admin, borralo
+          }} />
         <Suspense fallback={
           <div className="h-screen flex items-center justify-center font-bold uppercase tracking-widest text-xs">
             Cargando...
@@ -106,8 +123,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Home searchTerm={searchTerm} setSearchTerm={setSearchTerm} products={products} isAdmin={isAdmin} />} />
             <Route path="/checkout" element={<Checkout />} />
-            <Route path="/laboratorio" element={<Laboratorio />} />
-            <Route path="/estudios" element={<Estudios />} />
+            <Route path="/laboratorio" element={<Laboratorio isAdmin={isAdmin} />} />
+            <Route path="/estudios" element={<Estudios isAdmin={isAdmin} />} />
             <Route path="/admin-login" element={isAdmin ? <Navigate to="/admin" /> : <Login onLogin={setIsAdmin} />} />
             <Route path="/admin" element={
               isAdmin ? (
