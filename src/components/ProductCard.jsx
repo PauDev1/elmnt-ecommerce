@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useCartContext } from '../context/CartContext';
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, isAdmin }) => {
   const { addToCart, toggleCart, cartItems } = useCartContext();
 
   const itemInCart = cartItems.find(item => item.id === product.id);
@@ -37,7 +37,7 @@ const ProductCard = ({ product }) => {
             className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
           />
 
-          {(!isOutOfStock && !hasReachedMax) && (
+          {(!isAdmin && !isOutOfStock && !hasReachedMax) && (
             <button
               onClick={handleAdd}
               className="md:hidden absolute bottom-2 right-2 bg-brand text-white w-8 h-8 rounded-full flex items-center justify-center shadow-md active:scale-90 z-10"
@@ -46,7 +46,7 @@ const ProductCard = ({ product }) => {
             </button>
           )}
 
-          {(!isOutOfStock && !hasReachedMax) && (
+          {(!isAdmin && !isOutOfStock && !hasReachedMax) && (
             <button
               onClick={handleAdd}
               className="hidden md:block absolute bottom-4 left-4 right-4 bg-white/90 py-3 text-[10px] font-bold uppercase tracking-tight translate-y-12 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 shadow-sm cursor-pointer"

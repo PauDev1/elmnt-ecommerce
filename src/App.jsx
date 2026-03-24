@@ -104,7 +104,7 @@ function App() {
           </div>
         }>
           <Routes>
-            <Route path="/" element={<Home searchTerm={searchTerm} setSearchTerm={setSearchTerm} products={products} />} />
+            <Route path="/" element={<Home searchTerm={searchTerm} setSearchTerm={setSearchTerm} products={products} isAdmin={isAdmin} />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/laboratorio" element={<Laboratorio />} />
             <Route path="/estudios" element={<Estudios />} />
@@ -116,7 +116,7 @@ function App() {
                 <Navigate to="/" replace />
               )
             } />
-            <Route path="/product/:id" element={<ProductDetail products={products} />} />
+            <Route path="/product/:id" element={<ProductDetail products={products} isAdmin={isAdmin} />} />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </Suspense>

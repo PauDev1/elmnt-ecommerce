@@ -8,7 +8,7 @@ import { useLocation } from 'react-router-dom';
 
 
 
-function Home({ searchTerm, products = [], loading }) {
+function Home({ searchTerm, products = [], loading, isAdmin }) {
   const [activeCategory, setActiveCategory] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
   const [sortBy, setSortBy] = useState("default");
@@ -125,7 +125,11 @@ function Home({ searchTerm, products = [], loading }) {
                 ))
               ) : currentProducts.length > 0 ? (
                 currentProducts.map(product => (
-                  <ProductCard key={product.id} product={product} />
+                  <ProductCard 
+                  key={product.id} 
+                  product={product}
+                  isAdmin={isAdmin} 
+                  />
                 ))
               ) : (
                 <p className="col-span-full text-center py-20 text-muted text-xs uppercase tracking-widest">

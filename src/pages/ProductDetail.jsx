@@ -6,7 +6,7 @@ import Footer from '../components/Footer';
 import { toast } from 'sonner';
 import CustomToast from '../components/CustomToast';
 
-const ProductDetail = ({ products }) => {
+const ProductDetail = ({ products, isAdmin }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [openSection, setOpenSection] = useState('');
@@ -115,44 +115,53 @@ const ProductDetail = ({ products }) => {
               </div>
 
               <div className="mb-10">
-                {cartItem ? (
-                  <div className="flex items-center gap-4">
-                    <div className="flex-1 flex items-center justify-between border border-brand p-4 rounded-lg bg-white">
+                {!isAdmin ? (
+                  cartItem ? (
+                    <div className="flex items-center gap-4" >
+                      <div className="flex-1 flex items-center justify-between border border-brand p-4 rounded-lg bg-white">
 
-                      <button onClick={handleDecreaseQuantity} className="hover:opacity-50 px-2">
-                        <span className="material-symbols-outlined text-base cursor-pointer">remove</span>
-                      </button>
+                        <button onClick={handleDecreaseQuantity} className="hover:opacity-50 px-2">
+                          <span className="material-symbols-outlined text-base cursor-pointer">remove</span>
+                        </button>
 
-                      <span className="text-[11px] font-bold tracking-[0.25em] text-brand">
-                        {cartItem.quantity} UNIDADES
-                      </span>
+                        <span className="text-[11px] font-bold tracking-[0.25em] text-brand">
+                          {cartItem.quantity} UNIDADES
+                        </span>
+
+                        <button
+                          onClick={handleIncreaseQuantity}
+                          disabled={cartItem.quantity >= product.stock}
+                          className="hover:opacity-50 px-2 disabled:opacity-20 cursor-pointer"
+                        >
+                          <span className="material-symbols-outlined text-base">add</span>
+                        </button>
+                      </div>
 
                       <button
-                        onClick={handleIncreaseQuantity}
-                        disabled={cartItem.quantity >= product.stock}
-                        className="hover:opacity-50 px-2 disabled:opacity-20 cursor-pointer"
+                        onClick={handleRemoveFromCart}
+                        className="w-14 h-14 border border-slate-200 flex items-center justify-center rounded-lg text-slate-400 hover:text-red-500 transition-colors cursor-pointer"
                       >
-                        <span className="material-symbols-outlined text-base">add</span>
+                        <span className="material-symbols-outlined font-light text-xl">delete</span>
                       </button>
                     </div>
+                  ) : (
 
                     <button
-                      onClick={handleRemoveFromCart}
-                      className="w-14 h-14 border border-slate-200 flex items-center justify-center rounded-lg text-slate-400 hover:text-red-500 transition-colors cursor-pointer"
-                    >
-                      <span className="material-symbols-outlined font-light text-xl">delete</span>
-                    </button>
-                  </div>
-                ) : (
-
-                  <button
-                    onClick={handleAddToCart}
-                    disabled={product.stock === 0}
-                    className={`w-full py-5 rounded-lg text-[10px] uppercase tracking-[0.2em] cursor-pointer font-bold transition-all
+                      onClick={handleAddToCart}
+                      disabled={product.stock === 0}
+                      className={`w-full py-5 rounded-lg text-[10px] uppercase tracking-[0.2em] cursor-pointer font-bold transition-all
                     ${product.stock > 0 ? 'bg-brand text-white hover:bg-slate-800 shadow-xl' : 'bg-slate-100 text-slate-400'}`}
-                  >
-                    {product.stock > 0 ? 'Añadir al Carrito' : 'Agotado'}
-                  </button>
+                    >
+                      {product.stock > 0 ? 'Añadir al Carrito' : 'Agotado'}
+                    </button>
+                  )
+                ) : (
+                  
+                  <div className="py-4 px-6 bg-slate-50 border border-slate-100 rounded-lg text-center">
+                    <p className="text-[10px] uppercase tracking-widest text-slate-400 font-bold">
+                      Vista de Administrador - Compra Deshabilitada
+                    </p>
+                  </div>
                 )}
               </div>
               <div className="border-t border-slate-100 ">
@@ -187,12 +196,12 @@ const ProductDetail = ({ products }) => {
                 <span className="text-[10px] text-slate-400 uppercase tracking-widest">Sugerencias</span>
               </div>
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
-                {relatedProducts.map(item => <ProductCard key={item.id} product={item} />)}
+                {relatedProducts.map(item => <ProductCard key={item.id} product={item} isAdmin={isAdmin} />)}
               </div>
             </section>
           )}
         </div>
-      </div>
+      </div >
       <Footer />
     </>
   );
