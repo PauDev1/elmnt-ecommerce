@@ -34,7 +34,7 @@ const AdminPanel = ({ products, onUpdateProduct, onDeleteProduct, onAddProduct }
         {/* ENCABEZADO */}
         <div className="mb-8">
           <h1 className="text-xl font-bold uppercase tracking-tighter italic text-brand text-center md:text-left">Administración de Inventario</h1>
-          {/* <p className="text-slate-500 text-sm mt-1">Repositorio central de activos químicos y formulaciones de precisión.</p> */}
+          {/* <p className="text-slate-500 text-sm mt-1">Repositorio central de productos.</p> */}
         </div>
 
         {/* BARRA DE ACCIONES */}
@@ -54,7 +54,7 @@ const AdminPanel = ({ products, onUpdateProduct, onDeleteProduct, onAddProduct }
             className="w-full md:w-auto bg-brand cursor-pointer text-white px-6 py-2.5 rounded-lg font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-slate-800 transition-all shadow-lg shadow-slate-200"
           >
             <span className="material-symbols-outlined text-sm">add</span>
-            Añadir Producto
+            Agregar Producto
           </button>
         </div>
 

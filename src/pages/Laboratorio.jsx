@@ -60,7 +60,7 @@ const Laboratorio = () => {
                         ))}
                     </div>
 
-                    {/* BLOQUE 03: PUREZA (Hover agregado) */}
+                    {/* BLOQUE 03: PUREZA*/}
                     <div className="bg-nature rounded-3xl p-10 text-white flex flex-col justify-center items-center text-center min-h-[250px] transition-all duration-300 hover:border-slate-200 hover:shadow-xl/20  hover:-translate-y-1 cursor-pointer">
                         <span className="material-symbols-outlined mb-6 text-white text-4xl" style={{ fontSize: '40px' }}>license</span>
                         <div>
@@ -69,7 +69,7 @@ const Laboratorio = () => {
                         </div>
                     </div>
 
-                    {/* BLOQUE 04: BOTÁNICA (Hover agregado) */}
+                    {/* BLOQUE 04: BOTÁNICA*/}
                     <div className="bg-brand rounded-3xl p-10 text-white flex flex-col justify-center items-center text-center min-h-[250px] transition-all duration-300 hover:border-slate-200 hover:shadow-xl/20 hover:-translate-y-1 cursor-pointer ">
                         <span className="material-symbols-outlined mb-6 text-white text-4xl" style={{ fontSize: '40px' }}>eco</span>
                         <div>
@@ -78,7 +78,7 @@ const Laboratorio = () => {
                         </div>
                     </div>
 
-                    {/* BLOQUE 05: CRUELTY FREE (Hover agregado) */}
+                    {/* BLOQUE 05: CRUELTY FREE*/}
                     <div className="bg-slate-100 rounded-3xl p-10 border border-slate-100 flex flex-col justify-center items-center text-center min-h-[250px] transition-all duration-300 hover:border-slate-200 hover:shadow-xl/20 hover:-translate-y-1 cursor-pointer">
                         <span className="material-symbols-outlined mb-6 text-slate-900 text-5xl" style={{ fontSize: '40px' }}>cruelty_free</span>
                         <div>
@@ -87,7 +87,7 @@ const Laboratorio = () => {
                         </div>
                     </div>
 
-                    {/* BLOQUE 06: SUSTENTABILIDAD (Hover agregado) */}
+                    {/* BLOQUE 06: SUSTENTABILIDAD*/}
                     <div className="bg-[#f6ddda] rounded-3xl p-10 border border-slate-100 flex flex-col justify-center items-center text-center min-h-[250px] transition-all duration-300 hover:border-slate-200 hover:shadow-xl/20 hover:-translate-y-1 cursor-pointer">
                         <span className="material-symbols-outlined mb-6 text-slate-900 text-4xl" style={{ fontSize: '40px' }}>recycling</span>
                         <div>

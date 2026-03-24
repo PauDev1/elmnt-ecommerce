@@ -36,7 +36,7 @@ const ProductDetail = ({ products, isAdmin }) => {
   const handleAddToCart = () => {
     addToCart(product);
     toast.custom((t) => (
-      <CustomToast label=" ELMNT - Shopping Bag " message="PRODUCTO AÑADIDO" type="success" />
+      <CustomToast label=" ELMNT - Shopping Bag " message="PRODUCTO AGREGADO" type="success" />
     ));
   };
 
@@ -152,7 +152,7 @@ const ProductDetail = ({ products, isAdmin }) => {
                       className={`w-full py-5 rounded-lg text-[10px] uppercase tracking-[0.2em] cursor-pointer font-bold transition-all
                     ${product.stock > 0 ? 'bg-brand text-white hover:bg-slate-800 shadow-xl' : 'bg-slate-100 text-slate-400'}`}
                     >
-                      {product.stock > 0 ? 'Añadir al Carrito' : 'Agotado'}
+                      {product.stock > 0 ? 'Agregar al Carrito' : 'Agotado'}
                     </button>
                   )
                 ) : (

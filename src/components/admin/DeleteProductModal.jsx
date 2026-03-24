@@ -14,7 +14,7 @@ const DeleteProductModal = ({ product, onClose, onDelete }) => {
           </div>
 
           <h2 className="text-xl font-bold text-slate-800 tracking-tight">
-            ¿Eliminar activo?
+            ¿Eliminar producto?
           </h2>
 
           <p className="text-sm text-slate-500 mt-2 leading-relaxed">
