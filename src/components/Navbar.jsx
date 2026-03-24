@@ -19,9 +19,8 @@ const Navbar = ({ searchTerm, onSearch, isAdmin, onLogout }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [showMenu]);
 
-  // En Navbar.jsx, agregá este useEffect:
+  
   useEffect(() => {
-    // Si la ruta NO es la Home, limpiamos la búsqueda automáticamente
     if (location.pathname !== '/') {
       onSearch("");
     }
@@ -76,20 +75,16 @@ const Navbar = ({ searchTerm, onSearch, isAdmin, onLogout }) => {
               </button>
               <Link
                 to="/estudios"
-                onClick={() => {
-                  console.log("Limpiando búsqueda..."); onSearch("")
-                }}
+                onClick={() => onSearch("")}
                 className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 hover:text-black transition-colors cursor-pointer"
               >
                 Estudios Clínicos
               </Link>
 
-              {/* Cambio de Button a Link para Laboratorio */}
+              
               <Link
                 to="/laboratorio"
-                onClick={() => {
-                  console.log("Limpiando búsqueda..."); onSearch("")
-                }}
+                onClick={() => onSearch("")}
                 className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 hover:text-black transition-colors cursor-pointer"
               >
                 El Laboratorio
