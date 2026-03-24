@@ -32,8 +32,8 @@ const CartDrawer = () => {
           {/* Header */}
           <div className="p-6 border-b border-slate-100 flex justify-between items-center">
             <div>
-              <h3 className="text-lg font-semibold tracking-ultra text-brand">Shopping Bag</h3>
-              <p className="text-[11px] text-muted/80 uppercase tracking-tight mt-1 font-semibold">
+              <h3 className="text-lg font-bold tracking-tight text-brand uppercase">Shopping Bag</h3>
+              <p className="text-[11px] text-muted uppercase tracking-tight mt-1 font-semibold">
                 {totalItems} {totalItems === 1 ? 'Ítem seleccionado' : 'Ítems seleccionados'}
               </p>
             </div>
