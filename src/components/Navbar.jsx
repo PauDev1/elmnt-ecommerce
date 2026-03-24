@@ -84,7 +84,7 @@ const Navbar = ({ onSearch, isAdmin, onLogout }) => {
 
         <div className="flex items-center gap-1 sm:gap-2">
 
-          {!isAdmin && !isLoginPage && (
+          {(!isLoginPage && (!isAdmin || isHomePage)) && (
             <div className="relative flex items-center justify-end">
               <input
                 id="search-input"
@@ -93,7 +93,7 @@ const Navbar = ({ onSearch, isAdmin, onLogout }) => {
                 className="absolute right-0 bg-slate-100/90 border-none focus:outline-none text-[16px] md:text-[12px] rounded-lg transition-all duration-300 w-0 h-0 opacity-0 focus:w-[110px] sm:focus:w-[130px] md:focus:w-[180px] focus:h-9 focus:px-3 focus:opacity-100 z-10"
                 onChange={(e) => {
                   const value = e.target.value;
-                  onSearch(value); 
+                  onSearch(value);
 
                   if (value.length === 1) {
                     if (isHomePage) {
