@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useCart } from "../hooks/useCart";
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 
-const Navbar = ({ onSearch, isAdmin, onLogout }) => {
+const Navbar = ({ searchTerm, onSearch, isAdmin, onLogout }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [showMenu, setShowMenu] = useState(false);
@@ -19,6 +19,14 @@ const Navbar = ({ onSearch, isAdmin, onLogout }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [showMenu]);
 
+  // En Navbar.jsx, agregá este useEffect:
+  useEffect(() => {
+    // Si la ruta NO es la Home, limpiamos la búsqueda automáticamente
+    if (location.pathname !== '/') {
+      onSearch("");
+    }
+  }, [location.pathname, onSearch]);
+
   const isHomePage = location.pathname === '/';
   const isAdminPage = location.pathname === '/admin';
   const isLoginPage = location.pathname === '/admin-login';
@@ -26,11 +34,13 @@ const Navbar = ({ onSearch, isAdmin, onLogout }) => {
 
   const handleLogoClick = () => {
     if (isHomePage) {
+      onSearch("");
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
   const handleTiendaClick = () => {
+    onSearch("");
     if (isHomePage) {
       const element = document.getElementById('inventario');
       element?.scrollIntoView({ behavior: 'smooth' });
@@ -66,6 +76,9 @@ const Navbar = ({ onSearch, isAdmin, onLogout }) => {
               </button>
               <Link
                 to="/estudios"
+                onClick={() => {
+                  console.log("Limpiando búsqueda..."); onSearch("")
+                }}
                 className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 hover:text-black transition-colors cursor-pointer"
               >
                 Estudios Clínicos
@@ -74,6 +87,9 @@ const Navbar = ({ onSearch, isAdmin, onLogout }) => {
               {/* Cambio de Button a Link para Laboratorio */}
               <Link
                 to="/laboratorio"
+                onClick={() => {
+                  console.log("Limpiando búsqueda..."); onSearch("")
+                }}
                 className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 hover:text-black transition-colors cursor-pointer"
               >
                 El Laboratorio
@@ -90,6 +106,7 @@ const Navbar = ({ onSearch, isAdmin, onLogout }) => {
                 id="search-input"
                 type="text"
                 placeholder="Buscar"
+                value={searchTerm}
                 className="absolute right-0 bg-slate-100/90 border-none focus:outline-none text-[16px] md:text-[12px] rounded-lg transition-all duration-300 w-0 h-0 opacity-0 focus:w-[110px] sm:focus:w-[130px] md:focus:w-[180px] focus:h-9 focus:px-3 focus:opacity-100 z-10"
                 onChange={(e) => {
                   const value = e.target.value;

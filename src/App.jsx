@@ -109,6 +109,7 @@ function App() {
         <Toaster position="bottom-right" visibleToasts={1} duration={1500} />
         <CartDrawer />
         <Navbar
+          searchTerm={searchTerm}
           onSearch={setSearchTerm}
           isAdmin={isAdmin}
           onLogout={() => {
