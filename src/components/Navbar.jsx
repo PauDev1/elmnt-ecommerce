@@ -92,10 +92,21 @@ const Navbar = ({ onSearch, isAdmin, onLogout }) => {
                 placeholder="Buscar"
                 className="absolute right-0 bg-slate-100/90 border-none focus:outline-none text-[16px] md:text-[12px] rounded-lg transition-all duration-300 w-0 h-0 opacity-0 focus:w-[110px] sm:focus:w-[130px] md:focus:w-[180px] focus:h-9 focus:px-3 focus:opacity-100 z-10"
                 onChange={(e) => {
-                  onSearch(e.target.value);
-                  if (!isHomePage) {
-                    navigate('/', { state: { scrollTo: 'inventario' } });
+                  const value = e.target.value;
+                  onSearch(value); 
+
+                  if (value.length === 1) {
+                    if (isHomePage) {
+                      const element = document.getElementById('inventario');
+                      element?.scrollIntoView({ behavior: 'smooth' });
+                    } else {
+                      navigate('/', { state: { scrollTo: 'inventario' } });
+                    }
                   }
+                  // Si se borra todo el texto va al hero
+                  // if (value.length === 0 && isHomePage) {
+                  //   window.scrollTo({ top: 0, behavior: 'smooth' });
+                  // }
                 }}
               />
               <span
