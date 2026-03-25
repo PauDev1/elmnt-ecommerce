@@ -4,7 +4,6 @@ import Footer from '../components/Footer';
 const Laboratorio = () => {
     const [currentImg, setCurrentImg] = useState(0);
 
-    // Array de imágenes para el carrusel
     const images = [
         "/assets/lab/lab-serum.webp",
         "/assets/lab/lab-serum-1.webp",
@@ -112,7 +111,7 @@ const Laboratorio = () => {
                     
                     <a 
                         href="/estudios" 
-                        className="inline-flex items-center gap-2 bg-brand text-white px-10 py-4 rounded-full text-xs font-bold uppercase tracking-[0.2em] hover:bg-slate-900 transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg shadow-[#83A982]/20"
+                        className="inline-flex items-center gap-2 bg-brand text-white px-10 py-4 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-slate-900 transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg shadow-[#83A982]/20"
                     >
                         Ver Estudios Clínicos
                         <span className="material-symbols-outlined text-sm">arrow_forward</span>
