@@ -54,7 +54,7 @@ src/
     Bash
     
     ```
-    git clone [https://github.com/PauDev1/elmnt-ecommerce.git](https://github.com/PauDev1/elmnt-ecommerce.git)
+    git clone https://github.com/PauDev1/elmnt-ecommerce.git
     
     ```
     
