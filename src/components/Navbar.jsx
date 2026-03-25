@@ -9,6 +9,12 @@ const Navbar = ({ searchTerm, onSearch, isAdmin, onLogout }) => {
   const { toggleCart, cartItems } = useCart();
   const menuRef = useRef(null);
 
+  const navLinks = [
+    { name: 'Tienda', path: '/', isScroll: true },
+    { name: 'El Laboratorio', path: '/laboratorio' },
+    { name: 'Estudios Científicos', path: '/estudios' },
+  ];
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -19,7 +25,7 @@ const Navbar = ({ searchTerm, onSearch, isAdmin, onLogout }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [showMenu]);
 
-  
+
   useEffect(() => {
     if (location.pathname !== '/') {
       onSearch("");
@@ -67,28 +73,34 @@ const Navbar = ({ searchTerm, onSearch, isAdmin, onLogout }) => {
 
           {!isAdmin && !isLoginPage && (
             <nav className="hidden md:flex items-center gap-8">
-              <button
-                onClick={handleTiendaClick}
-                className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 hover:text-black transition-colors cursor-pointer"
-              >
-                Tienda
-              </button>
-              <Link
-                to="/estudios"
-                onClick={() => onSearch("")}
-                className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 hover:text-black transition-colors cursor-pointer"
-              >
-                Estudios Clínicos
-              </Link>
+              {navLinks.map((link) => {
+                const isActive = location.pathname === link.path;
 
-              
-              <Link
-                to="/laboratorio"
-                onClick={() => onSearch("")}
-                className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 hover:text-black transition-colors cursor-pointer"
-              >
-                El Laboratorio
-              </Link>
+                if (link.isScroll) {
+                  return (
+                    <button
+                      key={link.name}
+                      onClick={handleTiendaClick}
+                      className={`text-[10px] font-bold uppercase tracking-tight transition-colors cursor-pointer ${isActive ? 'text-brand' : 'text-slate-500 hover:text-brand'
+                        }`}
+                    >
+                      {link.name}
+                    </button>
+                  );
+                }
+
+                return (
+                  <Link
+                    key={link.name}
+                    to={link.path}
+                    onClick={() => onSearch("")}
+                    className={`text-[10px] font-bold uppercase tracking-tight transition-colors cursor-pointer ${isActive ? 'text-brand' : 'text-slate-500 hover:text-brand'
+                      }`}
+                  >
+                    {link.name}
+                  </Link>
+                );
+              })}
             </nav>
           )}
         </div>
