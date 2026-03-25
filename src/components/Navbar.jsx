@@ -121,8 +121,21 @@ const Navbar = ({ searchTerm, onSearch, isAdmin, onLogout }) => {
 
                   if (value.length === 1) {
                     if (isHomePage) {
-                      const element = document.getElementById('inventario');
-                      element?.scrollIntoView({ behavior: 'smooth' });
+                      setTimeout(() => {
+                        const element = document.getElementById('inventario');
+                        if (element) {
+                          const isMobile = window.innerWidth < 768;
+                          const rect = element.getBoundingClientRect();
+                          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                          const offset = isMobile ? 40 : 20;
+                          const finalTarget = rect.top + scrollTop - offset;
+
+                          window.scrollTo({
+                            top: finalTarget,
+                            behavior: isMobile ? 'auto' : 'smooth'
+                          });
+                        }
+                      }, 100);
                     } else {
                       navigate('/', { state: { scrollTo: 'inventario' } });
                     }

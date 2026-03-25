@@ -47,14 +47,15 @@
 /* ESTILOS GLOBALES Y COMPONENTES */
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 45px; 
+  scroll-padding-top: 40px; 
 }
 
-/* @media (min-width: 768px) {
+
+ @media (min-width: 768px) {
   html {
-    scroll-padding-top: 80px;
+    scroll-padding-top: 20px;
   }
-} */
+} 
 
 .counter {
   font-size: 16px;
