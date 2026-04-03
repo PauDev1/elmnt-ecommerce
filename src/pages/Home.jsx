@@ -107,7 +107,7 @@ function Home({ searchTerm, products = [], loading, isAdmin }) {
                 </label>
 
                 <select
-                  id="sort-select" 
+                  id="sort-select"
                   onChange={(e) => setSortBy(e.target.value)}
                   className="text-[10px] font-bold uppercase tracking-widest bg-transparent cursor-pointer outline-none text-brand"
                 >
@@ -125,10 +125,10 @@ function Home({ searchTerm, products = [], loading, isAdmin }) {
                 ))
               ) : currentProducts.length > 0 ? (
                 currentProducts.map(product => (
-                  <ProductCard 
-                  key={product.id} 
-                  product={product}
-                  isAdmin={isAdmin} 
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    isAdmin={isAdmin}
                   />
                 ))
               ) : (
@@ -138,42 +138,49 @@ function Home({ searchTerm, products = [], loading, isAdmin }) {
               )}
             </div>
 
-            {/* PAGINACIÓN  */}
+            {/* PAGINACIÓN */}
             {!loading && totalPages > 1 && (
-              <div className="flex justify-center items-center gap-6 mt-16">
+              <div className="flex flex-row justify-center items-center gap-2 md:gap-6 mt-12 px-2">
+
                 <button
                   disabled={currentPage === 1}
                   onClick={() => {
                     setCurrentPage(prev => prev - 1);
-                    document.getElementById('inventario').scrollIntoView({ behavior: 'smooth' });
+                    setTimeout(() => {
+                      document.getElementById('inventario')?.scrollIntoView({ behavior: 'smooth' });
+                    }, 0);
                   }}
-                  className="group flex items-center gap-2 disabled:opacity-20 transition-all text-brand"
+                  className="group flex items-center gap-1 md:gap-2 disabled:opacity-20 transition-all text-brand shrink-0"
                 >
-                  <span className="material-symbols-outlined text-sm group-hover:-translate-x-1 transition-transform cursor-pointer">arrow_back_ios</span>
-                  <span className="text-[10px] font-bold tracking-tight uppercase cursor-pointer">Anterior</span>
+                  <span className="material-symbols-outlined text-[12px] md:text-sm group-hover:-translate-x-1 transition-transform cursor-pointer">arrow_back_ios</span>
+                  <span className="text-[9px] md:text-[10px] font-bold tracking-tight uppercase cursor-pointer">Anterior</span>
                 </button>
 
-                <div className="h-[1px] w-12 bg-surface"></div>
+                <div className="h-[1px] w-6 md:w-12 bg-surface"></div>
 
-                <span className="text-[10px] font-bold tracking-ultra uppercase text-muted">
+                <span className="text-[9px] md:text-[10px] font-bold tracking-ultra uppercase text-muted whitespace-nowrap">
                   {currentPage} / {totalPages}
                 </span>
 
-                <div className="h-[1px] w-12 bg-surface"></div>
+                <div className="h-[1px] w-6 md:w-12 bg-surface"></div>
 
                 <button
                   disabled={currentPage === totalPages}
                   onClick={() => {
                     setCurrentPage(prev => prev + 1);
-                    document.getElementById('inventario').scrollIntoView({ behavior: 'smooth' });
+                    setTimeout(() => {
+                      document.getElementById('inventario')?.scrollIntoView({ behavior: 'smooth' });
+                    }, 0);
                   }}
-                  className="group flex items-center gap-2 disabled:opacity-20 transition-all text-brand"
+                  className="group flex items-center gap-1 md:gap-2 disabled:opacity-20 transition-all text-brand shrink-0"
                 >
-                  <span className="text-[10px] font-bold tracking-tight uppercase cursor-pointer">Siguiente</span>
-                  <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform cursor-pointer">arrow_forward_ios</span>
+                  <span className="text-[9px] md:text-[10px] font-bold tracking-tight uppercase cursor-pointer">Siguiente</span>
+                  <span className="material-symbols-outlined text-[12px] md:text-sm group-hover:translate-x-1 transition-transform cursor-pointer">arrow_forward_ios</span>
                 </button>
+
               </div>
             )}
+
           </div>
         </section>
         <Features />
