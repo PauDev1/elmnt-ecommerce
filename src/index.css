@@ -302,7 +302,7 @@ input[type=number] {
 
 @media (max-width: 767px) {
   [data-sonner-toaster][data-sonner-toaster] {
-    bottom: 150px; 
+    bottom: 150px !important; 
     left: 0;
     right: 0;
     width: 100%;

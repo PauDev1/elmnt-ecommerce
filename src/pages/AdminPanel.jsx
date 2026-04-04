@@ -232,7 +232,7 @@ const AdminPanel = ({ products, onUpdateProduct, onDeleteProduct, onAddProduct }
               <span className="material-symbols-outlined text-2xl">check_circle</span>
             </div>
             <div>
-              <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Sistema</p>
+              <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">ELMNT - Admin Panel</p>
               <p className="text-sm font-semibold text-slate-700">{toast.message}</p>
             </div>
             <div className="absolute bottom-0 left-0 h-1 bg-emerald-500/10 w-full overflow-hidden rounded-b-2xl">
