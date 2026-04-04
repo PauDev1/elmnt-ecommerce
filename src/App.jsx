@@ -106,7 +106,14 @@ function App() {
     <CartProvider>
       <Router>
         <ScrollToTop />
-        <Toaster position="bottom-right" visibleToasts={1} duration={1500} />
+        <div className={isAdmin ? "admin-toaster" : "shop-toaster"}>
+          <Toaster
+            position="bottom-right"
+            visibleToasts={1}
+            duration={1500}
+            containerClassName={isAdmin ? "admin-toaster" : "shop-toaster"}
+          />
+        </div>
         <CartDrawer />
         <Navbar
           searchTerm={searchTerm}

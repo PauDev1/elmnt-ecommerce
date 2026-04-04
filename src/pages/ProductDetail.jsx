@@ -33,41 +33,38 @@ const ProductDetail = ({ products, isAdmin }) => {
 
   if (!product) return <div className="h-screen flex items-center justify-center uppercase tracking-widest text-xs font-light text-slate-400">Cargando...</div>;
 
+
   const handleAddToCart = () => {
     addToCart(product);
-    toast.custom((t) => (
-      <CustomToast label=" ELMNT - Shopping Bag " message="PRODUCTO AGREGADO" type="success" />
-    ));
+    showToast("PRODUCTO AGREGADO");
   };
 
   const handleIncreaseQuantity = () => {
     updateQuantity(product.id, cartItem.quantity + 1);
-    toast.custom((t) => (
-      <CustomToast label=" ELMNT - Shopping Bag " message="CANTIDAD ACTUALIZADA" type="success" />
-    ));
+    showToast("CANTIDAD ACTUALIZADA");
   };
 
   const handleDecreaseQuantity = () => {
     if (cartItem && cartItem.quantity > 1) {
       updateQuantity(product.id, cartItem.quantity - 1);
-      toast.custom((t) => (
-        <CustomToast label=" ELMNT - Shopping Bag " message="CANTIDAD ACTUALIZADA" type="success" />
-      ));
+      showToast("CANTIDAD ACTUALIZADA");
     } else {
       removeItem(product.id);
-      toast.custom((t) => (
-        <CustomToast label=" ELMNT - Shopping Bag " message="PRODUCTO ELIMINADO" type="error" />
-      ));
+      showToast("PRODUCTO ELIMINADO", "error");
     }
   };
 
   const handleRemoveFromCart = () => {
     removeItem(product.id);
+    showToast("PRODUCTO ELIMINADO", "error");
+  };
+
+  const showToast = (message, type = 'success') => {
     toast.custom((t) => (
       <CustomToast
         label=" ELMNT - Shopping Bag "
-        message="PRODUCTO ELIMINADO"
-        type="error"
+        message={message}
+        type={type}
       />
     ));
   };
@@ -90,8 +87,6 @@ const ProductDetail = ({ products, isAdmin }) => {
 
             <div className="flex items-center justify-center p-2">
               <img
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
                 src={product.image}
                 alt={product.name}
                 className="max-w-full max-h-[500px] object-contain rounded-2xl shadow-2xl  "
@@ -114,7 +109,7 @@ const ProductDetail = ({ products, isAdmin }) => {
                 </div>
               </div>
 
-              <div className="mb-10">
+              <div className="mb-10" id="mobile-cart-button">
                 {!isAdmin ? (
                   cartItem ? (
                     <div className="flex items-center gap-4" >
@@ -156,7 +151,7 @@ const ProductDetail = ({ products, isAdmin }) => {
                     </button>
                   )
                 ) : (
-                  
+
                   <div className="py-4 px-6 bg-slate-50 border border-slate-100 rounded-lg text-center">
                     <p className="text-[10px] uppercase tracking-widest text-slate-400 font-bold">
                       Vista de Administrador - Compra Deshabilitada

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { toast } from 'sonner';
+import CustomToast from '../components/CustomToast';
 import AddProductModal from '../components/admin/AddProductModal';
 import EditProductModal from '../components/admin/EditProductModal';
 import DeleteProductModal from '../components/admin/DeleteProductModal';
@@ -9,7 +11,6 @@ const AdminPanel = ({ products, onUpdateProduct, onDeleteProduct, onAddProduct }
   const [currentPage, setCurrentPage] = useState(1);
   const [editingProduct, setEditingProduct] = useState(null);
   const [productToDelete, setProductToDelete] = useState(null);
-  const [toast, setToast] = useState(null);
   const itemsPerPage = 6;
 
   const filteredAdminProducts = products.filter(p =>
@@ -22,9 +23,14 @@ const AdminPanel = ({ products, onUpdateProduct, onDeleteProduct, onAddProduct }
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredAdminProducts.slice(indexOfFirstItem, indexOfLastItem);
 
-  const showToast = (message, type = 'success') => {
-    setToast({ message, type });
-    setTimeout(() => setToast(null), 3000);
+  const showToast = (message, type = 'success', label = "ADMIN PANEL") => {
+    toast.custom((t) => (
+      <CustomToast
+        message={message}
+        type={type}
+        label={label}
+      />
+    ), { duration: 3000 });
   };
 
   return (
@@ -200,7 +206,7 @@ const AdminPanel = ({ products, onUpdateProduct, onDeleteProduct, onAddProduct }
         onClose={() => setIsModalOpen(false)}
         onAddProduct={(productData) => {
           onAddProduct(productData);
-          showToast("Producto registrado con éxito");
+          showToast("Producto registrado con éxito", "success", "NUEVO PRODUCTO");
         }}
       />
 
@@ -210,7 +216,7 @@ const AdminPanel = ({ products, onUpdateProduct, onDeleteProduct, onAddProduct }
         onClose={() => setEditingProduct(null)}
         onUpdateProduct={(id, data) => {
           onUpdateProduct(id, data);
-          showToast("Cambios guardados con éxito");
+          showToast("Cambios guardados con éxito", "success", "ACTUALIZACIÓN");
         }}
       />
 
@@ -220,28 +226,10 @@ const AdminPanel = ({ products, onUpdateProduct, onDeleteProduct, onAddProduct }
         onDelete={(id) => {
           onDeleteProduct(id);
           setProductToDelete(null);
-          showToast("Producto eliminado con éxito", "success");
+          showToast("Producto eliminado con éxito", "error", "ELIMINACIÓN");
         }}
       />
 
-      {/* NOTIFICACIÓN FLOTANTE (TOAST) */}
-      {toast && (
-        <div className="fixed bottom-10 right-10 z-[200] animate-in slide-in-from-bottom-5 fade-in duration-300">
-          <div className="bg-white border border-slate-100 shadow-[0_20px_50px_rgba(0,0,0,0.1)] rounded-2xl p-4 flex items-center gap-4 min-w-[280px]">
-            <div className="w-10 h-10 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center flex-shrink-0">
-              <span className="material-symbols-outlined text-2xl">check_circle</span>
-            </div>
-            <div>
-              <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">ELMNT - Admin Panel</p>
-              <p className="text-sm font-semibold text-slate-700">{toast.message}</p>
-            </div>
-            <div className="absolute bottom-0 left-0 h-1 bg-emerald-500/10 w-full overflow-hidden rounded-b-2xl">
-              <div className="h-full bg-emerald-500 animate-[progress_3s_linear_forwards]"
-                style={{ width: '100%', transformOrigin: 'left' }} />
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
