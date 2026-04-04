@@ -15,49 +15,75 @@ const ProductCard = ({ product, isAdmin }) => {
   );
 
   const handleAdd = (e) => {
-    e.stopPropagation(); 
-    e.preventDefault();  
+    e.stopPropagation();
+    e.preventDefault();
     if (!isOutOfStock && !hasReachedMax) {
       addToCart(product);
       toggleCart();
     }
   };
 
-  return (
+  const isAdded = quantityInCart > 0;
 
+  const handleCardAction = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+
+    if (isAdded) {
+      toggleCart();
+    } else if (!isOutOfStock && !hasReachedMax) {
+      addToCart(product);
+      toggleCart();
+    }
+  };
+
+  return (
     <div className="flex flex-col group h-full">
       <Link to={`/product/${product.id}`} className="block mb-6">
         <div className="relative aspect-square bg-surface overflow-hidden rounded-lg">
-            <img
-            src={optimizedImage} 
+          <img
+            src={optimizedImage}
             alt={product.name}
-            width="400" // 
+            width="400"
             height="400"
-            loading="lazy" 
+            loading="lazy"
             className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
           />
 
-          {(!isAdmin && !isOutOfStock && !hasReachedMax) && (
+          {/* BOTÓN MOBILE */}
+          {(!isAdmin && !isOutOfStock) && (
             <button
-              onClick={handleAdd}
-              className="md:hidden absolute bottom-2 right-2 bg-brand text-white w-8 h-8 rounded-full flex items-center justify-center shadow-md active:scale-90 z-10"
+              onClick={handleCardAction}
+              className={`md:hidden absolute bottom-2 right-2 w-8 h-8 rounded-full flex items-center justify-center shadow-md active:scale-90 z-10 transition-colors ${isAdded ? 'bg-black text-white' : 'bg-brand text-white'
+                }`}
             >
-              <span className="material-symbols-outlined text-[20px] font-light">add</span>
+              {isAdded ? (
+                <span className="text-[14px] font-bold">{quantityInCart}</span>
+              ) : (
+                <span className="material-symbols-outlined text-[20px] font-light">add</span>
+              )}
             </button>
           )}
 
-          {(!isAdmin && !isOutOfStock && !hasReachedMax) && (
+          {/* BOTÓN DESKTOP */}
+          {(!isAdmin && !isOutOfStock) && (
             <button
-              onClick={handleAdd}
-              className="hidden md:block absolute bottom-4 left-4 right-4 bg-white/90 py-3 text-[10px] font-bold uppercase tracking-tight translate-y-12 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 shadow-sm cursor-pointer"
+              onClick={handleCardAction}
+              className={`hidden md:block absolute bottom-4 left-4 right-4 py-3 text-[10px] font-bold uppercase tracking-tight transition-all duration-300 shadow-sm cursor-pointer z-10 
+                ${isAdded
+                  ? 'bg-brand/90 text-white translate-y-0 opacity-100'
+                  : 'bg-brand/90 text-white translate-y-12 opacity-0 group-hover:translate-y-0 group-hover:opacity-100'
+                //  ? 'bg-white/90 text-brand translate-y-0 opacity-100'
+                //  : 'bg-white/90 text-brand translate-y-12 opacity-0 group-hover:translate-y-0 group-hover:opacity-100'
+                }`}
             >
-              Agregar al carrito
+              {isAdded ? `Agregado ${quantityInCart}` : 'Agregar al carrito'}
             </button>
           )}
 
-          {(isOutOfStock || hasReachedMax) && (
-            <div className="absolute top-4 left-4 bg-black text-white text-[8px] px-2 py-1 uppercase tracking-widest z-10">
-              Sin Stock
+          {(isOutOfStock || (hasReachedMax && !isAdded)) && (
+            <div className="absolute top-4 left-4 bg-brand text-white text-[8px] px-2 py-1 uppercase tracking-widest z-10">
+              {isOutOfStock ? 'Sin Stock' : 'Límite alcanzado'}
             </div>
           )}
         </div>
@@ -89,6 +115,7 @@ const ProductCard = ({ product, isAdmin }) => {
       </div>
     </div>
   );
+
 };
 
 export default ProductCard;
