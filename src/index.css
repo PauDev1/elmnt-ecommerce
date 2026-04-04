@@ -13,7 +13,7 @@
   --tracking-tight: 0.2em;
 }
 
-/* --- ESTILOS BASE --- */
+/* ESTILOS BASE */
 @layer base {
   button, 
   select, 
@@ -30,7 +30,7 @@
   }
 }
 
-/* --- UTILIDADES PERSONALIZADAS --- */
+/* UTILIDADES PERSONALIZADAS */
 @layer utilities {
   .no-scrollbar::-webkit-scrollbar {
     display: none;
@@ -280,22 +280,6 @@ input[type=number] {
   appearance: textfield;      /* Estándar para Firefox moderno */
 }
 
-[data-sonner-toaster][data-position="bottom-right"] {
-  bottom: 20px !important;
-  right: 20px !important;
-}
-
-@media (max-width: 767px) {
-  [data-sonner-toaster] {
-    bottom: 150px !important; 
-    left: 50% !important;
-    right: auto !important;
-    transform: translateX(-50%) !important;
-    width: 100% !important;
-    display: flex !important;
-    justify-content: center !important;
-  }
-}
 
 @keyframes progress-bar {
   from { transform: scaleX(1); }
@@ -310,6 +294,24 @@ input[type=number] {
   100% { opacity: 0; transform: translateY(-10px); } 
 }
 
+
+[data-sonner-toaster][data-position="bottom-right"] {
+  bottom: 20px;
+  right: 20px;
+}
+
+@media (max-width: 767px) {
+  [data-sonner-toaster][data-sonner-toaster] {
+    bottom: 150px; 
+    left: 0;
+    right: 0;
+    width: 100%;
+    display: flex; 
+    justify-content: center;
+    transform: none; 
+  }
+}
+
 [data-sonner-toast] {
-  animation: toast-fade-in-out 1.5s ease-in-out forwards !important;
+  animation: toast-fade-in-out 1.5s ease-in-out forwards;
 }

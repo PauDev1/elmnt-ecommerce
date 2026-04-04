@@ -2,7 +2,7 @@ import React from 'react';
 
 const CustomToast = ({ message, type = 'success', label = 'SISTEMA' }) => {
     return (
-         <div className="bg-white border border-slate-100 shadow-xl rounded-full p-2 pr-6 flex items-center gap-3 w-[fit-content] max-w-[calc(100vw-40px)] mx-auto relative overflow-hidden mt-4">
+         <div className="bg-white border border-slate-100 shadow-xl rounded-full p-2 pr-6 flex items-center gap-3 w-[fit-content] max-w-[calc(100vw-40px)] mx-auto relative overflow-hidden">
             <div className={`w-7 h-7 flex-shrink-0 rounded-full flex items-center justify-center ${type === 'success' ? 'bg-emerald-50 text-emerald-500' : 'bg-red-50 text-red-500'
                 }`}>
                 <span className="material-symbols-outlined text-lg">
