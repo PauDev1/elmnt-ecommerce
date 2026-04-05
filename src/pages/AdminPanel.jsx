@@ -82,9 +82,9 @@ const AdminPanel = ({ products, onUpdateProduct, onDeleteProduct, onAddProduct }
 
               <tbody className="divide-y divide-slate-50">
                 {currentItems.map((prod) => (
-                  <tr key={prod.id} className="hover:bg-slate-50/30 transition-colors group">
+                  <tr key={prod._id || prod.id} className="hover:bg-slate-50/30 transition-colors group">
                     {/* ID  */}
-                    <td className="p-4 text-xs font-mono text-slate-400">#{prod.id?.slice(-5) || "---"}</td>
+                    <td className="p-4 text-xs font-mono text-slate-400">#{prod._id || prod.id?.slice(-5) || "---"}</td>
 
                     {/* MINIATURA DE IMAGEN */}
                     <td className="p-4">
@@ -206,7 +206,6 @@ const AdminPanel = ({ products, onUpdateProduct, onDeleteProduct, onAddProduct }
         onClose={() => setIsModalOpen(false)}
         onAddProduct={(productData) => {
           onAddProduct(productData);
-          showToast("Producto registrado con éxito", "success", "NUEVO PRODUCTO");
         }}
       />
 
@@ -216,7 +215,6 @@ const AdminPanel = ({ products, onUpdateProduct, onDeleteProduct, onAddProduct }
         onClose={() => setEditingProduct(null)}
         onUpdateProduct={(id, data) => {
           onUpdateProduct(id, data);
-          showToast("Cambios guardados con éxito", "success", "ACTUALIZACIÓN");
         }}
       />
 
@@ -226,7 +224,6 @@ const AdminPanel = ({ products, onUpdateProduct, onDeleteProduct, onAddProduct }
         onDelete={(id) => {
           onDeleteProduct(id);
           setProductToDelete(null);
-          showToast("Producto eliminado con éxito", "error", "ELIMINACIÓN");
         }}
       />
 

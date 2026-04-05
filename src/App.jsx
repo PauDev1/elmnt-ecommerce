@@ -1,10 +1,12 @@
 import { useState, useEffect, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
-import { Toaster } from 'sonner';
+import { Toaster, toast } from 'sonner';
 import Navbar from './components/Navbar';
 import CartDrawer from './components/CartDrawer';
 import ScrollToTop from "./components/ScrollToTop";
+import { apiFetch } from './utils/api';
+import CustomToast from './components/CustomToast';
 
 
 const Home = lazy(() => import('./pages/Home'));
@@ -15,41 +17,29 @@ const ProductDetail = lazy(() => import('./pages/ProductDetail'));
 const Laboratorio = lazy(() => import('./pages/Laboratorio'));
 const Estudios = lazy(() => import('./pages/Estudios'));
 
-
-const API_URL = "https://6928a0c7b35b4ffc50165dfb.mockapi.io/Products"
-
 function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  // const [isAdmin, setIsAdmin] = useState(false);
 
-  //localstorage-admin, borralo
   const [isAdmin, setIsAdmin] = useState(() => {
-    const savedAdmin = localStorage.getItem('isAdmin');
-    return savedAdmin === 'true';
-  })
-
+    return localStorage.getItem('token') !== null;
+  });
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch(API_URL);
-        if (!res.ok) throw new Error("Error en la respuesta de la red");
+        setLoading(true);
+        const data = await apiFetch('/products');
 
-        const data = await res.json();
-        const cleanData = data.filter(item => {
-          const hasName = (item.name || item.title) && !(item.name || item.title).toLowerCase().includes("title ");
-          const hasCategory = item.category && item.category !== "";
-          const hasPrice = item.price && !isNaN(item.price) && item.price > 0;
-          const hasDescription = item.description && item.description.length > 5;
-          const hasStock = item.stock !== undefined && !isNaN(item.stock);
-          return hasName && hasCategory && hasPrice && hasDescription && hasStock;
-        });
+        const mappedData = data.map(item => ({
+          ...item,
+          id: item._id
+        }));
 
-        setProducts(cleanData);
+        setProducts(mappedData);
       } catch (err) {
-        console.error("Error al cargar productos de la API:", err);
+        console.error("Error al cargar productos del Backend:", err);
         setProducts([]);
       } finally {
         setLoading(false);
@@ -59,47 +49,66 @@ function App() {
     fetchProducts();
   }, []);
 
-  //localstorage-admin, borralo
-  useEffect(() => {
-    localStorage.setItem('isAdmin', isAdmin);
-  }, [isAdmin]);
-
-
   const handleAddProduct = async (newProd) => {
     try {
-      const res = await fetch(API_URL, {
+      const data = await apiFetch('/products', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
         body: JSON.stringify(newProd)
       });
 
-      if (!res.ok) throw new Error("Error en la API");
-
-      const data = await res.json();
-      setProducts(prevProducts => [...prevProducts, data]);
-
+      if (data) {
+        setProducts(prev => [...prev, { ...data, id: data._id }]);
+        toast.custom((t) => (
+      <CustomToast 
+        message="Producto registrado con éxito" 
+        type="success" 
+        label="REGISTRO" 
+      />
+    ));
+      }
     } catch (err) {
-      console.error("Error al guardar en el servidor:", err);
-      alert("No se pudo guardar el producto. Intentalo más tarde.");
+      console.error("Error al guardar:", err);
     }
   };
 
   const handleUpdateProduct = async (id, updatedData) => {
     try {
-      await fetch(`${API_URL}/${id}`, {
+      const data = await apiFetch(`/products/${id}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updatedData)
       });
-      setProducts(products.map(p => p.id === id ? updatedData : p));
-    } catch (err) { console.error("No se pudo actualizar:", err); }
+
+      setProducts(prev => prev.map(p => (p._id === id ? { ...data, id: data._id } : p)));
+      toast.custom((t) => (
+      <CustomToast 
+        message="Cambios guardados con éxito" 
+        type="success" 
+        label="ACTUALIZACIÓN" 
+      />
+    ));
+    } catch (err) {
+      console.error("Error al actualizar:", err);
+    }
   };
 
   const handleDeleteProduct = async (id) => {
     try {
-      await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
-      setProducts(products.filter(p => p.id !== id));
-    } catch (err) { console.error("No se pudo eliminar:", err); }
+      await apiFetch(`/products/${id}`, { method: 'DELETE' });
+      setProducts(prev => prev.filter(p => (p._id !== id && p.id !== id)));
+      toast.custom((t) => (
+      <CustomToast 
+        message="Producto eliminado con éxito" 
+        type="error" 
+        label="ELIMINACIÓN" 
+      />
+    ));
+    } catch (err) {
+      console.error("No se pudo eliminar:", err);
+    }
   };
 
   return (
@@ -121,7 +130,7 @@ function App() {
           isAdmin={isAdmin}
           onLogout={() => {
             setIsAdmin(false);
-            localStorage.removeItem('isAdmin'); // LocalStorage admin, borralo
+            localStorage.removeItem('token');
           }} />
         <Suspense fallback={
           <div className="h-screen flex items-center justify-center font-bold uppercase tracking-widest text-xs">
@@ -136,7 +145,16 @@ function App() {
             <Route path="/admin-login" element={isAdmin ? <Navigate to="/admin" /> : <Login onLogin={setIsAdmin} />} />
             <Route path="/admin" element={
               isAdmin ? (
-                <AdminPanel products={products} onAddProduct={handleAddProduct} onUpdateProduct={handleUpdateProduct} onDeleteProduct={handleDeleteProduct} onLogout={() => setIsAdmin(false)} />
+                <AdminPanel
+                  products={products}
+                  onAddProduct={handleAddProduct}
+                  onUpdateProduct={handleUpdateProduct}
+                  onDeleteProduct={handleDeleteProduct}
+                  onLogout={() => {
+                    setIsAdmin(false);
+                    localStorage.removeItem('token');
+                  }}
+                />
               ) : (
                 <Navigate to="/" replace />
               )

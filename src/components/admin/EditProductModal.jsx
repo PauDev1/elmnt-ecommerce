@@ -1,4 +1,23 @@
 import React, { useState, useEffect } from 'react';
+import { z } from 'zod';
+
+const productSchema = z.object({
+  name: z.string().min(3, "El nombre debe tener al menos 3 caracteres").max(100),
+  description: z.string().min(10, "La descripción debe tener al menos 10 caracteres").max(500),
+  price: z.coerce.number().positive("El precio debe ser mayor a 0").min(5, "El precio mínimo es de 5"),
+  category: z.enum(['Cleansers', 'Hydration', 'Treatment', 'Protection'], {
+    errorMap: () => ({ message: "Selecciona una categoría válida" })
+  }),
+  stock: z.preprocess(
+  (v) => (v === "" ? undefined : v), 
+  z.coerce.number({ invalid_type_error: "El stock es obligatorio" })
+    .int("Debe ser un número entero")
+    .min(0, "El stock no puede ser negativo")
+),
+  image: z.string().url("URL inválida").startsWith("https://res.cloudinary.com/", "Debe ser de Cloudinary"),
+  volumeNumber: z.coerce.number().positive("Ingresa una cantidad válida"),
+  volumeUnit: z.string().min(1, "Selecciona unidad")
+});
 
 const EditProductModal = ({ isOpen, product, onClose, onUpdateProduct }) => {
   const [formData, setFormData] = useState(null);
@@ -7,25 +26,21 @@ const EditProductModal = ({ isOpen, product, onClose, onUpdateProduct }) => {
   useEffect(() => {
     if (product) {
       const volumeValue = product.volume ? parseInt(product.volume) : '';
-      const volumeUnit = product.volume ? product.volume.replace(/[0-9]/g, '').toLowerCase() : 'ml';
+      const unitValue = product.volume ? product.volume.replace(/[0-9]/g, '').toLowerCase() : 'ml';
 
       setFormData({
         ...product,
         volumeNumber: volumeValue,
-        volumeUnit: volumeUnit || 'ml'
+        volumeUnit: unitValue || 'ml'
       });
     }
-  }, [product]);
+  }, [product, isOpen]);
 
   if (!isOpen || !formData) return null;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    let cleanValue = value;
-    if (name === 'volumeNumber' || name === 'price' || name === 'stock') {
-      cleanValue = value.trim(); 
-    }
-    setFormData(prev => ({ ...prev, [name]: cleanValue }));
+    setFormData(prev => ({ ...prev, [name]: value }));
     if (errors[name]) setErrors(prev => ({ ...prev, [name]: null }));
   };
 
@@ -34,75 +49,32 @@ const EditProductModal = ({ isOpen, product, onClose, onUpdateProduct }) => {
     onClose();
   };
 
-  const validateForm = () => {
-    let newErrors = {};
-    const sqlInjectionPattern = /[<>]/g;
-
-    // Nombre
-    if (!formData.name.trim()) {
-      newErrors.name = "El nombre es obligatorio";
-    } else if (sqlInjectionPattern.test(formData.name)) {
-      newErrors.name = "No se permiten caracteres especiales";
-    }
-
-    // Descripción
-    if (!formData.description.trim()) {
-      newErrors.description = "La descripción es obligatoria";
-    } else if (sqlInjectionPattern.test(formData.description)) {
-      newErrors.description = "No se permiten etiquetas de código";
-    }
-
-    // Categoría
-    if (!formData.category) newErrors.category = "Debes elegir una categoría";
-
-    // Volumen 
-    if (!formData.volumeNumber || Number(formData.volumeNumber) <= 0) {
-      newErrors.volume = "Ingresa una cantidad válida";
-    }
-
-    // Unidad
-    if (!formData.volumeUnit) newErrors.volume = "Selecciona ML o GR";
-
-    // Precio
-    if (!formData.price || formData.price === '') {
-      newErrors.price = "El precio es obligatorio";
-    } else if (Number(formData.price) < 5) {
-      newErrors.price = "El precio mínimo es de 5";
-    }
-
-    // Stock
-    if (formData.stock === '' || formData.stock === undefined) {
-      newErrors.stock = "El stock inicial es obligatorio";
-    } else if (Number(formData.stock) < 0) {
-      newErrors.stock = "No puede ser negativo";
-    }
-
-    // Imagen
-    if (!formData.image || formData.image.trim() === '') {
-      newErrors.image = "La URL es obligatoria";
-    } else if (!formData.image.startsWith("https://res.cloudinary.com/")) {
-      newErrors.image = "Debe ser un enlace de Cloudinary válido";
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validateForm()) {
-      const finalData = {
-        ...formData,
-        volume: `${formData.volumeNumber}${formData.volumeUnit}`,
-        price: Number(formData.price),
-        stock: Number(formData.stock)
-      };
-      delete finalData.volumeNumber;
-      delete finalData.volumeUnit;
 
-      onUpdateProduct(finalData.id, finalData);
-      onClose();
+    const result = productSchema.safeParse(formData);
+
+    if (!result.success) {
+      const formattedErrors = result.error.format();
+      const newErrors = {};
+      Object.keys(formattedErrors).forEach(key => {
+        if (formattedErrors[key]?._errors) {
+          newErrors[key] = formattedErrors[key]._errors[0];
+        }
+      });
+      setErrors(newErrors);
+      return;
     }
+
+    const { volumeNumber, volumeUnit, ...rest } = result.data;
+    const finalData = {
+      ...rest,
+      volume: `${volumeNumber}${volumeUnit}`
+    };
+
+    const productId = product._id || product.id;
+    onUpdateProduct(productId, finalData);
+    handleClose();
   };
 
   return (
@@ -142,7 +114,7 @@ const EditProductModal = ({ isOpen, product, onClose, onUpdateProduct }) => {
                 <option value="Treatment">Serums</option>
                 <option value="Protection">Protectores</option>
               </select>
-              {errors.category && <p className="text-[10px] text-red-500 font-bold mt-1 uppercase tracking-wider">{errors.category}</p>}
+              {errors.category && (<p className="text-[10px] text-red-500 font-bold mt-1 uppercase tracking-wider">{errors.category}</p>)}
             </div>
 
             <div>
@@ -166,9 +138,9 @@ const EditProductModal = ({ isOpen, product, onClose, onUpdateProduct }) => {
                   ))}
                 </div>
               </div>
-              {errors.volume && (
+              {(errors.volumeNumber || errors.volumeUnit) && (
                 <p className="text-[10px] text-red-500 font-bold mt-1 uppercase tracking-wider">
-                  {errors.volume}
+                  {errors.volumeNumber || errors.volumeUnit}
                 </p>
               )}
             </div>
@@ -178,6 +150,7 @@ const EditProductModal = ({ isOpen, product, onClose, onUpdateProduct }) => {
               <input
                 type="number"
                 name="price"
+                autoComplete="off"
                 step="0.01"
                 value={formData.price}
                 onChange={handleChange}
@@ -190,6 +163,7 @@ const EditProductModal = ({ isOpen, product, onClose, onUpdateProduct }) => {
               <input
                 type="number"
                 name="stock"
+                autoComplete="off"
                 value={formData.stock}
                 onChange={handleChange}
                 className={`w-full bg-slate-50 border rounded-lg p-2.5 text-sm focus:outline-none ${errors.stock ? 'border-red-400' : 'border-slate-200'}`} />

@@ -32,7 +32,7 @@ const DeleteProductModal = ({ product, onClose, onDelete }) => {
           </button>
 
           <button
-            onClick={() => onDelete(product.id)}
+            onClick={() => onDelete(product._id ||product.id)}
             className="flex-1 py-2.5 bg-red-500 text-white text-[10px] font-bold uppercase tracking-widest rounded-xl cursor-pointer hover:bg-red-600 shadow-lg shadow-red-100 transition-all active:scale-95"
           >
             Sí, Eliminar

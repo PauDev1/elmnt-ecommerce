@@ -1,4 +1,31 @@
 import React, { useState } from 'react';
+import { z } from 'zod';
+
+const productSchema = z.object({
+  name: z.string()
+    .min(3, "El nombre debe tener al menos 3 caracteres")
+    .max(100, "El nombre es demasiado largo"),
+  description: z.string()
+    .min(10, "La descripción debe tener al menos 10 caracteres")
+    .max(500),
+  price: z.coerce.number()
+    .positive("El precio debe ser mayor a 0")
+    .min(5, "El precio mínimo es de 5"),
+  category: z.enum(['Cleansers', 'Hydration', 'Treatment', 'Protection'], {
+    errorMap: () => ({ message: "Selecciona una categoría de la lista" })
+  }),
+  stock: z.preprocess(
+  (v) => (v === "" ? undefined : v), 
+  z.coerce.number({ invalid_type_error: "El stock es obligatorio" })
+    .int("Debe ser un número entero")
+    .min(0, "El stock no puede ser negativo")
+),
+  image: z.string()
+    .url("Formato de URL inválido")
+    .startsWith("https://res.cloudinary.com/", "Debe ser un enlace de Cloudinary"),
+  volume: z.coerce.number().positive("Ingresa una cantidad válida"),
+  volumeUnit: z.string().min(1, "Selecciona ML o GR")
+});
 
 const initialFormState = {
   name: '',
@@ -20,55 +47,7 @@ const AddProductModal = ({ isOpen, onClose, onAddProduct }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setNewProduct(prev => ({ ...prev, [name]: value }));
-      if (errors[name]) {
-      setErrors(prev => ({ ...prev, [name]: null }));
-    }
-  };
-
-  const validateForm = (product) => {
-    let newErrors = {};
-    const sqlInjectionPattern = /[<>]/g;
-
-    if (!product.name.trim()) {
-      newErrors.name = "El nombre es obligatorio";
-    } else if (sqlInjectionPattern.test(product.name)) {
-      newErrors.name = "No se permiten caracteres especiales";
-    }
-
-    if (!product.description.trim()) {
-      newErrors.description = "La descripción es obligatoria";
-    } else if (sqlInjectionPattern.test(product.description)) {
-      newErrors.description = "No se permiten etiquetas de código";
-    }
-
-    if (!product.category) newErrors.category = "Debes elegir una categoría";
-    
-    if (!product.volume || Number(product.volume) <= 0) {
-      newErrors.volume = "Ingresa una cantidad válida";
-    }
-    
-    if (!product.volumeUnit) newErrors.volumeUnit = "Selecciona ML o GR";
-
-    if (!product.price || product.price === '') {
-      newErrors.price = "El precio es obligatorio";
-    } else if (Number(product.price) < 5) {
-      newErrors.price = "El precio mínimo es de 5";
-    }
-
-    if (product.stock === '' || product.stock === undefined) {
-      newErrors.stock = "El stock inicial es obligatorio";
-    } else if (Number(product.stock) < 0) {
-      newErrors.stock = "No puede ser negativo";
-    }
-
-    if (!product.image || product.image.trim() === '') {
-      newErrors.image = "La URL es obligatoria";
-    } else if (!product.image.startsWith("https://res.cloudinary.com/")) {
-      newErrors.image = "Debe ser un enlace de Cloudinary válido";
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    if (errors[name]) setErrors(prev => ({ ...prev, [name]: null }));
   };
 
   const handleClose = () => {
@@ -77,17 +56,48 @@ const AddProductModal = ({ isOpen, onClose, onAddProduct }) => {
     onClose();
   };
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validateForm(newProduct)) {
-      onAddProduct({
-        ...newProduct,
-        volume: `${newProduct.volume}${newProduct.volumeUnit}`,
-        price: Number(newProduct.price),
-        stock: Number(newProduct.stock)
+
+    const result = productSchema.safeParse(newProduct);
+
+    if (!result.success) {
+      const formattedErrors = result.error.format();
+      const newErrors = {};
+      Object.keys(formattedErrors).forEach(key => {
+        if (formattedErrors[key]?._errors) {
+          newErrors[key] = formattedErrors[key]._errors[0];
+        }
       });
-      handleClose();
+      setErrors(newErrors);
+      return;
     }
+
+    const {
+      name,
+      description,
+      price,
+      category,
+      stock,
+      image,
+      volume,
+      volumeUnit
+    } = result.data;
+
+    const finalProduct = {
+      name,
+      description,
+      price,
+      category,
+      stock,
+      image,
+      volume: `${volume}${volumeUnit}`
+    };
+
+    onAddProduct(finalProduct);
+
+    handleClose();
   };
 
   return (
@@ -110,9 +120,8 @@ const AddProductModal = ({ isOpen, onClose, onAddProduct }) => {
                 name="name"
                 value={newProduct.name}
                 onChange={handleChange}
-                className={`w-full bg-slate-50 border rounded-lg p-2.5 text-sm focus:outline-none focus:ring-2 transition-all ${
-                  errors.name ? 'border-red-400 focus:ring-red-100' : 'border-slate-200 focus:ring-slate-100'
-                }`}
+                className={`w-full bg-slate-50 border rounded-lg p-2.5 text-sm focus:outline-none focus:ring-2 transition-all ${errors.name ? 'border-red-400 focus:ring-red-100' : 'border-slate-200 focus:ring-slate-100'
+                  }`}
               />
               {errors.name && <p className="text-[10px] text-red-500 font-bold mt-1 uppercase tracking-wider">{errors.name}</p>}
             </div>
@@ -124,9 +133,8 @@ const AddProductModal = ({ isOpen, onClose, onAddProduct }) => {
                 value={newProduct.description}
                 onChange={handleChange}
                 autoComplete="off"
-                className={`w-full block resize-none bg-slate-50 border rounded-lg p-2.5 text-sm h-20 focus:outline-none focus:ring-2 transition-all ${
-                  errors.description ? 'border-red-400 focus:ring-red-100' : 'border-slate-200 focus:ring-slate-100'
-                }`}
+                className={`w-full block resize-none bg-slate-50 border rounded-lg p-2.5 text-sm h-20 focus:outline-none focus:ring-2 transition-all ${errors.description ? 'border-red-400 focus:ring-red-100' : 'border-slate-200 focus:ring-slate-100'
+                  }`}
               />
               {errors.description && <p className="text-[10px] text-red-500 font-bold mt-1 uppercase tracking-wider">{errors.description}</p>}
             </div>
@@ -138,9 +146,8 @@ const AddProductModal = ({ isOpen, onClose, onAddProduct }) => {
                   name="category"
                   value={newProduct.category}
                   onChange={handleChange}
-                  className={`w-full bg-slate-50 border rounded-lg p-2.5 text-sm focus:outline-none transition-all ${
-                    errors.category ? 'border-red-400' : 'border-slate-200'
-                  }`}
+                  className={`w-full bg-slate-50 border rounded-lg p-2.5 text-sm focus:outline-none transition-all ${errors.category ? 'border-red-400' : 'border-slate-200'
+                    }`}
                 >
                   <option value="" disabled>Seleccionar...</option>
                   <option value="Cleansers">Limpieza</option>
@@ -160,19 +167,24 @@ const AddProductModal = ({ isOpen, onClose, onAddProduct }) => {
                     placeholder="Ej: 150"
                     value={newProduct.volume}
                     onChange={handleChange}
-                    className={`flex-1 min-w-0 bg-slate-50 border rounded-lg p-2.5 text-sm focus:outline-none transition-all ${
-                      errors.volume ? 'border-red-400' : 'border-slate-200'
-                    }`}
+                    className={`flex-1 min-w-0 bg-slate-50 border rounded-lg p-2.5 text-sm focus:outline-none transition-all ${errors.volume ? 'border-red-400' : 'border-slate-200'
+                      }`}
                   />
                   <div className="flex bg-slate-100 p-1 rounded-lg border border-slate-200 shrink-0">
                     {['ml', 'gr'].map((unit) => (
                       <button
                         key={unit}
                         type="button"
-                        onClick={() => setNewProduct({ ...newProduct, volumeUnit: unit })}
-                        className={`px-2 py-1 rounded-md text-[9px] font-black uppercase transition-all ${
-                          newProduct.volumeUnit === unit ? 'bg-white text-slate-900 shadow-sm ring-1 ring-slate-200' : 'text-slate-400'
-                        }`}
+                        onClick={() => {
+                          setNewProduct({ ...newProduct, volumeUnit: unit });
+                          if (errors.volumeUnit) {
+                            setErrors(prev => ({ ...prev, volumeUnit: null }));
+                          }
+                        }}
+                        className={`px-2 py-1 rounded-md text-[9px] font-black uppercase transition-all ${newProduct.volumeUnit === unit
+                            ? 'bg-white text-slate-900 shadow-sm ring-1 ring-slate-200'
+                            : 'text-slate-400'
+                          }`}
                       >
                         {unit}
                       </button>
@@ -192,12 +204,12 @@ const AddProductModal = ({ isOpen, onClose, onAddProduct }) => {
               <input
                 name="price"
                 type="number"
+                autoComplete="off"
                 step="0.01"
                 value={newProduct.price}
                 onChange={handleChange}
-                className={`w-full bg-slate-50 border rounded-lg p-2.5 text-sm focus:outline-none transition-all ${
-                  errors.price ? 'border-red-400 focus:ring-red-50' : 'border-slate-200 focus:ring-slate-100'
-                }`}
+                className={`w-full bg-slate-50 border rounded-lg p-2.5 text-sm focus:outline-none transition-all ${errors.price ? 'border-red-400 focus:ring-red-50' : 'border-slate-200 focus:ring-slate-100'
+                  }`}
               />
               {errors.price && <p className="text-[10px] text-red-500 font-bold mt-1 uppercase tracking-wider">{errors.price}</p>}
             </div>
@@ -207,11 +219,11 @@ const AddProductModal = ({ isOpen, onClose, onAddProduct }) => {
               <input
                 name="stock"
                 type="number"
+                autoComplete="off"
                 value={newProduct.stock}
                 onChange={handleChange}
-                className={`w-full bg-slate-50 border rounded-lg p-2.5 text-sm focus:outline-none transition-all ${
-                  errors.stock ? 'border-red-400 focus:ring-red-50' : 'border-slate-200 focus:ring-slate-100'
-                }`}
+                className={`w-full bg-slate-50 border rounded-lg p-2.5 text-sm focus:outline-none transition-all ${errors.stock ? 'border-red-400 focus:ring-red-50' : 'border-slate-200 focus:ring-slate-100'
+                  }`}
               />
               {errors.stock && <p className="text-[10px] text-red-500 font-bold mt-1 uppercase tracking-wider">{errors.stock}</p>}
             </div>
@@ -223,9 +235,8 @@ const AddProductModal = ({ isOpen, onClose, onAddProduct }) => {
                 placeholder="https://res.cloudinary.com/..."
                 value={newProduct.image}
                 onChange={handleChange}
-                className={`w-full bg-slate-50 border rounded-lg p-2.5 text-sm focus:outline-none transition-all ${
-                  errors.image ? 'border-red-400 focus:ring-red-50' : 'border-slate-200 focus:ring-slate-100'
-                }`}
+                className={`w-full bg-slate-50 border rounded-lg p-2.5 text-sm focus:outline-none transition-all ${errors.image ? 'border-red-400 focus:ring-red-50' : 'border-slate-200 focus:ring-slate-100'
+                  }`}
               />
               {errors.image && <p className="text-[10px] text-red-500 font-bold mt-1 uppercase tracking-wider">{errors.image}</p>}
             </div>

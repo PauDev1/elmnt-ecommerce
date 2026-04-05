@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { apiFetch } from '../utils/api';
 
 const Login = ({ onLogin }) => {
   const [user, setUser] = useState('');
@@ -7,15 +8,26 @@ const Login = ({ onLogin }) => {
   const [error, setError] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const correctUser = import.meta.env.VITE_ADMIN_USER;
-    const correctPass = import.meta.env.VITE_ADMIN_PASS;
+    setError(false);
 
-    if (user === correctUser && pass === correctPass) {
-      onLogin(true);
-      setError(false);
-    } else {
+    try {
+      const data = await apiFetch('/auth/login', {
+        method: 'POST',
+        body: JSON.stringify({
+          username: user,
+          password: pass
+        }),
+      });
+
+      if (data.token) {
+        localStorage.setItem('token', data.token);
+        onLogin(true);
+        navigate('/admin');
+      }
+    } catch (err) {
+      console.error("Error de login:", err);
       setError(true);
     }
   };
@@ -29,25 +41,31 @@ const Login = ({ onLogin }) => {
         <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest text-center mb-8">
           Identificación Requerida
         </p>
-        
+
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
             <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1 block">Usuario</label>
-            <input 
-              type="text" 
+            <input
+              type="text"
               value={user}
-              onChange={(e) => setUser(e.target.value)}
-              className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-slate-100 transition-all" 
+              onChange={(e) => {
+                setUser(e.target.value);
+                if (error) setError(false);
+              }}
+              className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-slate-100 transition-all"
               placeholder=""
             />
           </div>
           <div>
             <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1 block">Contraseña</label>
-            <input 
-              type="password" 
+            <input
+              type="password"
               value={pass}
-              onChange={(e) => setPass(e.target.value)}
-              className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-slate-100 transition-all" 
+              onChange={(e) => {
+                setPass(e.target.value);
+                if (error) setError(false);
+              }}
+              className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-slate-100 transition-all"
               placeholder=""
             />
           </div>
@@ -65,8 +83,8 @@ const Login = ({ onLogin }) => {
       </div>
 
       <div className="w-full max-w-md mt-6 px-4">
-        <Link 
-          to="/" 
+        <Link
+          to="/"
           className="inline-flex items-center gap-2 text-white/50 hover:text-white transition-all duration-300 group"
         >
           <span className="material-symbols-outlined text-sm transform group-hover:-translate-x-1 transition-transform">
