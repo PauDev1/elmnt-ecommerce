@@ -1,8 +1,19 @@
 {
-  "name": "elmnt-store",
+  "name": "elmnt-ecommerce",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "description": "Minimalist frontend for ELMNT skincare ecommerce, built with React, Vite, and Tailwind CSS.",
+  "author": "Paola Lizarriba (https://pao-portfolio.vercel.app/)",
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "vite",
+    "tailwind-css",
+    "skincare",
+    "ecommerce-frontend",
+    "headless-commerce"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build",

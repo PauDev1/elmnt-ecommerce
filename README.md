@@ -3,8 +3,6 @@
 
 **ELMNT** es una plataforma de e-commerce  para productos de skincare premium. El proyecto se enfoca en una estética minimalista, alto rendimiento (Web Vitals) y una gestión de estado eficiente para una experiencia de usuario fluida.
 
-> **Nota:** Actualmente el proyecto consume una MockAPI para el catálogo. La fase de desarrollo del Backend (Node.js + Express) está en progreso.
-
 ---
 
 ##  Tech Stack
