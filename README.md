@@ -52,7 +52,7 @@ src/
     Bash
     
     ```
-    git clone https://github.com/PauDev1/elmnt-ecommerce.git
+    git clone https://github.com/polinacodes/elmnt-ecommerce.git
     
     ```
     
@@ -83,6 +83,6 @@ src/
 
 Si tenés alguna duda sobre el proyecto o simplemente querés charlar sobre desarrollo, ¡no dudes en escribirme!
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/paola-lizarriba/)   [![Portfolio](https://img.shields.io/badge/Portfolio-000000?style=for-the-badge&logo=astro&logoColor=white)](https://pao-portfolio.vercel.app/)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/paola-lizarriba/)   [![Portfolio](https://img.shields.io/badge/Portfolio-000000?style=for-the-badge&logo=astro&logoColor=white)](https://polinacodes.vercel.app/)
 
-**Paola** - Full Stack Developer 
+**Polinacodes** - Full Stack Developer 

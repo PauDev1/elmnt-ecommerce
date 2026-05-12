@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "type": "module",
   "description": "Minimalist frontend for ELMNT skincare ecommerce, built with React, Vite, and Tailwind CSS.",
-  "author": "Paola Lizarriba (https://pao-portfolio.vercel.app/)",
+  "author": "Polinacodes (https://polinacodes.vercel.app/)",
   "license": "MIT",
   "keywords": [
     "react",

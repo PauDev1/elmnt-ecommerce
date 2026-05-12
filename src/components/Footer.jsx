@@ -66,12 +66,12 @@ const Footer = () => {
         <div className="border-t border-surface pt-10 pb-4 flex justify-center items-center">
           <div className="flex items-center gap-5">
             <span className="text-[11px] text-brand uppercase tracking-ultra font-bold whitespace-nowrap">
-              Desarrollado por Pao
+              Desarrollado por Polinacodes
             </span>
 
             <div className="flex items-center gap-4">
               <a
-                href="https://github.com/PauDev1"
+                href="https://github.com/polinacodes"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-brand hover:scale-110 transition-all duration-300 flex items-center"
@@ -81,7 +81,7 @@ const Footer = () => {
               </a>
 
               <a
-                href="https://pao-portfolio.vercel.app/"
+                href="https://polinacodes.vercel.app/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-brand hover:scale-110 transition-all duration-300 flex items-center"
